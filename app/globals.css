@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "lenis/dist/lenis.css";
 
 :root {
   --background: #ffffff;
@@ -8,8 +9,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-montserrat), var(--font-open-sans), sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +23,236 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-open-sans), sans-serif;
+}
+
+/* Responsive Typography Scale (2026) */
+:root {
+  /* Sm-Phone <375px */
+  --size-body: 1rem;
+  /* 16px */
+  --size-h1: 2rem;
+  /* 32px */
+  --size-h2: 1.75rem;
+  /* 28px */
+}
+
+@media (min-width: 375px) {
+
+  /* Md-Phone */
+  :root {
+    --size-body: 1.0625rem;
+    /* 17px */
+    --size-h1: 2.25rem;
+    /* 36px */
+    --size-h2: 1.875rem;
+    /* 30px */
+  }
+}
+
+@media (min-width: 425px) {
+
+  /* Phone (Default) */
+  :root {
+    --size-body: 1.125rem;
+    /* 18px */
+    --size-h1: 2.5rem;
+    /* 40px */
+    --size-h2: 2rem;
+    /* 32px */
+  }
+}
+
+@media (min-width: 768px) {
+
+  /* Tablet */
+  :root {
+    --size-body: 1.125rem;
+    /* 18px */
+    --size-h1: 3rem;
+    /* 48px */
+    --size-h2: 2.25rem;
+    /* 36px */
+  }
+}
+
+@media (min-width: 1200px) {
+
+  /* Desktop / Laptop */
+  :root {
+    --size-body: 1.25rem;
+    /* 20px */
+    --size-h1: 3.5rem;
+    /* 56px */
+    --size-h2: 2.5rem;
+    /* 40px */
+  }
+}
+
+@media (min-width: 1440px) {
+
+  /* Desktop (Lg) */
+  :root {
+    --size-body: 1.375rem;
+    /* 22px */
+    --size-h1: 4.5rem;
+    /* 72px */
+    --size-h2: 3.5rem;
+    /* 56px */
+  }
+}
+
+/* Apply body size to non-explicit copy */
+body {
+  font-size: var(--size-body);
+}
+
+/* Heading utilities matching site style */
+.heading-h1 {
+  font-size: var(--size-h1);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.heading-h2 {
+  font-size: var(--size-h2);
+  line-height: 1.15;
+  letter-spacing: -0.005em;
+}
+
+/* Custom font classes for headings */
+.font-heading {
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+/* Lenis smooth scroll overrides */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Page wrapper */
+.page-wrapper {
+  min-height: 100svh;
+}
+
+/* View Transitions API - Smooth Page Transitions */
+@media (prefers-reduced-motion: no-preference) {
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.5s;
+  }
+
+  /* Subtle cross-fade transition */
+  ::view-transition-old(root) {
+    animation-name: fade-out;
+  }
+
+  ::view-transition-new(root) {
+    animation-name: fade-in;
+  }
+
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Smooth slide transition for specific elements */
+  ::view-transition-old(root) {
+    animation-name: slide-out-fade;
+  }
+
+  ::view-transition-new(root) {
+    animation-name: slide-in-fade;
+  }
+
+  @keyframes slide-out-fade {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    to {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes slide-in-fade {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Prevent horizontal scroll on small screens */
+@media (max-width: 645px) {
+
+  html,
+  body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  * {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+}
+
+/* Hero video styling */
+@keyframes subtle-zoom {
+
+  0%,
+  100% {
+    transform: scale(1.1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.hero-video {
+  filter: brightness(0.85) contrast(1.1) saturate(1.1);
+  animation: subtle-zoom 20s ease-in-out infinite;
+  will-change: transform;
 }

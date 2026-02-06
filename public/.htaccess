@@ -1,0 +1,21 @@
+# DirectoryIndex
+DirectoryIndex index.html
+
+Options -Indexes
+
+RewriteEngine On
+
+# Redirect /label to /dialogxe
+RewriteRule ^label/?$ /dialogxe [L,R=301]
+
+# If the request matches an existing file or folder, serve it as-is
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Map extensionless paths to their .html counterparts (e.g., /about -> /about.html)
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^([^/]+)/?$ $1.html [L]
+
+# Fallback to the SPA entry
+RewriteRule ^ /index.html [L]
