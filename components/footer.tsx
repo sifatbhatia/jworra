@@ -1,98 +1,309 @@
 'use client';
 
-import { FaSpotify, FaApple, FaSoundcloud, FaInstagram, FaYoutube, FaTwitter, FaTiktok } from "react-icons/fa";
-import { SiBeatport } from "react-icons/si";
-import Image from "next/image";
+import { FaInstagram, FaTiktok, FaSpotify, FaApple, FaYoutube, FaTwitter } from "react-icons/fa";
 import Link from "next/link";
+
+const ASCII_ART = `
+⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣶⣶⣾⣿⣿⣿⣿⣷⣶⣶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⣠⢔⣫⢷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣄⠀⠀⠀⠀⠀
+⠀⠀⠀⣠⢊⡴⡫⢚⡽⣟⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀
+⠀⠀⡴⣱⢫⢎⡔⡩⣚⠵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠀⠀
+⠀⣼⣽⣳⣣⢯⣞⡜⡱⣫⢷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀
+⢸⣿⣿⣿⣿⣿⣿⣾⡽⣱⣫⠞⠉⠀⠀⠀⠀⠉⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠃⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠘⠃⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⢀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿
+⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣤⣀⣀⣀⣠⣴⢟⡵⣳⢯⢿⣿⡟⣿⣿⣿⣿⡇
+⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣞⡵⣫⢏⢞⡽⡽⣻⢯⡟⠀
+⠀⠀⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣚⢕⡡⢊⠜⡵⣣⠟⠀⠀
+⠀⠀⠀⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣯⢷⣫⢖⡥⢊⡴⠋⠀⠀⠀
+⠀⠀⠀⠀⠀⠙⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣞⣭⠞⠋⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠿⠿⢿⣿⣿⣿⣿⡿⠿⠟⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀
+`;
+
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-black text-white pt-20 pb-10 border-t border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
-          
+    <footer className="relative overflow-hidden" style={{ background: '#050505' }}>
+      <style>{`
+        .ascii-bg {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          pointer-events: none;
+          z-index: 0;
+        }
+        .ascii-bg pre {
+          font-family: 'Courier New', 'Consolas', monospace;
+          font-size: clamp(10px, 1.8vw, 22px);
+          line-height: 1.4;
+          color: rgba(255, 255, 255, 0.07);
+          white-space: pre;
+          text-align: center;
+          user-select: none;
+          letter-spacing: 0.05em;
+        }
+        .footer-inner {
+          position: relative;
+          z-index: 1;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 4rem 1.5rem 2rem;
+        }
+        .footer-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 2.5rem;
+          margin-bottom: 3rem;
+        }
+        @media (min-width: 768px) {
+          .footer-grid {
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 2rem;
+          }
+        }
+        .footer-heading {
+          font-family: 'Courier New', monospace;
+          font-size: 0.65rem;
+          letter-spacing: 0.25em;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.35);
+          margin-bottom: 1.25rem;
+          font-weight: 400;
+        }
+        .footer-brand-desc {
+          font-size: 0.85rem;
+          color: rgba(255,255,255,0.4);
+          line-height: 1.7;
+          max-width: 320px;
+          margin-bottom: 1.5rem;
+        }
+        .footer-socials {
+          display: flex;
+          gap: 0.75rem;
+          align-items: center;
+        }
+        .footer-social {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 2.25rem;
+          height: 2.25rem;
+          border-radius: 50%;
+          background: rgba(255,255,255,0.06);
+          border: 1px solid rgba(255,255,255,0.08);
+          color: rgba(255,255,255,0.4);
+          transition: all 0.3s ease;
+        }
+        .footer-social:hover {
+          background: rgba(255,255,255,0.15);
+          border-color: rgba(255,255,255,0.3);
+          color: white;
+          transform: scale(1.1);
+        }
+        .footer-nav-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+        }
+        .footer-nav-link {
+          font-size: 0.85rem;
+          color: rgba(255,255,255,0.45);
+          text-decoration: none;
+          transition: color 0.25s ease, padding-left 0.25s ease;
+        }
+        .footer-nav-link:hover {
+          color: rgba(255,255,255,0.9);
+          padding-left: 4px;
+        }
+        .footer-contact-block {
+          margin-bottom: 1.25rem;
+        }
+        .footer-contact-label {
+          font-family: 'Courier New', monospace;
+          font-size: 0.6rem;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.2);
+          margin-bottom: 0.35rem;
+        }
+        .footer-contact-email {
+          font-size: 0.8rem;
+          color: rgba(255,255,255,0.5);
+          text-decoration: none;
+          transition: color 0.25s ease;
+          word-break: break-all;
+        }
+        .footer-contact-email:hover {
+          color: rgba(255,255,255,0.9);
+        }
+        .footer-cta {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0.6rem 1.5rem;
+          border: 1px solid rgba(255,255,255,0.15);
+          border-radius: 999px;
+          font-size: 0.75rem;
+          font-family: 'Courier New', monospace;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.5);
+          text-decoration: none;
+          transition: all 0.3s ease;
+          margin-top: 0.5rem;
+        }
+        .footer-cta:hover {
+          background: rgba(255,255,255,0.1);
+          border-color: rgba(255,255,255,0.35);
+          color: white;
+        }
+        .footer-divider {
+          width: 100%;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+          margin-bottom: 1.5rem;
+        }
+        .footer-bottom {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+          align-items: center;
+          justify-content: space-between;
+        }
+        @media (min-width: 768px) {
+          .footer-bottom {
+            flex-direction: row;
+          }
+        }
+        .footer-copyright {
+          font-family: 'Courier New', monospace;
+          font-size: 0.65rem;
+          letter-spacing: 0.12em;
+          color: rgba(255,255,255,0.15);
+        }
+        .footer-legal {
+          display: flex;
+          gap: 1.5rem;
+        }
+        .footer-legal-link {
+          font-family: 'Courier New', monospace;
+          font-size: 0.6rem;
+          letter-spacing: 0.1em;
+          color: rgba(255,255,255,0.15);
+          text-decoration: none;
+          transition: color 0.25s ease;
+        }
+        .footer-legal-link:hover {
+          color: rgba(255,255,255,0.5);
+        }
+      `}</style>
+
+      {/* ASCII Art Background */}
+      <div className="ascii-bg">
+        <pre>{ASCII_ART}</pre>
+      </div>
+
+      {/* Footer Content */}
+      <div className="footer-inner">
+        {/* Main Grid */}
+        <div className="footer-grid">
+
           {/* Brand Column */}
-          <div className="lg:col-span-4 space-y-6">
-            <Link href="/" className="block relative w-16 h-16 opacity-90 hover:opacity-100 transition-opacity">
-              <Image
-                src="/emblem.png"
-                alt="J. Worra Emblem"
-                fill
-                className="object-contain invert"
+          <div>
+            <Link href="/" style={{ display: 'inline-block', marginBottom: '1.25rem' }}>
+              <img
+                src="/jworra-logo.svg"
+                alt="J. Worra"
+                style={{
+                  width: '160px',
+                  height: 'auto',
+                  filter: 'brightness(0) invert(1)',
+                  opacity: 0.7,
+                  transition: 'opacity 0.3s ease',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.opacity = '1')}
+                onMouseLeave={e => (e.currentTarget.style.opacity = '0.7')}
               />
             </Link>
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold tracking-tight">J. Worra</h2>
-              <p className="text-white/50 text-sm leading-relaxed max-w-xs">
-                DJ and producer fusing classic house with modern tech. 
-                From Chicago to Los Angeles, bringing unique swagger to the underground.
-              </p>
-            </div>
-            {/* Social Icons - Accessible & Minimal */}
-            <div className="flex gap-4 pt-2">
-              {[
-                { icon: FaInstagram, href: "https://instagram.com/jworra", label: "Instagram" },
-                { icon: FaSpotify, href: "https://open.spotify.com/artist/4q0N3EI67tVnAeeaXbNQIj", label: "Spotify" },
-                { icon: FaSoundcloud, href: "https://soundcloud.com/jworra", label: "SoundCloud" },
-                { icon: FaApple, href: "https://music.apple.com/us/artist/j-worra/964744411", label: "Apple Music" },
-              ].map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white/40 hover:text-white transition-colors duration-300"
-                  aria-label={social.label}
-                >
-                  <social.icon size={20} />
-                </a>
-              ))}
+            <p className="footer-brand-desc">
+              DJ and producer fusing classic house with modern tech.
+              From Chicago to Los Angeles, bringing unique swagger to the underground.
+            </p>
+            <div className="footer-socials">
+              <a href="https://instagram.com/jworra" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="footer-social">
+                <FaInstagram size={14} />
+              </a>
+              <a href="https://www.tiktok.com/@jworra" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="footer-social">
+                <FaTiktok size={14} />
+              </a>
+              <a href="https://twitter.com/JWorra" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="footer-social">
+                <FaTwitter size={14} />
+              </a>
+              <a href="https://open.spotify.com/artist/4q0N3EI67tVnAeeaXbNQIj" target="_blank" rel="noopener noreferrer" aria-label="Spotify" className="footer-social">
+                <FaSpotify size={14} />
+              </a>
+              <a href="https://music.apple.com/us/artist/j-worra/964744411" target="_blank" rel="noopener noreferrer" aria-label="Apple Music" className="footer-social">
+                <FaApple size={14} />
+              </a>
+              <a href="https://www.youtube.com/channel/UCKbul9QRhCawR1CsEFcKDtA" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="footer-social">
+                <FaYoutube size={14} />
+              </a>
             </div>
           </div>
 
-          {/* Navigation */}
-          <div className="lg:col-span-2 lg:col-start-6">
-            <h3 className="text-white font-semibold mb-6 tracking-wide text-sm uppercase">Explore</h3>
-            <ul className="space-y-4 text-sm text-white/60">
-              <li><Link href="/music" className="hover:text-white transition-colors">Music</Link></li>
-              <li><Link href="/tour" className="hover:text-white transition-colors">Tour</Link></li>
-              <li><Link href="/dialogxe" className="hover:text-white transition-colors">Dialogxe Label</Link></li>
-              <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
+          {/* Explore */}
+          <div>
+            <h3 className="footer-heading">Explore</h3>
+            <ul className="footer-nav-list">
+              <li><Link href="/music" className="footer-nav-link">Music</Link></li>
+              <li><Link href="/tour" className="footer-nav-link">Tour</Link></li>
+              <li><Link href="/dialogxe" className="footer-nav-link">Dialogxe Label</Link></li>
+              <li><Link href="/about" className="footer-nav-link">About</Link></li>
+              <li><Link href="/contact" className="footer-nav-link">Contact</Link></li>
             </ul>
           </div>
 
-          {/* Contact */}
-          <div className="lg:col-span-3">
-             <h3 className="text-white font-semibold mb-6 tracking-wide text-sm uppercase">Contact</h3>
-             <div className="space-y-6 text-sm">
-                <div>
-                  <p className="text-white/40 mb-1 text-xs uppercase tracking-wider">Management</p>
-                  <a href="mailto:jworramgmt@milkhoneyla.com" className="text-white/80 hover:text-white transition-colors">
-                    jworramgmt@milkhoneyla.com
-                  </a>
-                </div>
-                <div>
-                  <p className="text-white/40 mb-1 text-xs uppercase tracking-wider">Bookings</p>
-                  <a href="mailto:marissa.loil@unitedtalent.com" className="text-white/80 hover:text-white transition-colors">
-                    marissa.loil@unitedtalent.com
-                  </a>
-                </div>
-             </div>
+          {/* Music */}
+          <div>
+            <h3 className="footer-heading">Listen</h3>
+            <ul className="footer-nav-list">
+              <li><a href="https://open.spotify.com/artist/4q0N3EI67tVnAeeaXbNQIj" target="_blank" rel="noopener noreferrer" className="footer-nav-link">Spotify</a></li>
+              <li><a href="https://music.apple.com/us/artist/j-worra/964744411" target="_blank" rel="noopener noreferrer" className="footer-nav-link">Apple Music</a></li>
+              <li><a href="https://soundcloud.com/jworra" target="_blank" rel="noopener noreferrer" className="footer-nav-link">SoundCloud</a></li>
+              <li><a href="https://www.beatport.com/artist/j-worra/564016" target="_blank" rel="noopener noreferrer" className="footer-nav-link">Beatport</a></li>
+              <li><a href="https://www.youtube.com/channel/UCKbul9QRhCawR1CsEFcKDtA" target="_blank" rel="noopener noreferrer" className="footer-nav-link">YouTube</a></li>
+            </ul>
           </div>
 
-          {/* Newsletter / Updates (Simplified) */}
-           <div className="lg:col-span-3">
-            <h3 className="text-white font-semibold mb-6 tracking-wide text-sm uppercase">Stay Updated</h3>
-            <p className="text-white/50 text-sm mb-4">
-              Track J. Worra on Bandsintown for the latest tour dates and announcements.
-            </p>
-            <a 
+          {/* Contact & CTA */}
+          <div>
+            <h3 className="footer-heading">Contact</h3>
+            <div className="footer-contact-block">
+              <div className="footer-contact-label">Management</div>
+              <a href="mailto:jworramgmt@milkhoneyla.com" className="footer-contact-email">
+                jworramgmt@milkhoneyla.com
+              </a>
+            </div>
+            <div className="footer-contact-block">
+              <div className="footer-contact-label">Bookings</div>
+              <a href="mailto:marissa.loil@unitedtalent.com" className="footer-contact-email">
+                marissa.loil@unitedtalent.com
+              </a>
+            </div>
+            <a
               href="https://www.bandsintown.com/a/5248787-j.-worra"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-6 py-3 border border-white/20 rounded-full text-sm font-medium hover:bg-white hover:text-black transition-all duration-300 w-full sm:w-auto text-center"
+              className="footer-cta"
             >
               Follow on Bandsintown
             </a>
@@ -101,11 +312,12 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/30">
-          <p>&copy; {currentYear} J. Worra. All rights reserved.</p>
-          <div className="flex gap-6">
-            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+        <div className="footer-divider" />
+        <div className="footer-bottom">
+          <span className="footer-copyright">&copy; {currentYear} J. Worra · All Rights Reserved</span>
+          <div className="footer-legal">
+            <Link href="/privacy" className="footer-legal-link">Privacy Policy</Link>
+            <Link href="/terms" className="footer-legal-link">Terms of Service</Link>
           </div>
         </div>
       </div>

@@ -1,0 +1,129 @@
+#> classes
+#/> otclasses
+@calt = [A B C D E F G H I J K L M N O P Q R S T U V W X Y Z Adieresis Amacron Eacute Aogonek Odieresis Udieresis Ccaron Cacute Zacute Dcaron Emacron Edotaccent Ecaron Eogonek Iogonek Imacron Lcaron Lacute Nacute Ncaron Ohungarumlaut Otilde Omacron Racute Rcaron Scaron Sacute Aacute Tcaron Iacute Zcaron Umacron Oacute Ocircumflex Uring Uacute Uhungarumlaut Uogonek Yacute Zdotaccent Lslash Aring Ccedilla Ntilde AE Oslash Agrave Atilde OE Ydieresis Gbreve Idotaccent Scedilla Acircumflex Ecircumflex Edieresis Egrave Icircumflex Idieresis Igrave Ograve Ucircumflex Ugrave Eth Thorn Abreve Ccircumflex Cdotaccent Dcroat Ebreve Gcircumflex Gdotaccent Hcircumflex Hbar Itilde Jcircumflex Ldot Obreve Scircumflex Tbar Utilde Ubreve Wcircumflex Ycircumflex uni021A Wgrave Wacute Wdieresis AEacute Ygrave Gcommaaccent Kcommaaccent Lcommaaccent Ncommaaccent Rcommaaccent Scommaaccent Tcommaaccent R.alt Racute.alt Rcaron.alt Rcommaaccent.alt Ccedilla.alt Scedilla.alt];
+@calt2 = [dollar.cap Euro.cap sterling.cap yen.cap zero.cap one.cap two.cap three.cap four.cap five.cap six.cap seven.cap eight.cap nine.cap percent.cap perthousand.cap];
+@calt_dnom_frac_numr_subs_sups = [zero one two three four five six seven eight nine];
+@calt_frac_locl = [space hyphen slash zero one two three four five six seven eight nine i endash emdash];
+@calt_frac_locl2 = [uni2009 hyphen.cap fraction zero.numerator one.numerator two.numerator three.numerator four.numerator five.numerator six.numerator seven.numerator eight.numerator nine.numerator idotaccent endash.cap emdash.cap];
+@calt_frac_numr = [zero.numerator one.numerator two.numerator three.numerator four.numerator five.numerator six.numerator seven.numerator eight.numerator nine.numerator];
+@case = [dollar percent parenleft parenright hyphen zero one two three four five six seven eight nine bracketleft bracketright braceleft braceright exclamdown sterling yen guillemotleft guillemotright questiondown endash emdash perthousand guilsinglleft guilsinglright Euro];
+@case2 = [dollar.cap percent.cap parenleft.cap parenright.cap hyphen.cap zero.cap one.cap two.cap three.cap four.cap five.cap six.cap seven.cap eight.cap nine.cap bracketleft.cap bracketright.cap braceleft.cap braceright.cap exclamdown.cap sterling.cap yen.cap guillemotleft.cap guillemotright.cap questiondown.cap endash.cap emdash.cap perthousand.cap guilsinglleft.cap guilsinglright.cap Euro.cap];
+@cpsp = [A B C D E F G H I J K L M N O P Q R S T U V W X Y Z Adieresis Amacron Eacute Aogonek Odieresis Udieresis Ccaron Cacute Zacute Dcaron Emacron Edotaccent Ecaron Eogonek Iogonek Imacron Lcaron Lacute Nacute Ncaron Ohungarumlaut Otilde Omacron Racute Rcaron Scaron Sacute Aacute Tcaron Iacute Zcaron Umacron Oacute Ocircumflex Uring Uacute Uhungarumlaut Uogonek Yacute Zdotaccent Lslash Aring Ccedilla Ntilde AE Oslash Agrave Atilde OE Ydieresis Gbreve Idotaccent Scedilla Acircumflex Ecircumflex Edieresis Egrave Icircumflex Idieresis Igrave Ograve Ucircumflex Ugrave Eth Thorn Abreve Ccircumflex Cdotaccent Dcroat Ebreve Gcircumflex Gdotaccent Hcircumflex Hbar Itilde Jcircumflex Ldot Obreve Scircumflex Tbar Utilde Ubreve Wcircumflex Ycircumflex uni021A Wgrave Wacute Wdieresis AEacute Ygrave Gcommaaccent Kcommaaccent Lcommaaccent Ncommaaccent Rcommaaccent Scommaaccent Tcommaaccent R.alt Racute.alt Rcaron.alt Rcommaaccent.alt Ccedilla.alt Scedilla.alt hyphen.cap endash.cap emdash.cap questiondown.cap exclamdown.cap parenleft.cap parenright.cap bracketleft.cap bracketright.cap braceleft.cap braceright.cap guillemotleft.cap guillemotright.cap guilsinglleft.cap guilsinglright.cap dollar.cap Euro.cap sterling.cap yen.cap zero.cap one.cap two.cap three.cap four.cap five.cap six.cap seven.cap eight.cap nine.cap percent.cap perthousand.cap];
+@dnom_frac = [zero.denominator one.denominator two.denominator three.denominator four.denominator five.denominator six.denominator seven.denominator eight.denominator nine.denominator];
+@frac = [fraction zero.denominator one.denominator two.denominator three.denominator four.denominator five.denominator six.denominator seven.denominator eight.denominator nine.denominator];
+@salt = [R a Ccedilla agrave aacute acircumflex atilde adieresis aring ccedilla amacron abreve aogonek Racute Rcommaaccent Rcaron Scedilla scedilla];
+@salt2 = [R.alt a.alt Ccedilla.alt agrave.alt aacute.alt acircumflex.alt atilde.alt adieresis.alt aring.alt ccedilla.alt amacron.alt abreve.alt aogonek.alt Racute.alt Rcommaaccent.alt Rcaron.alt Scedilla.alt scedilla.alt];
+@ss02 = [a agrave aacute acircumflex atilde adieresis aring amacron abreve aogonek];
+@ss022 = [a.alt agrave.alt aacute.alt acircumflex.alt atilde.alt adieresis.alt aring.alt amacron.alt abreve.alt aogonek.alt];
+@subs = [zero.inferior one.inferior two.inferior three.inferior four.inferior five.inferior six.inferior seven.inferior eight.inferior nine.inferior];
+@sups = [zero.superior onesuperior twosuperior threesuperior four.superior five.superior six.superior seven.superior eight.superior nine.superior];
+#/< otclasses
+#< classes
+
+###
+# OpenType Layout feature definitions
+# Format: Adobe FDK for OpenType (AFDKO) version 2.5
+# Generated on: 2021-11-8 12:8
+# Generated by: FontLab 7.1.5
+# Font PostScript name: Morganite-Medium
+# Font copyright: Copyright (c) 2018 by Rajesh Rajput. All rights reserved.
+#
+# Totals:
+# Languagesystems: 5
+# GSUB lookups: 0
+# GPOS lookups: 1
+# GPOS features: 1 (kern)
+
+#
+# Languagesystem definitions
+#
+
+languagesystem DFLT dflt; # Default default
+languagesystem latn dflt; # Latin default
+languagesystem latn AZE ; # Latin Azerbaijani
+languagesystem latn ROM ; # Latin Romanian
+languagesystem latn TRK ; # Latin Turkish
+
+
+#
+# Lookup definitions
+#
+
+
+#
+# Feature definitions
+#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+feature aalt {
+# Access All Alternates
+
+#> feature
+#< feature
+} aalt;
+feature dlig {
+# Discretionary Ligatures
+
+#> feature
+  sub F J by F_J;
+  sub P J by P_J;
+  sub q j by q_j;
+  sub r f by r_f;
+  sub r t by r_t;
+  sub s s by s_s;
+#< feature
+} dlig;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+feature liga {
+# Standard Ligatures
+
+#> feature
+  sub f f by f_f;
+  sub f i by fi;
+  sub f l by fl;
+  sub f f i by f_f_i;
+  sub f f l by f_f_l;
+#< feature
+} liga;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

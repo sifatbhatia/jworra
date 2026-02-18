@@ -53,7 +53,7 @@ export default function Navbar({ variant = 'solid', theme = 'dark' }: NavbarProp
                 .nav-container {
                     width: 100%;
                     max-width: 457px;
-                    background: rgba(59, 59, 59, 0.85);
+                    background: rgba(59, 59, 59, 0.5);
                     backdrop-filter: blur(12px);
                     -webkit-backdrop-filter: blur(12px);
                     border-radius: 48px;

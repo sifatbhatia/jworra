@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Montserrat, Open_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
+import LoadingScreen from "@/components/loading-screen";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -11,6 +13,13 @@ const montserrat = Montserrat({
 const openSans = Open_Sans({
   variable: "--font-open-sans",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const nohemi = localFont({
+  src: "../public/fonts/Nohemi/Nohemi/Web-TT/Nohemi-Bold.woff2",
+  variable: "--font-nohemi",
+  weight: "700",
   display: "swap",
 });
 
@@ -191,7 +200,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${montserrat.variable} ${openSans.variable} antialiased`}
+        className={`${montserrat.variable} ${openSans.variable} ${nohemi.variable} antialiased`}
       >
         {/* Google Tag Manager (noscript) */}
         <noscript>
@@ -202,6 +211,7 @@ export default function RootLayout({
             style={{ display: 'none', visibility: 'hidden' }}
           ></iframe>
         </noscript>
+        <LoadingScreen />
         {children}
       </body>
     </html>

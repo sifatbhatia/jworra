@@ -1,4 +1,4 @@
-import Image from "next/image";
+
 import { FaInstagram, FaTiktok, FaSpotify, FaApple, FaYoutube, FaTwitter, FaPlay, FaCalendarAlt, FaArrowRight } from "react-icons/fa";
 import Navbar from "./navbar";
 
@@ -25,16 +25,24 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 flex items-center justify-center" style={{ height: '100svh' }}>
         <div className="text-center">
-          <div className="relative px-4">
-            <Image
-              src="/emblem.png"
-              alt="Emblem"
-              width={80}
-              height={80}
-              className="mx-auto object-contain drop-shadow-lg max-w-[60px] sm:max-w-[80px] w-full h-auto mb-3 sm:mb-4 opacity-90 mix-blend-mode-screen"
-              priority
+          <div className="relative px-4 mb-3 sm:mb-4" style={{ display: 'flex', justifyContent: 'center' }}>
+            <div
+              style={{
+                width: 'clamp(200px, 50vw, 500px)',
+                aspectRatio: '1117.27 / 201.67',
+                WebkitMaskImage: "url('/jworra-logo.svg')",
+                maskImage: "url('/jworra-logo.svg')",
+                WebkitMaskSize: 'contain',
+                maskSize: 'contain',
+                WebkitMaskRepeat: 'no-repeat',
+                maskRepeat: 'no-repeat',
+                WebkitMaskPosition: 'center',
+                maskPosition: 'center',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                backgroundColor: 'rgba(255, 255, 255, 0.5)',
+              }}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent rounded-full blur-sm" />
           </div>
 
           <Navbar variant="transparent" />
