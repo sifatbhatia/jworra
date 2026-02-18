@@ -1,6 +1,7 @@
 
 import { FaInstagram, FaTiktok, FaSpotify, FaApple, FaYoutube, FaTwitter, FaPlay, FaCalendarAlt, FaArrowRight } from "react-icons/fa";
 import Navbar from "./navbar";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -116,29 +117,16 @@ export default function Hero() {
           </ul>
           {/* Call-to-action button positioned at bottom right */}
           <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 right-4 sm:right-6 md:right-8 z-10">
-            <a
+            <Link
               href="/tour"
-              className="group inline-flex items-center justify-center gap-2 px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 text-xs sm:text-sm md:text-base font-semibold text-white bg-white/20 backdrop-blur-md border-2 border-white/30 rounded-full hover:bg-white/30 hover:border-white/50 hover:scale-105 active:scale-95 transition-all duration-300 ease-out shadow-lg hover:shadow-xl overflow-hidden relative font-heading"
+              className="group inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-white bg-white/10 backdrop-blur-md border border-white/20 rounded-full hover:bg-white/20 hover:border-white/40 hover:scale-105 active:scale-95 transition-all duration-300 ease-out shadow-lg hover:shadow-xl uppercase tracking-wide text-[10px] sm:text-xs font-bold font-sans"
             >
-              <span className="transition-transform duration-300 group-hover:translate-x-[-8px]">Upcoming Dates</span>
+              <span>Upcoming Dates</span>
               <FaArrowRight size={12} className="sm:w-3.5 sm:h-3.5 transition-all duration-300 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 absolute right-3 sm:right-4" />
-            </a>
+            </Link>
           </div>
 
-          {/* Bottom left text */}
-          <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-4 sm:left-6 md:left-8 z-10 text-white font-heading max-w-[calc(100%-10rem)] sm:max-w-[280px] md:max-w-none">
-            <p className="text-xs sm:text-sm font-medium leading-relaxed">
-              Dialogxe by J. Worra.{' '}
-              <span className="md:inline block">
-                <a
-                  href="/dialogxe"
-                  className="underline hover:text-white/80 transition-colors duration-300"
-                >
-                  Out Now.
-                </a>
-              </span>
-            </p>
-          </div>
+
         </div>
       </div>
     </section>

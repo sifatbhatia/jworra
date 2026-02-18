@@ -1,13 +1,14 @@
+
 import PageLayout from "@/components/page-layout";
 import { Metadata } from "next";
 import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Tour",
-  description: "Catch J. Worra live at venues worldwide. View upcoming tour dates, get tickets, and follow on Bandsintown for show notifications.",
+  description: "Catch J. Worra live. Upcoming tour dates and tickets.",
   openGraph: {
     title: "Tour | J. Worra",
-    description: "Catch J. Worra live at venues worldwide. View upcoming tour dates and get tickets.",
+    description: "Catch J. Worra live. Upcoming tour dates and tickets.",
   },
 };
 
@@ -15,46 +16,86 @@ export default function TourPage() {
   return (
     <PageLayout
       title="Tour"
-      subtitle="Upcoming shows and performances"
-      backgroundPattern="gradient"
+      subtitle="Live Dates"
+      theme="dark"
+      backgroundPattern="none"
     >
-      <div className="relative max-w-5xl mx-auto space-y-6 sm:space-y-8">
-        {/* Tour Header */}
-        <div className="text-center space-y-3 sm:space-y-4 mb-6 sm:mb-8">
-          <p className="text-white/60 text-sm sm:text-base max-w-2xl mx-auto">
-            Catch J. Worra live at venues around the world. Check back regularly for new dates and locations.
-          </p>
-        </div>
+      <div className="min-h-[60vh] w-full max-w-6xl mx-auto px-4 sm:px-6">
 
-        {/* Official Bandsintown Widget */}
-        <div className="border border-white/10 rounded-2xl p-4 sm:p-6 md:p-8 bg-gradient-to-b from-white/[0.02] to-transparent">
+
+
+        {/* Widget Container - Raw, Industrial */}
+        <div className="w-full mb-24">
+
+          {/* Custom Styles for Widget Override */}
           <div className="bandsintown-widget">
             <style
               dangerouslySetInnerHTML={{
                 __html: `
-                  /* Base: keep widget auto-styled, align with site palette */
-                  .bit-widget { background: transparent !important; color: #ffffff !important; }
-                  .bit-widget .bit-header, .bit-widget .bit-footer { display: none !important; }
-                  /* Hide the top Track pill/link */
-                  .bit-widget > a:first-of-type { display: none !important; }
-
-                  /* Typography & subtle spacing to match site */
-                  .bit-widget * { font-family: var(--font-open-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important; }
-                  .bit-event { padding: 18px 0 !important; border-bottom: 1px solid rgba(255,255,255,0.08) !important; }
-                  .bit-event:last-child { border-bottom: none !important; }
-                  .bit-widget .bit-venue { color: #ffffff !important; font-weight: 600 !important; }
-                  .bit-widget .bit-location, .bit-widget .bit-date, .bit-widget .bit-time { color: rgba(255,255,255,0.60) !important; }
-
-                  /* Buttons: rounded white primary, outlined RSVP */
-                  .bit-widget .bit-button { background: #ffffff !important; color: #000000 !important; border: none !important; border-radius: 9999px !important; padding: 8px 16px !important; font-weight: 600 !important; }
-                  .bit-widget .bit-button:hover { background: rgba(255,255,255,0.9) !important; }
-                  .bit-widget .bit-button.bit-rsvp, .bit-widget .bit-rsvp { background: transparent !important; border: 1px solid rgba(255,255,255,0.35) !important; color: rgba(255,255,255,0.85) !important; }
-
-                  /* Mobile tweaks */
-                  @media (max-width: 640px) {
-                    .bit-event { padding: 16px 0 !important; }
-                    .bit-widget .bit-button { padding: 7px 14px !important; font-size: 12px !important; }
+                  /* Container reset */
+                  .bit-widget-container {
+                    font-family: 'Terminal Grotesque', sans-serif !important;
+                    background: transparent !important;
                   }
+                  
+                  /* Event Row */
+                  .bit-event-list .bit-event {
+                    border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+                    padding: 24px 0 !important;
+                    transition: background 0.2s ease;
+                  }
+                  .bit-event-list .bit-event:hover {
+                    background: rgba(255,255,255,0.02) !important;
+                  }
+
+                  /* Date */
+                  .bit-date {
+                    font-family: 'Courier New', monospace !important;
+                    color: rgba(255,255,255,0.6) !important;
+                    font-size: 14px !important;
+                    letter-spacing: 0.1em !important;
+                    text-transform: uppercase !important;
+                  }
+
+                  /* Venue / Location */
+                  .bit-venue {
+                    font-family: 'Terminal Grotesque', sans-serif !important;
+                    font-size: 24px !important;
+                    color: white !important;
+                    margin-bottom: 4px !important;
+                  }
+                  .bit-location {
+                    font-family: 'Courier New', monospace !important;
+                    color: rgba(255,255,255,0.4) !important;
+                    font-size: 12px !important;
+                    text-transform: uppercase !important;
+                    letter-spacing: 0.05em !important;
+                  }
+
+                  /* Buttons */
+                  .bit-button {
+                    background-color: #fff !important;
+                    color: #000 !important;
+                    font-family: 'Courier New', monospace !important;
+                    font-weight: bold !important;
+                    text-transform: uppercase !important;
+                    letter-spacing: 0.1em !important;
+                    border-radius: 9999px !important;
+                    padding: 12px 24px !important;
+                    font-size: 11px !important;
+                    border: none !important;
+                    transition: transform 0.2s ease, opacity 0.2s ease !important;
+                    box-shadow: 0 0 0 1px rgba(255,255,255,0.1);
+                    text-decoration: none !important;
+                    display: inline-block !important;
+                  }
+                  .bit-button:hover {
+                    background-color: #e5e5e5 !important;
+                    transform: scale(1.02);
+                    opacity: 0.9;
+                  }
+                  /* Hide RSVP if specific RSVP styling is not desired, or style it differently */
+                  /* For now, treat all buttons as primary actions */
                 `,
               }}
             />
@@ -63,56 +104,43 @@ export default function TourPage() {
               strategy="afterInteractive"
               charSet="utf-8"
             />
-            <div
-              dangerouslySetInnerHTML={{
-                __html: `
-                  <a 
-                    class="bit-widget-initializer" 
-                    data-artist-name="J. Worra" 
-                    data-display-local-dates="false" 
-                    data-display-past-dates="false" 
-                    data-auto-style="true" 
-                    data-text-color="#FFFFFF" 
-                    data-link-color="#800020" 
-                    data-background-color="transparent" 
-                    data-display-limit="15" 
-                    data-display-start-time="true" 
-                    data-link-text-color="#FFFFFF" 
-                    data-display-lineup="false" 
-                    data-display-play-my-city="false" 
-                    data-separator-color="rgba(255, 255, 255, 0.1)"
-                  ></a>
-                `
-              }}
-            />
+            <a
+              className="bit-widget-initializer"
+              data-artist-name="J. Worra"
+              data-display-local-dates="false"
+              data-display-past-dates="false"
+              data-auto-style="false"
+              data-text-color="#FFFFFF"
+              data-link-color="#FFFFFF"
+              data-background-color="transparent"
+              data-display-limit="15"
+              data-display-start-time="false"
+              data-link-text-color="#FFFFFF"
+              data-display-lineup="false"
+              data-display-play-my-city="false"
+              data-separator-color="rgba(255, 255, 255, 0.1)"
+              data-font="sans-serif"
+            ></a>
           </div>
         </div>
 
-        {/* Follow Section */}
-        <div className="border-t border-white/10 pt-8 mt-8">
-          <div className="text-center max-w-xl mx-auto space-y-6">
-            <div>
-              <h3 className="text-white/40 text-xs uppercase tracking-wider mb-3">Never Miss A Show</h3>
-              <p className="text-white/60 text-sm sm:text-base">
-                Follow J. Worra on Bandsintown to get notified about new tour dates in your area.
-              </p>
-            </div>
-
-            <div className="pt-2">
-              <a
-                href="https://www.bandsintown.com/a/5248787-j.-worra"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 bg-white text-black text-sm sm:text-base font-semibold rounded-full hover:bg-white/90 transition-all duration-300 hover:scale-[1.02] shadow-lg"
-              >
-                <span>Follow on Bandsintown</span>
-              </a>
-              <p className="text-white/30 text-xs mt-4">
-                Get tour updates and announcements
-              </p>
-            </div>
-          </div>
+        {/* Footer / Follow */}
+        <div className="flex flex-col items-center text-center space-y-6 pt-12 border-t border-white/10">
+          <span className="font-label text-white/40 block tracking-widest">// ALERTS</span>
+          <h3 className="font-heading text-3xl text-white">NEVER MISS A SHOW</h3>
+          <p className="text-white/60 font-light max-w-md mx-auto">
+            Get notified when new dates are announced in your area.
+          </p>
+          <a
+            href="https://www.bandsintown.com/a/5248787-j.-worra"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center px-8 py-3 bg-white text-black font-label text-xs sm:text-sm tracking-widest font-bold rounded-full hover:bg-white/90 transition-all duration-300"
+          >
+            FOLLOW ON BANDSINTOWN
+          </a>
         </div>
+
       </div>
     </PageLayout>
   );

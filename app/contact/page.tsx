@@ -1,14 +1,15 @@
+
 import PageLayout from "@/components/page-layout";
 import { Metadata } from "next";
-import { FaApple, FaEnvelope, FaInstagram, FaMusic, FaSoundcloud, FaSpotify } from "react-icons/fa";
+import { FaSpotify, FaApple, FaSoundcloud, FaInstagram, FaTwitter, FaYoutube, FaTiktok } from "react-icons/fa";
 import { SiBeatport } from "react-icons/si";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Get in touch with J. Worra for bookings, management inquiries, and collaborations. Contact information for management and booking agents.",
+  description: "Get in touch with J. Worra. Management, bookings, and social media channels.",
   openGraph: {
     title: "Contact | J. Worra",
-    description: "Get in touch with J. Worra for bookings, management inquiries, and collaborations.",
+    description: "Get in touch with J. Worra. Management, bookings, and social media channels.",
   },
 };
 
@@ -17,92 +18,93 @@ export default function ContactPage() {
     <PageLayout
       title="Contact"
       subtitle="Get in touch"
-      backgroundPattern="paper"
+      theme="dark"
+      backgroundPattern="none"
     >
+      <div className="min-h-[60vh] flex flex-col items-center justify-center w-full max-w-5xl mx-auto px-4 sm:px-6">
 
-      <div className="relative max-w-4xl mx-auto px-4 sm:px-6">
-        {/* Contact Info Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 mb-8 md:mb-12">
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-4 sm:p-6 md:p-8">
-            <div className="space-y-3 sm:space-y-4 md:space-y-6">
-              <div className="flex items-center gap-2 sm:gap-3">
-                <FaEnvelope className="text-white/60" size={18} />
-                <h3 className="font-heading text-lg sm:text-xl font-bold text-white">Management</h3>
-              </div>
+        {/* Main Grid: Management & Bookings */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-full mb-24">
+
+          {/* Management */}
+          {/* Management */}
+          <div className="flex flex-col items-center text-center space-y-4">
+            <span className="font-label text-white/40 block tracking-widest">// MANAGEMENT</span>
+            <div className="space-y-1">
+              <h3 className="font-heading text-3xl sm:text-4xl text-white">Milk & Honey</h3>
               <a
                 href="mailto:jworramgmt@milkhoneyla.com"
-                className="text-white/80 hover:text-white transition-colors underline hover:underline-offset-2 text-sm sm:text-base md:text-lg break-all"
-                style={{ textDecorationColor: '#800020' }}
+                className="block text-[3.5vw] sm:text-[2vw] lg:text-2xl text-white/60 hover:text-white transition-colors duration-300 font-light border-b border-transparent hover:border-white/40 pb-1 whitespace-nowrap"
               >
                 jworramgmt@milkhoneyla.com
               </a>
             </div>
           </div>
 
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-4 sm:p-6 md:p-8">
-            <div className="space-y-3 sm:space-y-4 md:space-y-6">
-              <div className="flex items-center gap-2 sm:gap-3">
-                <FaEnvelope className="text-white/60" size={18} />
-                <h3 className="font-heading text-lg sm:text-xl font-bold text-white">Bookings</h3>
-              </div>
+          {/* Bookings */}
+          {/* Bookings */}
+          <div className="flex flex-col items-center text-center space-y-4">
+            <span className="font-label text-white/40 block tracking-widest">// BOOKINGS</span>
+            <div className="space-y-1">
+              <h3 className="font-heading text-3xl sm:text-4xl text-white">United Talent</h3>
               <a
                 href="mailto:marissa.loil@unitedtalent.com"
-                className="text-white/80 hover:text-white transition-colors underline hover:underline-offset-2 text-sm sm:text-base md:text-lg break-all"
-                style={{ textDecorationColor: '#800020' }}
+                className="block text-[3.5vw] sm:text-[2vw] lg:text-2xl text-white/60 hover:text-white transition-colors duration-300 font-light border-b border-transparent hover:border-white/40 pb-1 whitespace-nowrap"
               >
                 marissa.loil@unitedtalent.com
               </a>
             </div>
           </div>
+
+
+          {/* Dialogxe Label */}
+          <div className="col-span-1 md:col-span-2 flex flex-col items-center text-center space-y-4 mt-8 md:mt-0">
+            <span className="font-label text-white/40 block tracking-widest">// DIALOGXE LABEL</span>
+            <div className="space-y-2 max-w-lg">
+              <h3 className="font-heading text-3xl text-white">Inquiries</h3>
+              <p className="text-white/60 font-light leading-relaxed">
+                For demos and label inquiries, reach out via official channels.<br />
+                Follow <a href="https://instagram.com/dialogxe" className="text-white hover:underline decoration-1 underline-offset-4 transition-all">@dialogxe</a> for updates.
+              </p>
+            </div>
+          </div>
+
         </div>
 
-        {/* Social Links */}
-        <div className="border-t border-b border-white/10 py-6 sm:py-8 mb-8 md:mb-12">
-          <h3 className="font-heading text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 text-center">Follow J. Worra</h3>
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8">
+        <div className="w-full h-px bg-white/10 mb-16 max-w-2xl" />
+
+        {/* Social Directory */}
+        <div className="w-full max-w-4xl">
+          <div className="text-center mb-10">
+            <span className="font-label text-white/40 block tracking-widest mb-2">// FOLLOW J. WORRA</span>
+            <h2 className="font-heading text-4xl sm:text-5xl text-white">SOCIALS</h2>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
             {[
-              { icon: FaSpotify, label: "Spotify", url: "https://open.spotify.com/artist/4q0N3EI67tVnAeeaXbNQIj" },
-              { icon: FaApple, label: "Apple Music", url: "https://music.apple.com/us/artist/j-worra/964744411" },
-              { icon: FaSoundcloud, label: "SoundCloud", url: "https://soundcloud.com/jworra" },
-              { icon: SiBeatport, label: "Beatport", url: "https://www.beatport.com/artist/j-worra/123456" },
-              { icon: FaInstagram, label: "Instagram", url: "https://instagram.com/jworra" }
-            ].map(({ icon: Icon, label, url }) => (
+              { label: "INSTAGRAM", url: "https://instagram.com/jworra", icon: FaInstagram },
+              { label: "SPOTIFY", url: "https://open.spotify.com/artist/4q0N3EI67tVnAeeaXbNQIj", icon: FaSpotify },
+              { label: "SOUNDCLOUD", url: "https://soundcloud.com/jworra", icon: FaSoundcloud },
+              { label: "APPLE MUSIC", url: "https://music.apple.com/us/artist/j-worra/964744411", icon: FaApple },
+              { label: "TIKTOK", url: "https://www.tiktok.com/@jworra", icon: FaTiktok },
+              { label: "TWITTER", url: "https://twitter.com/JWorra", icon: FaTwitter },
+              { label: "YOUTUBE", url: "https://www.youtube.com/channel/UCKbul9QRhCawR1CsEFcKDtA", icon: FaYoutube },
+              { label: "BEATPORT", url: "https://www.beatport.com/artist/j-worra/123456", icon: SiBeatport },
+            ].map((social) => (
               <a
-                key={label}
-                href={url}
+                key={social.label}
+                href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col items-center gap-2 transition-all duration-300 hover:-translate-y-1"
+                className="group flex flex-col items-center justify-center p-6 border border-white/5 hover:border-white/20 bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all duration-300 rounded-2xl hover:scale-[1.02]"
               >
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-white/10 group-hover:border-white/20 transition-all duration-300">
-                  <Icon size={20} className="text-white/60 group-hover:text-white transition-colors" />
-                </div>
-                <span className="text-white/50 group-hover:text-white text-xs sm:text-sm font-medium transition-colors">{label}</span>
+                <social.icon size={24} className="text-white/40 group-hover:text-white mb-3 transition-colors duration-300" />
+                <span className="font-label text-[10px] tracking-widest text-white/60 group-hover:text-white transition-colors duration-300">{social.label}</span>
               </a>
             ))}
           </div>
         </div>
 
-        {/* Label Contact */}
-        <div className="border border-white/10 rounded-2xl p-6 sm:p-8 md:p-10 text-center max-w-2xl mx-auto">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/5 border border-white/10 mb-4 sm:mb-6">
-            <FaMusic className="text-white/60" size={24} />
-          </div>
-          <h3 className="font-heading text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">Dialogxe Label</h3>
-          <p className="text-white/60 leading-relaxed mb-4">
-            For all inquiries regarding releases on Dialogxe, please reach out through the official channels.
-          </p>
-          <p className="text-sm text-white/40">
-            Follow <a
-              href="https://instagram.com/jworra"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/60 hover:text-white underline underline-offset-2 transition-colors"
-            >
-              @jworra
-            </a> on Instagram for updates.
-          </p>
-        </div>
       </div>
     </PageLayout>
   );

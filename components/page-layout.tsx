@@ -83,8 +83,8 @@ export default function PageLayout({
             {title}
           </h1>
           {subtitle && (
-            <p className={`text-lg sm:text-xl font-light ${textMutedColor}`}>
-              {subtitle}
+            <p className={`font-label ${textMutedColor}`}>
+              // {subtitle}
             </p>
           )}
         </div>
