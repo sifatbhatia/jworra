@@ -1,4 +1,6 @@
 import Hero from "@/components/hero";
+import Footer from "@/components/footer";
+import Navbar from "@/components/navbar";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -16,6 +18,7 @@ export default function Home() {
     <>
       {/* Section 1: Intro Section with Video Background */}
       <Hero />
+      <Footer />
     </>
   );
 }

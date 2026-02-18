@@ -26,7 +26,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative overflow-hidden" style={{ background: '#050505' }}>
+    <footer className="relative overflow-hidden" style={{ background: '#050505', minHeight: '50vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
       <style>{`
         .ascii-bg {
           position: absolute;
@@ -47,13 +47,88 @@ export default function Footer() {
           text-align: center;
           user-select: none;
           letter-spacing: 0.05em;
+          animation: spin-disc 60s linear infinite;
+        }
+        @keyframes spin-disc {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
+        /* Footer Logo Hover */
+        .footer-logo-wrap {
+          position: relative;
+          width: 160px;
+          height: 29px;
+          cursor: pointer;
+          display: inline-block;
+          margin-bottom: 1.25rem;
+        }
+        .footer-logo-layer {
+          position: absolute;
+          inset: 0;
+          mask-image: url('/jworra-logo.svg');
+          -webkit-mask-image: url('/jworra-logo.svg');
+          mask-size: contain;
+          -webkit-mask-size: contain;
+          mask-repeat: no-repeat;
+          -webkit-mask-repeat: no-repeat;
+          mask-position: left center;
+          -webkit-mask-position: left center;
+        }
+        .footer-logo-main {
+          background: white;
+          opacity: 0.7;
+          overflow: hidden;
+          transition: opacity 0.3s ease, filter 0.4s ease;
+          filter: drop-shadow(0 0 0px transparent);
+        }
+        .footer-logo-wrap:hover .footer-logo-main {
+          opacity: 1;
+          filter: drop-shadow(0 0 20px rgba(255,255,255,0.4)) drop-shadow(0 0 40px rgba(148,59,45,0.3));
+        }
+        .footer-logo-main::after {
+          content: '';
+          position: absolute;
+          inset: -20% -10%;
+          background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.4) 40%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0.4) 60%, transparent 80%);
+          transform: translateX(-150%);
+          pointer-events: none;
+        }
+        .footer-logo-wrap:hover .footer-logo-main::after {
+          animation: footer-shimmer 0.7s ease-in-out forwards;
+        }
+        @keyframes footer-shimmer {
+          0% { transform: translateX(-150%); }
+          100% { transform: translateX(150%); }
+        }
+        .footer-logo-chroma {
+          opacity: 0;
+          transition: opacity 0.25s ease, transform 0.25s ease;
+          pointer-events: none;
+        }
+        .footer-logo-chroma-r {
+          background: rgba(200,50,40,0.7);
+          mix-blend-mode: screen;
+        }
+        .footer-logo-chroma-c {
+          background: rgba(40,140,200,0.7);
+          mix-blend-mode: screen;
+        }
+        .footer-logo-wrap:hover .footer-logo-chroma-r {
+          opacity: 1;
+          transform: translate(4px, -1px);
+        }
+        .footer-logo-wrap:hover .footer-logo-chroma-c {
+          opacity: 1;
+          transform: translate(-4px, 1px);
         }
         .footer-inner {
           position: relative;
           z-index: 1;
           max-width: 1200px;
           margin: 0 auto;
-          padding: 4rem 1.5rem 2rem;
+          padding: clamp(3rem, 6vw, 5rem) 1.5rem clamp(1.5rem, 3vw, 2.5rem);
+          width: 100%;
         }
         .footer-grid {
           display: grid;
@@ -69,15 +144,15 @@ export default function Footer() {
         }
         .footer-heading {
           font-family: 'Courier New', monospace;
-          font-size: 0.65rem;
+          font-size: clamp(0.6rem, 1.2vw, 0.75rem);
           letter-spacing: 0.25em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.35);
-          margin-bottom: 1.25rem;
+          margin-bottom: clamp(0.8rem, 2vw, 1.25rem);
           font-weight: 400;
         }
         .footer-brand-desc {
-          font-size: 0.85rem;
+          font-size: clamp(0.8rem, 1.4vw, 0.95rem);
           color: rgba(255,255,255,0.4);
           line-height: 1.7;
           max-width: 320px;
@@ -101,8 +176,8 @@ export default function Footer() {
           transition: all 0.3s ease;
         }
         .footer-social:hover {
-          background: rgba(255,255,255,0.15);
-          border-color: rgba(255,255,255,0.3);
+          background: #943B2D;
+          border-color: #943B2D;
           color: white;
           transform: scale(1.1);
         }
@@ -115,13 +190,13 @@ export default function Footer() {
           gap: 0.75rem;
         }
         .footer-nav-link {
-          font-size: 0.85rem;
+          font-size: clamp(0.8rem, 1.4vw, 0.95rem);
           color: rgba(255,255,255,0.45);
           text-decoration: none;
           transition: color 0.25s ease, padding-left 0.25s ease;
         }
         .footer-nav-link:hover {
-          color: rgba(255,255,255,0.9);
+          color: #943B2D;
           padding-left: 4px;
         }
         .footer-contact-block {
@@ -129,21 +204,21 @@ export default function Footer() {
         }
         .footer-contact-label {
           font-family: 'Courier New', monospace;
-          font-size: 0.6rem;
+          font-size: clamp(0.55rem, 1vw, 0.65rem);
           letter-spacing: 0.2em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.2);
           margin-bottom: 0.35rem;
         }
         .footer-contact-email {
-          font-size: 0.8rem;
+          font-size: clamp(0.75rem, 1.3vw, 0.9rem);
           color: rgba(255,255,255,0.5);
           text-decoration: none;
           transition: color 0.25s ease;
           word-break: break-all;
         }
         .footer-contact-email:hover {
-          color: rgba(255,255,255,0.9);
+          color: #943B2D;
         }
         .footer-cta {
           display: inline-flex;
@@ -162,8 +237,8 @@ export default function Footer() {
           margin-top: 0.5rem;
         }
         .footer-cta:hover {
-          background: rgba(255,255,255,0.1);
-          border-color: rgba(255,255,255,0.35);
+          background: #943B2D;
+          border-color: #943B2D;
           color: white;
         }
         .footer-divider {
@@ -186,7 +261,7 @@ export default function Footer() {
         }
         .footer-copyright {
           font-family: 'Courier New', monospace;
-          font-size: 0.65rem;
+          font-size: clamp(0.55rem, 1vw, 0.7rem);
           letter-spacing: 0.12em;
           color: rgba(255,255,255,0.15);
         }
@@ -196,7 +271,7 @@ export default function Footer() {
         }
         .footer-legal-link {
           font-family: 'Courier New', monospace;
-          font-size: 0.6rem;
+          font-size: clamp(0.5rem, 0.9vw, 0.65rem);
           letter-spacing: 0.1em;
           color: rgba(255,255,255,0.15);
           text-decoration: none;
@@ -219,20 +294,12 @@ export default function Footer() {
 
           {/* Brand Column */}
           <div>
-            <Link href="/" style={{ display: 'inline-block', marginBottom: '1.25rem' }}>
-              <img
-                src="/jworra-logo.svg"
-                alt="J. Worra"
-                style={{
-                  width: '160px',
-                  height: 'auto',
-                  filter: 'brightness(0) invert(1)',
-                  opacity: 0.7,
-                  transition: 'opacity 0.3s ease',
-                }}
-                onMouseEnter={e => (e.currentTarget.style.opacity = '1')}
-                onMouseLeave={e => (e.currentTarget.style.opacity = '0.7')}
-              />
+            <Link href="/">
+              <div className="footer-logo-wrap">
+                <div className="footer-logo-layer footer-logo-chroma footer-logo-chroma-r" />
+                <div className="footer-logo-layer footer-logo-chroma footer-logo-chroma-c" />
+                <div className="footer-logo-layer footer-logo-main" />
+              </div>
             </Link>
             <p className="footer-brand-desc">
               DJ and producer fusing classic house with modern tech.
@@ -314,7 +381,9 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="footer-divider" />
         <div className="footer-bottom">
-          <span className="footer-copyright">&copy; {currentYear} J. Worra · All Rights Reserved</span>
+          <span className="footer-copyright">
+            &copy; {currentYear} J. Worra · All Rights Reserved · <a href="https://siftion.pages.dev" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'rgba(255,255,255,0.6)'} onMouseLeave={e => e.currentTarget.style.color = 'inherit'}>Designed by Siftion</a>
+          </span>
           <div className="footer-legal">
             <Link href="/privacy" className="footer-legal-link">Privacy Policy</Link>
             <Link href="/terms" className="footer-legal-link">Terms of Service</Link>

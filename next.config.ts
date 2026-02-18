@@ -18,11 +18,7 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   // Generate ETags for better caching
   generateEtags: true,
-  // Compiler options for better browser support
-  compiler: {
-    // Remove console logs in production
-    removeConsole: process.env.NODE_ENV === 'production',
-  },
+
   // Ensure proper transpilation for older browsers
   transpilePackages: ['lenis'],
 };

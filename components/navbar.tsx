@@ -52,7 +52,7 @@ export default function Navbar({ variant = 'solid', theme = 'dark' }: NavbarProp
                 }
                 .nav-container {
                     width: 100%;
-                    max-width: 457px;
+                    max-width: 100%;
                     background: rgba(59, 59, 59, 0.5);
                     backdrop-filter: blur(12px);
                     -webkit-backdrop-filter: blur(12px);
@@ -65,6 +65,11 @@ export default function Navbar({ variant = 'solid', theme = 'dark' }: NavbarProp
                 .nav-container.open {
                     border-radius: 24px;
                     grid-template-rows: 56px 1fr;
+                }
+                @media (min-width: 768px) {
+                    .nav-container {
+                        max-width: clamp(280px, 65vw, 600px);
+                    }
                 }
                 .nav-container.transparent {
                     background: rgba(255, 255, 255, 0.1);
@@ -79,6 +84,12 @@ export default function Navbar({ variant = 'solid', theme = 'dark' }: NavbarProp
                 }
                 .nav-body {
                     overflow: hidden;
+                    visibility: hidden;
+                    transition: visibility 0s 0.45s;
+                }
+                .nav-container.open .nav-body {
+                    visibility: visible;
+                    transition: visibility 0s 0s;
                 }
                 .nav-links {
                     display: flex;
@@ -151,12 +162,31 @@ export default function Navbar({ variant = 'solid', theme = 'dark' }: NavbarProp
                     transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
                 }
                 .nav-social-link:hover {
-                    background: rgba(255,255,255,0.3);
-                    border-color: rgba(255,255,255,0.5);
+                    background: #943B2D;
+                    border-color: #943B2D;
+                    color: white;
                     transform: scale(1.1);
                 }
                 .nav-social-link:active {
                     transform: scale(0.95);
+                }
+                .nav-social-link-mini {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 1.75rem;
+                    height: 1.75rem;
+                    border-radius: 50%;
+                    background: rgba(255,255,255,0.05);
+                    border: 1px solid rgba(255,255,255,0.1);
+                    color: white;
+                    transition: all 0.3s ease;
+                }
+                .nav-social-link-mini:hover {
+                    background: #943B2D;
+                    border-color: #943B2D;
+                    color: white;
+                    transform: translateY(-2px);
                 }
             `}</style>
 
@@ -165,8 +195,8 @@ export default function Navbar({ variant = 'solid', theme = 'dark' }: NavbarProp
                     {/* Top bar — row 1, always 56px */}
                     <div className="nav-top">
                         <Link href="/" onClick={() => isOpen && setIsOpen(false)}>
-                            <div style={{ width: 48, height: 48, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <Image src="/emblem.png" alt="J. Worra" width={38} height={38} style={{ objectFit: 'contain' }} />
+                            <div style={{ width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <Image src="/emblem.png" alt="J. Worra" width={32} height={32} style={{ objectFit: 'contain' }} />
                             </div>
                         </Link>
 

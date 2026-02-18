@@ -208,7 +208,7 @@ export default function AboutPage() {
           transition: color 0.25s ease;
           word-break: break-all;
         }
-        .contact-email:hover { color: white; }
+        .contact-email:hover { color: #943B2D; }
 
 
         .social-row {
@@ -229,9 +229,9 @@ export default function AboutPage() {
           text-decoration: none;
         }
         .social-btn:hover {
-          border-color: rgba(255,255,255,0.35);
+          border-color: #943B2D;
           color: white;
-          background: rgba(255,255,255,0.07);
+          background: #943B2D;
           transform: scale(1.1);
         }
 

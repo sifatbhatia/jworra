@@ -29,6 +29,7 @@ export default function LoadingScreen() {
     const [phase, setPhase] = useState<'loading' | 'shuffling' | 'holding' | 'exiting' | 'done'>('loading');
     const startTimeRef = useRef<number>(0);
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const swapCountRef = useRef(0);
 
     // Load Google Fonts
     useEffect(() => {
@@ -59,6 +60,9 @@ export default function LoadingScreen() {
             setPhase('holding');
             timeoutRef.current = setTimeout(() => {
                 setPhase('exiting');
+                // Signal to other components (e.g. Hero) that loading is complete
+                (window as any).__loadingComplete = true;
+                window.dispatchEvent(new CustomEvent('loadingComplete'));
                 timeoutRef.current = setTimeout(() => {
                     setPhase('done');
                 }, EXIT_DURATION + 100);
@@ -69,6 +73,7 @@ export default function LoadingScreen() {
         const interval = getInterval(elapsed);
         timeoutRef.current = setTimeout(() => {
             setCurrentFontIndex(prev => (prev + 1) % FONTS.length);
+            swapCountRef.current++;
             scheduleNext();
         }, interval);
     }, [getInterval]);
@@ -90,6 +95,16 @@ export default function LoadingScreen() {
 
     const currentFont = FONTS[currentFontIndex];
     const isExiting = phase === 'exiting';
+
+    // Chroma intensity grows with elapsed time (0 → 1)
+    const chromaProgress = phase === 'shuffling'
+        ? Math.min((Date.now() - startTimeRef.current) / DECEL_DURATION, 1)
+        : phase === 'holding' || phase === 'exiting' ? 1 : 0;
+    const chromaOffset = chromaProgress * 10; // 0px → 10px
+    const chromaOpacity = 0.3 + chromaProgress * 0.4; // 0.3 → 0.7
+    const chromaShadow = chromaOffset > 0
+        ? `-${chromaOffset}px 0 rgba(200,50,40,${chromaOpacity}), ${chromaOffset}px 0 rgba(40,140,200,${chromaOpacity})`
+        : 'none';
 
     return (
         <>
@@ -148,16 +163,19 @@ export default function LoadingScreen() {
                     text-align: center;
                     letter-spacing: 0.08em;
                     user-select: none;
-                    transition: transform ${EXIT_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1),
-                                filter ${EXIT_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1),
-                                opacity ${EXIT_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1);
                     transform: scale(1);
                     filter: blur(0px);
+                    transition: text-shadow 0.15s ease;
                 }
                 .loading-text.exiting {
+                    transition: transform ${EXIT_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1),
+                                filter ${EXIT_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1),
+                                opacity ${EXIT_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1),
+                                text-shadow ${EXIT_DURATION}ms ease;
                     transform: scale(1.15);
                     filter: blur(12px);
                     opacity: 0;
+                    text-shadow: -14px 0 rgba(200,50,40,0.6), 14px 0 rgba(40,140,200,0.6);
                 }
             `}</style>
 
@@ -167,6 +185,7 @@ export default function LoadingScreen() {
                     style={{
                         fontFamily: `'${currentFont.family}', sans-serif`,
                         fontWeight: currentFont.weight,
+                        ...(!isExiting && { textShadow: chromaShadow }),
                     }}
                 >
                     J. Worra

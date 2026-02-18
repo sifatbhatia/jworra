@@ -1,5 +1,7 @@
 const client_id = process.env.SPOTIFY_CLIENT_ID;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
+// Note: In Next.js static export ('output: export'), these env vars are evaluated at BUILD TIME.
+// Ensure they are present in your Netlify build settings.
 
 const basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
@@ -34,6 +36,13 @@ interface SpotifyArtistAlbumsResponse {
 }
 
 async function getAccessToken(): Promise<string> {
+  if (!client_id || !client_secret) {
+    console.error('Missing Spotify Client ID or Secret');
+    throw new Error('Missing Spotify credentials');
+  }
+
+  const basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
+
   const response = await fetch(TOKEN_ENDPOINT, {
     method: 'POST',
     headers: {
@@ -41,7 +50,7 @@ async function getAccessToken(): Promise<string> {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: 'grant_type=client_credentials',
-    cache: 'no-store',
+    // cache: 'no-store', // Removed to allow static build to proceed without dynamic error
   });
 
   if (!response.ok) {
@@ -62,24 +71,25 @@ export async function getArtistAlbums(limit = 50) {
         headers: {
           Authorization: `Bearer ${access_token}`,
         },
-        next: {
-          revalidate: 3600, // Cache for 1 hour
-        },
+        // For static export, data is fetched at build time.
+        // We can use partial revalidation if we were using ISR, but for export it just runs once.
+        next: { revalidate: 3600 }
       }
     );
 
     if (!response.ok) {
+      console.error(`[Build] Spotify API Error: ${response.status} ${response.statusText}`);
       throw new Error('Failed to fetch artist albums');
     }
 
     const data: SpotifyArtistAlbumsResponse = await response.json();
-    
+
     // Explicitly sort by release date descending
-    return data.items.sort((a, b) => 
+    return data.items.sort((a, b) =>
       new Date(b.release_date).getTime() - new Date(a.release_date).getTime()
     );
   } catch (error) {
-    console.error('Error fetching Spotify data:', error);
+    console.error('[Build] Error fetching Spotify data:', error);
     return [];
   }
 }

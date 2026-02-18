@@ -113,7 +113,7 @@ export default function LabelPage() {
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-black/40 hover:text-black transition-colors duration-300 transform hover:scale-110"
+                    className="text-black/40 hover:text-[#943B2D] transition-colors duration-300 transform hover:scale-110"
                   >
                     <Icon size={24} />
                   </a>

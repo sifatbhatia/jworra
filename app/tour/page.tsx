@@ -20,7 +20,10 @@ export default function TourPage() {
       theme="dark"
       backgroundPattern="none"
     >
-      <div className="min-h-[60vh] w-full max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="min-h-[60vh] w-full max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+
+        {/* Soft Gradient Overlay for depth */}
+        <div className="fixed top-0 left-0 right-0 h-[60vh] bg-gradient-to-b from-white/10 via-white/5 to-transparent pointer-events-none z-0" />
 
 
 
@@ -74,25 +77,34 @@ export default function TourPage() {
 
                   /* Buttons */
                   .bit-button {
-                    background-color: #fff !important;
+                    background: linear-gradient(to bottom right, #ffffff, #e5e5e5) !important;
                     color: #000 !important;
                     font-family: 'Courier New', monospace !important;
                     font-weight: bold !important;
                     text-transform: uppercase !important;
                     letter-spacing: 0.1em !important;
                     border-radius: 9999px !important;
-                    padding: 12px 24px !important;
+                    padding: 14px 24px !important;
                     font-size: 11px !important;
                     border: none !important;
-                    transition: transform 0.2s ease, opacity 0.2s ease !important;
-                    box-shadow: 0 0 0 1px rgba(255,255,255,0.1);
+                    transition: all 0.3s ease !important;
+                    box-shadow: 0 0 20px rgba(255,255,255,0.15), inset 0 0 0 1px rgba(255,255,255,0.5) !important;
                     text-decoration: none !important;
                     display: inline-block !important;
+                    text-align: center !important;
+                  }
+                  @media (max-width: 480px) {
+                    .bit-button {
+                      width: 100% !important;
+                      display: flex !important;
+                      justify-content: center !important;
+                      margin-top: 8px !important;
+                    }
                   }
                   .bit-button:hover {
-                    background-color: #e5e5e5 !important;
+                    background: #943B2D !important;
+                    color: white !important;
                     transform: scale(1.02);
-                    opacity: 0.9;
                   }
                   /* Hide RSVP if specific RSVP styling is not desired, or style it differently */
                   /* For now, treat all buttons as primary actions */
@@ -135,7 +147,7 @@ export default function TourPage() {
             href="https://www.bandsintown.com/a/5248787-j.-worra"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center px-8 py-3 bg-white text-black font-label text-xs sm:text-sm tracking-widest font-bold rounded-full hover:bg-white/90 transition-all duration-300"
+            className="inline-flex items-center px-8 py-3 bg-white text-black font-label text-xs sm:text-sm tracking-widest font-bold rounded-full hover:bg-[#943B2D] hover:text-white transition-all duration-300"
           >
             FOLLOW ON BANDSINTOWN
           </a>

@@ -3,6 +3,8 @@ import { Montserrat, Open_Sans } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import LoadingScreen from "@/components/loading-screen";
+import SmoothScroll from "@/components/smooth-scroll";
+import Navbar from "@/components/navbar";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -16,12 +18,7 @@ const openSans = Open_Sans({
   display: "swap",
 });
 
-const nohemi = localFont({
-  src: "../public/fonts/Nohemi/Nohemi/Web-TT/Nohemi-Bold.woff2",
-  variable: "--font-nohemi",
-  weight: "700",
-  display: "swap",
-});
+
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-556QW4JP';
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-V6W6965G0V';
@@ -200,7 +197,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${montserrat.variable} ${openSans.variable} ${nohemi.variable} antialiased`}
+        className={`${montserrat.variable} ${openSans.variable} antialiased`}
       >
         {/* Google Tag Manager (noscript) */}
         <noscript>
@@ -211,7 +208,9 @@ export default function RootLayout({
             style={{ display: 'none', visibility: 'hidden' }}
           ></iframe>
         </noscript>
+        <SmoothScroll />
         <LoadingScreen />
+        <Navbar variant="transparent" />
         {children}
       </body>
     </html>

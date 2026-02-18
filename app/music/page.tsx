@@ -8,7 +8,7 @@ import { formatReleaseDate, getAlbumTypeLabel, getArtistAlbums } from "@/lib/spo
 import { FaApple, FaExternalLinkAlt, FaPlay, FaSoundcloud, FaSpotify, FaTwitter, FaTiktok, FaYoutube } from "react-icons/fa";
 import { SiBeatport } from "react-icons/si";
 
-export const dynamic = 'force-static';
+// export const dynamic = 'force-static'; // Default is static for output: export
 
 export const metadata: Metadata = {
   title: "Music | J. Worra",
@@ -195,7 +195,8 @@ export default async function MusicPage() {
         }
         .cta-btn:hover {
           transform: scale(1.02);
-          background: rgba(255,255,255,0.9);
+          background: #943B2D;
+          color: white;
         }
 
         .divider {
@@ -223,9 +224,9 @@ export default async function MusicPage() {
           transition: all 0.25s ease;
         }
         .social-btn:hover {
-          border-color: white;
+          border-color: #943B2D;
           color: white;
-          background: rgba(255,255,255,0.05);
+          background: #943B2D;
           transform: scale(1.1);
         }
       `}</style>

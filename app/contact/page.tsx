@@ -27,14 +27,13 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-full mb-24">
 
           {/* Management */}
-          {/* Management */}
           <div className="flex flex-col items-center text-center space-y-4">
             <span className="font-label text-white/40 block tracking-widest">// MANAGEMENT</span>
             <div className="space-y-1">
               <h3 className="font-heading text-3xl sm:text-4xl text-white">Milk & Honey</h3>
               <a
                 href="mailto:jworramgmt@milkhoneyla.com"
-                className="block text-[3.5vw] sm:text-[2vw] lg:text-2xl text-white/60 hover:text-white transition-colors duration-300 font-light border-b border-transparent hover:border-white/40 pb-1 whitespace-nowrap"
+                className="block text-[3.5vw] sm:text-[2vw] lg:text-2xl text-white/60 hover:text-[#943B2D] transition-colors duration-300 font-light border-b border-transparent hover:border-[#943B2D]/40 pb-1 whitespace-nowrap"
               >
                 jworramgmt@milkhoneyla.com
               </a>
@@ -42,14 +41,13 @@ export default function ContactPage() {
           </div>
 
           {/* Bookings */}
-          {/* Bookings */}
           <div className="flex flex-col items-center text-center space-y-4">
             <span className="font-label text-white/40 block tracking-widest">// BOOKINGS</span>
             <div className="space-y-1">
               <h3 className="font-heading text-3xl sm:text-4xl text-white">United Talent</h3>
               <a
                 href="mailto:marissa.loil@unitedtalent.com"
-                className="block text-[3.5vw] sm:text-[2vw] lg:text-2xl text-white/60 hover:text-white transition-colors duration-300 font-light border-b border-transparent hover:border-white/40 pb-1 whitespace-nowrap"
+                className="block text-[3.5vw] sm:text-[2vw] lg:text-2xl text-white/60 hover:text-[#943B2D] transition-colors duration-300 font-light border-b border-transparent hover:border-[#943B2D]/40 pb-1 whitespace-nowrap"
               >
                 marissa.loil@unitedtalent.com
               </a>
@@ -96,10 +94,10 @@ export default function ContactPage() {
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col items-center justify-center p-6 border border-white/5 hover:border-white/20 bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all duration-300 rounded-2xl hover:scale-[1.02]"
+                className="group flex flex-col items-center justify-center p-3 sm:p-6 border border-white/5 hover:border-[#943B2D] bg-white/5 hover:bg-[#943B2D] backdrop-blur-sm transition-all duration-300 rounded-2xl hover:scale-[1.02]"
               >
-                <social.icon size={24} className="text-white/40 group-hover:text-white mb-3 transition-colors duration-300" />
-                <span className="font-label text-[10px] tracking-widest text-white/60 group-hover:text-white transition-colors duration-300">{social.label}</span>
+                <social.icon size={24} className="text-white/40 group-hover:text-white mb-2 sm:mb-3 transition-colors duration-300" />
+                <span className="font-label text-[10px] tracking-wide sm:tracking-widest text-white/60 group-hover:text-white transition-colors duration-300 whitespace-nowrap">{social.label}</span>
               </a>
             ))}
           </div>
