@@ -235,6 +235,44 @@ export default function AboutPage() {
           transform: scale(1.1);
         }
 
+        /* ── Entrance Animations ── */
+        @keyframes fade-up {
+          0% { opacity: 0; transform: translateY(30px); filter: blur(8px); }
+          100% { opacity: 1; transform: translateY(0); filter: blur(0px); }
+        }
+        @keyframes zoom-in {
+          0% { transform: scale(1.15); opacity: 0.7; }
+          100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes fade-in {
+          0% { opacity: 0; }
+          100% { opacity: 1; }
+        }
+        .about-left-img {
+          animation: zoom-in 2s ease-out forwards;
+        }
+        .anim-fade-up {
+          opacity: 0;
+          animation: fade-up 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        .anim-delay-1 { animation-delay: 0.2s; }
+        .anim-delay-2 { animation-delay: 0.4s; }
+        .anim-delay-3 { animation-delay: 0.6s; }
+        .anim-delay-4 { animation-delay: 0.8s; }
+        .anim-delay-5 { animation-delay: 1.0s; }
+        .about-right > * {
+          opacity: 0;
+          animation: fade-up 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        .about-right > *:nth-child(1) { animation-delay: 0.2s; }
+        .about-right > *:nth-child(2) { animation-delay: 0.35s; }
+        .about-right > *:nth-child(3) { animation-delay: 0.5s; }
+        .about-right > *:nth-child(4) { animation-delay: 0.65s; }
+        .about-right > *:nth-child(5) { animation-delay: 0.8s; }
+        .about-right > *:nth-child(6) { animation-delay: 0.9s; }
+        .about-right > *:nth-child(7) { animation-delay: 1.0s; }
+        .about-right > *:nth-child(n+8) { animation-delay: 1.1s; }
+
       `}</style>
 
       <Navbar variant="solid" theme="dark" />
@@ -252,9 +290,9 @@ export default function AboutPage() {
           />
           <div className="about-left-gradient" />
           <div className="about-left-content">
-            <p className="about-eyebrow">DJ · Producer · Chicago → Los Angeles</p>
-            <h1 className="about-name">J. Worra</h1>
-            <p className="about-tagline">
+            <p className="about-eyebrow anim-fade-up anim-delay-1">DJ · Producer · Chicago → Los Angeles</p>
+            <h1 className="about-name anim-fade-up anim-delay-2">J. Worra</h1>
+            <p className="about-tagline anim-fade-up anim-delay-3">
               Fusing classic house with modern tech — bringing a unique swagger to the underground.
             </p>
           </div>

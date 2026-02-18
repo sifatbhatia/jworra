@@ -229,6 +229,49 @@ export default async function MusicPage() {
           background: #943B2D;
           transform: scale(1.1);
         }
+
+        /* ── Entrance Animations ── */
+        @keyframes fade-up {
+          0% { opacity: 0; transform: translateY(30px); filter: blur(8px); }
+          100% { opacity: 1; transform: translateY(0); filter: blur(0px); }
+        }
+        @keyframes zoom-in {
+          0% { transform: scale(1.15); }
+          100% { transform: scale(1); }
+        }
+        @keyframes fade-in {
+          0% { opacity: 0; }
+          100% { opacity: 1; }
+        }
+        .split-left-img {
+          animation: zoom-in 2s ease-out forwards;
+        }
+        .anim-fade-up {
+          opacity: 0;
+          animation: fade-up 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        .anim-delay-1 { animation-delay: 0.2s; }
+        .anim-delay-2 { animation-delay: 0.4s; }
+        .anim-delay-3 { animation-delay: 0.6s; }
+        .release-card {
+          opacity: 0;
+          animation: fade-up 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        .release-card:nth-child(1) { animation-delay: 0.3s; }
+        .release-card:nth-child(2) { animation-delay: 0.4s; }
+        .release-card:nth-child(3) { animation-delay: 0.5s; }
+        .release-card:nth-child(4) { animation-delay: 0.55s; }
+        .release-card:nth-child(5) { animation-delay: 0.6s; }
+        .release-card:nth-child(6) { animation-delay: 0.65s; }
+        .release-card:nth-child(n+7) { animation-delay: 0.7s; }
+        .section-label {
+          opacity: 0;
+          animation: fade-up 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
+        }
+        .social-row {
+          opacity: 0;
+          animation: fade-in 0.8s ease 0.8s forwards;
+        }
       `}</style>
 
       <Navbar variant="solid" theme="dark" />
@@ -258,9 +301,9 @@ export default async function MusicPage() {
           <div className="split-left-gradient" />
 
           <div className="split-left-content">
-            <p className="eyebrow">// LATEST RELEASE</p>
-            <h1 className="main-heading">{latest?.name || "Music"}</h1>
-            <div className="flex gap-4 items-center">
+            <p className="eyebrow anim-fade-up anim-delay-1">// LATEST RELEASE</p>
+            <h1 className="main-heading anim-fade-up anim-delay-2">{latest?.name || "Music"}</h1>
+            <div className="flex gap-4 items-center anim-fade-up anim-delay-3">
               <a
                 href={latest?.external_urls?.spotify || "#"}
                 target="_blank"
