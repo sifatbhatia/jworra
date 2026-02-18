@@ -17,7 +17,8 @@ export const metadata: Metadata = {
 };
 
 export default async function MusicPage() {
-  const releases = await getArtistAlbums(8);
+  const allReleases = await getArtistAlbums(50);
+  const releases = allReleases.slice(0, 8);
   return (
     <PageLayout
       title="Music"

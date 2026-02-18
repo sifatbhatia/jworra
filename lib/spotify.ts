@@ -52,12 +52,12 @@ async function getAccessToken(): Promise<string> {
   return data.access_token;
 }
 
-export async function getArtistAlbums(limit = 10) {
+export async function getArtistAlbums(limit = 50) {
   try {
     const access_token = await getAccessToken();
 
     const response = await fetch(
-      `https://api.spotify.com/v1/artists/${ARTIST_ID}/albums?include_groups=album,single,appears_on&market=US&limit=${limit}`,
+      `https://api.spotify.com/v1/artists/${ARTIST_ID}/albums?include_groups=album,single&market=US&limit=${limit}`,
       {
         headers: {
           Authorization: `Bearer ${access_token}`,
@@ -73,7 +73,11 @@ export async function getArtistAlbums(limit = 10) {
     }
 
     const data: SpotifyArtistAlbumsResponse = await response.json();
-    return data.items;
+    
+    // Explicitly sort by release date descending
+    return data.items.sort((a, b) => 
+      new Date(b.release_date).getTime() - new Date(a.release_date).getTime()
+    );
   } catch (error) {
     console.error('Error fetching Spotify data:', error);
     return [];
