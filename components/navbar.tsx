@@ -137,7 +137,7 @@ export default function Navbar({ variant = 'solid' }: NavbarProps) {
                     transform: scaleX(1);
                     transform-origin: left;
                 }
-                .nav-link.active { color: #AF352B; }
+                .nav-link.active { color: #d94a3a; }
                 .nav-toggle {
                     width: 2rem;
                     height: 2rem;
@@ -182,8 +182,8 @@ export default function Navbar({ variant = 'solid' }: NavbarProps) {
                     transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
                 }
                 .nav-social-link:hover {
-                    background: #943B2D;
-                    border-color: #943B2D;
+                    background: #d94a3a;
+                    border-color: #d94a3a;
                     transform: scale(1.1);
                 }
             `}</style>
@@ -193,7 +193,7 @@ export default function Navbar({ variant = 'solid' }: NavbarProps) {
                     <div className="nav-top">
                         <Link href="/" onClick={() => isOpen && setIsOpen(false)}>
                             <div style={{ width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <Image src="/emblem.png" alt="J. Worra" width={32} height={32} style={{ objectFit: 'contain', width: 'clamp(28px, 3.5vw, 40px)', height: 'clamp(28px, 3.5vw, 40px)' }} />
+                                <Image src="/emblem.webp" alt="J. Worra" width={32} height={32} fetchPriority="high" loading="eager" style={{ objectFit: 'contain', width: 'clamp(28px, 3.5vw, 40px)', height: 'clamp(28px, 3.5vw, 40px)' }} />
                             </div>
                         </Link>
 
@@ -213,7 +213,7 @@ export default function Navbar({ variant = 'solid' }: NavbarProps) {
                         <div className="nav-collapse-inner">
                             <div className="nav-content">
                                 {navItems.map((item) => {
-                                    const isActive = pathname === item.href;
+                                    const isActive = pathname.replace(/\/$/, '') === item.href.replace(/\/$/, '');
                                     return (
                                         <Link
                                             key={item.href}

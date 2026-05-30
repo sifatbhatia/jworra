@@ -8,6 +8,9 @@ import { SiBeatport } from "react-icons/si";
 export const metadata: Metadata = {
   title: "About | J. Worra",
   description: "Learn about J. Worra, DJ and producer from Chicago to LA. Recognized by DJ Mag as 2019 Breakthrough Music Producer.",
+  alternates: {
+    canonical: "https://jworra.com/about",
+  },
   openGraph: {
     title: "About | J. Worra",
     description: "Learn about J. Worra, DJ and producer from Chicago to LA.",
@@ -86,7 +89,7 @@ export default function AboutPage() {
           font-size: 0.65rem;
           letter-spacing: 0.25em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.45);
+          color: rgba(255,255,255,0.66);
           margin-bottom: 0.6rem;
         }
         @media (min-width: 900px) {
@@ -94,7 +97,7 @@ export default function AboutPage() {
         }
         .about-name {
           font-family: 'Terminal Grotesque', sans-serif;
-          font-size: clamp(3rem, 7vw, 7rem);
+          font-size: clamp(2.8rem, 8vw, 5.5rem);
           line-height: 0.88;
           letter-spacing: -0.02em;
           color: white;
@@ -131,12 +134,12 @@ export default function AboutPage() {
           font-size: 0.65rem;
           letter-spacing: 0.28em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.2);
+          color: rgba(255,255,255,0.66);
           margin-bottom: 0.75rem;
         }
         .section-heading {
           font-family: 'Terminal Grotesque', sans-serif;
-          font-size: clamp(1.8rem, 3.2vw, 3rem);
+          font-size: clamp(1.8rem, 3.5vw, 2.8rem);
           line-height: 1.05;
           letter-spacing: -0.02em;
           color: white;
@@ -144,7 +147,7 @@ export default function AboutPage() {
         }
         .bio-body {
           font-size: 0.95rem;
-          color: rgba(255,255,255,0.45);
+          color: rgba(255,255,255,0.66);
           line-height: 1.7;
           font-weight: 300;
         }
@@ -170,7 +173,7 @@ export default function AboutPage() {
           font-size: 0.6rem;
           letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.18);
+          color: rgba(255,255,255,0.66);
           margin-bottom: 0.6rem;
         }
         .credits-list {
@@ -183,7 +186,7 @@ export default function AboutPage() {
         }
         .credits-list li {
           font-size: 0.85rem;
-          color: rgba(255,255,255,0.4);
+          color: rgba(255,255,255,0.55);
           font-weight: 300;
         }
 
@@ -197,13 +200,13 @@ export default function AboutPage() {
           font-size: 0.6rem;
           letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.18);
+          color: rgba(255,255,255,0.66);
           margin-bottom: 0.4rem;
         }
         .contact-email {
           display: block;
           font-size: 0.85rem;
-          color: rgba(255,255,255,0.45);
+          color: rgba(255,255,255,0.66);
           text-decoration: none;
           transition: color 0.25s ease;
           word-break: break-all;
@@ -276,14 +279,14 @@ export default function AboutPage() {
 
       `}</style>
 
-      <Navbar variant="solid" theme="dark" />
+      <Navbar variant="solid" />
 
       <div className="about-wrap">
 
         {/* ── LEFT: Photo + overlaid text ── */}
         <div className="about-left">
           <Image
-            src="/about.jpg"
+            src="/about.webp"
             alt="J. Worra"
             fill
             className="about-left-img"

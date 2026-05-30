@@ -2,14 +2,18 @@ import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { Metadata } from "next";
 import Image from "next/image";
-import Script from "next/script";
+import BandsintownWidget from "./bandsintown-widget";
 
 export const metadata: Metadata = {
   title: "Tour",
-  description: "Catch J. Worra live. Upcoming tour dates and tickets.",
+  description: "Catch J. Worra live. Upcoming tour dates and tickets for festivals, clubs, and late-night dance floor dispatches.",
+  alternates: {
+    canonical: "https://jworra.com/tour",
+  },
   openGraph: {
     title: "Tour | J. Worra",
-    description: "Catch J. Worra live. Upcoming tour dates and tickets.",
+    description: "Catch J. Worra live. Upcoming tour dates and tickets for festivals, clubs, and late-night shows.",
+    images: ["/emblem.webp"],
   },
 };
 
@@ -82,12 +86,12 @@ export default function TourPage() {
           text-transform: uppercase;
         }
         .tour-eyebrow {
-          color: rgba(255,255,255,0.45);
+          color: rgba(255,255,255,0.66);
           margin-bottom: 0.6rem;
         }
         .tour-heading {
           font-family: 'Terminal Grotesque', sans-serif;
-          font-size: clamp(3.5rem, 8vw, 8rem);
+          font-size: clamp(2.8rem, 8vw, 5.5rem);
           line-height: 0.88;
           color: white;
           margin-bottom: 0.8rem;
@@ -132,7 +136,7 @@ export default function TourPage() {
         }
         .tour-alert h2 {
           font-family: 'Terminal Grotesque', sans-serif;
-          font-size: clamp(2rem, 4vw, 3.5rem);
+          font-size: clamp(1.8rem, 3.5vw, 2.8rem);
           line-height: 0.95;
           color: white;
           text-transform: uppercase;
@@ -188,15 +192,16 @@ export default function TourPage() {
         }
       `}</style>
 
-      <Navbar variant="solid" theme="dark" />
+      <Navbar variant="solid" />
 
       <div className="tour-wrap">
         <div className="tour-left">
           <Image
-            src="/about.jpg"
+            src="/tour_image.webp"
             alt="J. Worra performing"
-            fill
             className="tour-left-img"
+            width={1200}
+            height={1600}
             priority
           />
           <div className="tour-left-gradient" />
@@ -213,167 +218,7 @@ export default function TourPage() {
           <div className="tour-section-label">Upcoming shows</div>
 
           <div className="w-full min-w-0 overflow-hidden">
-            <div className="bandsintown-widget">
-              <style
-                dangerouslySetInnerHTML={{
-                  __html: `
-                    .bit-widget-container {
-                      font-family: 'Terminal Grotesque', sans-serif !important;
-                      background: transparent !important;
-                      width: 100% !important;
-                      max-width: 100% !important;
-                      min-width: 0 !important;
-                      overflow-x: hidden !important;
-                      box-sizing: border-box !important;
-                    }
-
-                    .bandsintown-widget,
-                    .bandsintown-widget *,
-                    .bit-widget,
-                    .bit-event-list,
-                    .bit-event-list *,
-                    .bit-widget-container,
-                    .bit-widget-container * {
-                      box-sizing: border-box !important;
-                    }
-
-                    .bit-widget,
-                    .bit-event-list {
-                      width: 100% !important;
-                      max-width: 100% !important;
-                      min-width: 0 !important;
-                    }
-
-                    .bit-event-list {
-                      overflow-x: hidden !important;
-                    }
-
-                    .bit-event-list .bit-event {
-                      border-bottom: 1px solid rgba(255,255,255,0.1) !important;
-                      padding: 24px 0 !important;
-                      transition: background 0.2s ease;
-                      width: 100% !important;
-                      max-width: 100% !important;
-                      min-width: 0 !important;
-                    }
-                    .bit-event-list .bit-event:hover {
-                      background: rgba(255,255,255,0.02) !important;
-                    }
-
-                    .bit-date {
-                      font-family: 'Courier New', monospace !important;
-                      color: rgba(255,255,255,0.6) !important;
-                      font-size: 14px !important;
-                      letter-spacing: 0.1em !important;
-                      text-transform: uppercase !important;
-                    }
-
-                    .bit-venue {
-                      font-family: 'Terminal Grotesque', sans-serif !important;
-                      font-size: 24px !important;
-                      color: white !important;
-                      margin-bottom: 4px !important;
-                    }
-                    .bit-location {
-                      font-family: 'Courier New', monospace !important;
-                      color: rgba(255,255,255,0.4) !important;
-                      font-size: 12px !important;
-                      text-transform: uppercase !important;
-                      letter-spacing: 0.05em !important;
-                      overflow-wrap: anywhere !important;
-                    }
-
-                    .bit-button {
-                      background: linear-gradient(to bottom right, #ffffff, #e5e5e5) !important;
-                      color: #000 !important;
-                      font-family: 'Courier New', monospace !important;
-                      font-weight: bold !important;
-                      text-transform: uppercase !important;
-                      letter-spacing: 0.1em !important;
-                      border-radius: 9999px !important;
-                      padding: 14px 24px !important;
-                      font-size: 11px !important;
-                      border: none !important;
-                      transition: all 0.3s ease !important;
-                      box-shadow: 0 0 20px rgba(255,255,255,0.15), inset 0 0 0 1px rgba(255,255,255,0.5) !important;
-                      text-decoration: none !important;
-                      display: inline-block !important;
-                      text-align: center !important;
-                    }
-                    .bit-button:hover {
-                      background: #943B2D !important;
-                      color: white !important;
-                      transform: scale(1.02);
-                    }
-
-                    @media (max-width: 480px) {
-                      .bandsintown-widget {
-                        width: calc(100vw - 3rem) !important;
-                        max-width: calc(100vw - 3rem) !important;
-                      }
-
-                      .bit-widget-container,
-                      .bit-widget,
-                      .bit-event-list,
-                      .bit-event-list .bit-event {
-                        display: block !important;
-                        width: 100% !important;
-                        max-width: 100% !important;
-                        min-width: 0 !important;
-                      }
-
-                      .bit-event-list .bit-event,
-                      .bit-event-list .bit-event > * {
-                        float: none !important;
-                        clear: both !important;
-                      }
-
-                      .bit-date,
-                      .bit-venue,
-                      .bit-location {
-                        width: 100% !important;
-                        max-width: 100% !important;
-                      }
-
-                      .bit-venue {
-                        font-size: 20px !important;
-                        line-height: 1.05 !important;
-                      }
-
-                      .bit-button {
-                        width: 100% !important;
-                        display: flex !important;
-                        justify-content: center !important;
-                        margin-top: 8px !important;
-                        white-space: normal !important;
-                      }
-                    }
-                  `,
-                }}
-              />
-              <Script
-                src="https://widget.bandsintown.com/main.min.js"
-                strategy="afterInteractive"
-                charSet="utf-8"
-              />
-              <a
-                className="bit-widget-initializer"
-                data-artist-name="J. Worra"
-                data-display-local-dates="false"
-                data-display-past-dates="false"
-                data-auto-style="false"
-                data-text-color="#FFFFFF"
-                data-link-color="#FFFFFF"
-                data-background-color="transparent"
-                data-display-limit="15"
-                data-display-start-time="false"
-                data-link-text-color="#FFFFFF"
-                data-display-lineup="false"
-                data-display-play-my-city="false"
-                data-separator-color="rgba(255, 255, 255, 0.1)"
-                data-font="sans-serif"
-              />
-            </div>
+            <BandsintownWidget />
           </div>
 
           <div className="tour-divider" />

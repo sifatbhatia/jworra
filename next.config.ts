@@ -18,12 +18,11 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   // Generate ETags for better caching
   generateEtags: true,
+  // Generate /about/index.html instead of about.html for DreamHost
+  trailingSlash: true,
   turbopack: {
     root: process.cwd(),
   },
-
-  // Ensure proper transpilation for older browsers
-  transpilePackages: ['lenis'],
 };
 
 export default nextConfig;

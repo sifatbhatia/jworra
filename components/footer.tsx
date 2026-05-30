@@ -4,17 +4,21 @@ import { FaInstagram, FaTiktok, FaSpotify, FaApple, FaYoutube, FaTwitter } from 
 import Link from "next/link";
 
 const ASCII_ART = `
-          .-""""""""-.
-       .-'  .------.  '-.
-     .'   .'  ____  '.   '.
-    /    /   /    \   \    \
-   ;    ;   |  ()  |   ;    ;
-   |    |    \____/    |    |
-   ;    ;              ;    ;
-    \    \   J.WORRA  /    /
-     '.   '.        .'   .'
-       '-.  '------'  .-'
-          '-........-'
+⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣶⣶⣾⣿⣿⣿⣿⣷⣶⣶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⣠⢔⣫⢷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣄⠀⠀⠀⠀⠀
+⠀⠀⠀⣠⢊⡴⡫⢚⡽⣟⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀
+⠀⠀⡴⣱⢫⢎⡔⡩⣚⠵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠀⠀
+⠀⣼⣽⣳⣣⢯⣞⡜⡱⣫⢷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀
+⢸⣿⣿⣿⣿⣿⣿⣾⡽⣱⣫⠞⠉⠀⠀⠀⠀⠉⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠃⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠘⠃⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⢀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿
+⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣤⣀⣀⣀⣠⣴⢟⡵⣳⢯⢿⣿⡟⣿⣿⣿⣿⡇
+⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣞⡵⣫⢏⢞⡽⡽⣻⢯⡟⠀
+⠀⠀⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣚⢕⡡⢊⠜⡵⣣⠟⠀⠀
+⠀⠀⠀⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣯⢷⣫⢖⡥⢊⡴⠋⠀⠀⠀
+⠀⠀⠀⠀⠀⠙⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣞⣭⠞⠋⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠿⠿⢿⣿⣿⣿⣿⡿⠿⠟⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀
 `;
 
 
@@ -36,29 +40,18 @@ export default function Footer() {
         }
         .ascii-bg pre {
           font-family: 'Courier New', 'Consolas', monospace;
-          font-size: clamp(0.9rem, 2vw, 1.8rem);
-          line-height: 1.1;
-          color: rgba(255, 255, 255, 0.055);
+          font-size: clamp(10px, 1.8vw, 22px);
+          line-height: 1.4;
+          color: rgba(255, 255, 255, 0.15);
           white-space: pre;
           text-align: center;
           user-select: none;
-          letter-spacing: 0.04em;
-          transform: rotate(-8deg) scale(1.05);
+          letter-spacing: 0.05em;
+          animation: spin-disc 60s linear infinite;
         }
-        .ascii-bg::before,
-        .ascii-bg::after {
-          content: "";
-          position: absolute;
-          border-radius: 50%;
-          border: 1px solid rgba(255,255,255,0.035);
-        }
-        .ascii-bg::before {
-          width: min(62vw, 560px);
-          aspect-ratio: 1;
-        }
-        .ascii-bg::after {
-          width: min(40vw, 360px);
-          aspect-ratio: 1;
+        @keyframes spin-disc {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
         }
 
         /* Footer Logo Hover */
@@ -154,13 +147,13 @@ export default function Footer() {
           font-size: clamp(0.6rem, 1.2vw, 0.75rem);
           letter-spacing: 0.25em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.35);
+          color: rgba(255,255,255,0.55);
           margin-bottom: clamp(0.8rem, 2vw, 1.25rem);
           font-weight: 400;
         }
         .footer-brand-desc {
           font-size: clamp(0.8rem, 1.4vw, 0.95rem);
-          color: rgba(255,255,255,0.4);
+          color: rgba(255,255,255,0.55);
           line-height: 1.7;
           max-width: 320px;
           margin-bottom: 1.5rem;
@@ -179,14 +172,16 @@ export default function Footer() {
           border-radius: 50%;
           background: rgba(255,255,255,0.06);
           border: 1px solid rgba(255,255,255,0.08);
-          color: rgba(255,255,255,0.4);
+          color: rgba(255,255,255,0.55);
+          box-shadow: 0 2px 8px rgba(0,0,0,0.2);
           transition: all 0.3s ease;
         }
         .footer-social:hover {
-          background: #943B2D;
-          border-color: #943B2D;
+          background: #d94a3a;
+          border-color: #d94a3a;
           color: white;
           transform: scale(1.1);
+          box-shadow: 0 4px 16px rgba(217,74,58,0.35);
         }
         .footer-nav-list {
           list-style: none;
@@ -198,7 +193,7 @@ export default function Footer() {
         }
         .footer-nav-link {
           font-size: clamp(0.8rem, 1.4vw, 0.95rem);
-          color: rgba(255,255,255,0.45);
+          color: rgba(255,255,255,0.55);
           text-decoration: none;
           transition: color 0.25s ease, padding-left 0.25s ease;
         }
@@ -214,46 +209,48 @@ export default function Footer() {
           font-size: clamp(0.55rem, 1vw, 0.65rem);
           letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.2);
+          color: rgba(255,255,255,0.35);
           margin-bottom: 0.35rem;
         }
         .footer-contact-email {
-          display: block;
           font-size: clamp(0.75rem, 1.3vw, 0.9rem);
-          color: rgba(255,255,255,0.5);
+          color: rgba(255,255,255,0.6);
           text-decoration: none;
           transition: color 0.25s ease;
           word-break: break-all;
         }
-        .footer-contact-email + .footer-contact-email { margin-top: 0.25rem; }
         .footer-contact-email:hover {
-          color: #943B2D;
+          color: #d94a3a;
         }
         .footer-cta {
           display: inline-flex;
           align-items: center;
-          justify-content: center;
-          padding: 0.6rem 1.5rem;
-          border: 1px solid rgba(255,255,255,0.15);
+          gap: 0.4rem;
+          padding: 0.6rem 1.25rem;
+          border: 1px solid rgba(255,255,255,0.2);
           border-radius: 999px;
-          font-size: 0.75rem;
+          font-size: 0.7rem;
           font-family: 'Courier New', monospace;
           letter-spacing: 0.1em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.5);
+          color: rgba(255,255,255,0.7);
+          background: rgba(255,255,255,0.04);
+          box-shadow: 0 2px 6px rgba(0,0,0,0.2);
           text-decoration: none;
           transition: all 0.3s ease;
-          margin-top: 0.5rem;
+          margin-top: 0.75rem;
         }
         .footer-cta:hover {
-          background: #943B2D;
-          border-color: #943B2D;
+          background: #d94a3a;
+          border-color: #d94a3a;
           color: white;
+          transform: translateY(-2px);
+          box-shadow: 0 6px 24px rgba(217,74,58,0.35);
         }
         .footer-divider {
           width: 100%;
           height: 1px;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
           margin-bottom: 1.5rem;
         }
         .footer-bottom {
@@ -272,7 +269,7 @@ export default function Footer() {
           font-family: 'Courier New', monospace;
           font-size: clamp(0.55rem, 1vw, 0.7rem);
           letter-spacing: 0.12em;
-          color: rgba(255,255,255,0.15);
+          color: rgba(255,255,255,0.5);
         }
         .footer-legal {
           display: flex;
@@ -282,7 +279,7 @@ export default function Footer() {
           font-family: 'Courier New', monospace;
           font-size: clamp(0.5rem, 0.9vw, 0.65rem);
           letter-spacing: 0.1em;
-          color: rgba(255,255,255,0.15);
+          color: rgba(255,255,255,0.5);
           text-decoration: none;
           transition: color 0.25s ease;
         }
@@ -371,12 +368,15 @@ export default function Footer() {
             </div>
             <div className="footer-contact-block">
               <div className="footer-contact-label">Bookings</div>
-              <a href="mailto:shaq.milli@unitedtalent.com" className="footer-contact-email">
-                shaq.milli@unitedtalent.com
-              </a>
-              <a href="mailto:marissa.loil@unitedtalent.com" className="footer-contact-email">
-                marissa.loil@unitedtalent.com
-              </a>
+              <div style={{ display: 'flex', gap: '0.3rem', flexWrap: 'wrap' }}>
+                <a href="mailto:shaq.milli@unitedtalent.com" className="footer-contact-email">
+                  shaq.milli@unitedtalent.com
+                </a>
+                <span style={{ color: 'rgba(255,255,255,0.2)' }}>/</span>
+                <a href="mailto:marissa.loil@unitedtalent.com" className="footer-contact-email">
+                  marissa.loil@unitedtalent.com
+                </a>
+              </div>
             </div>
             <a
               href="https://www.bandsintown.com/a/5248787-j.-worra"

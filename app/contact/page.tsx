@@ -6,7 +6,10 @@ import { SiBeatport } from "react-icons/si";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Get in touch with J. Worra. Management, bookings, and social media channels.",
+  description: "Get in touch with J. Worra. Management, bookings, and social media channels. Email jworramgmt@milkhoneyla.com or find J. Worra on Instagram, TikTok, Spotify, and more.",
+  alternates: {
+    canonical: "https://jworra.com/contact",
+  },
   openGraph: {
     title: "Contact | J. Worra",
     description: "Get in touch with J. Worra. Management, bookings, and social media channels.",
@@ -32,7 +35,7 @@ export default function ContactPage() {
           min-height: 100vh;
           color: white;
           background:
-            radial-gradient(circle at 15% 18%, rgba(148,59,45,0.24), transparent 28rem),
+            radial-gradient(circle at 15% 18%, rgba(217,74,58,0.24), transparent 28rem),
             radial-gradient(circle at 88% 8%, rgba(255,255,255,0.08), transparent 24rem),
             #050505;
           overflow-x: hidden;
@@ -71,20 +74,20 @@ export default function ContactPage() {
         }
 
         .contact-label {
-          color: rgba(255,255,255,0.38);
+          color: rgba(255,255,255,0.66);
         }
 
         .contact-title {
           margin-top: 1rem;
           font-family: 'Terminal Grotesque', sans-serif;
-          font-size: clamp(4.2rem, 14vw, 11rem);
-          line-height: 0.96;
+          font-size: clamp(2.8rem, 8vw, 5.5rem);
+          line-height: 0.92;
           text-transform: uppercase;
           color: white;
         }
 
         .contact-title span {
-          color: #943B2D;
+          color: #d94a3a;
         }
 
         .contact-note {
@@ -119,13 +122,13 @@ export default function ContactPage() {
 
         .contact-card h2 {
           font-family: 'Terminal Grotesque', sans-serif;
-          font-size: clamp(2.4rem, 5vw, 4.5rem);
-          line-height: 0.86;
+          font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+          line-height: 0.88;
           text-transform: uppercase;
         }
 
         .contact-meta {
-          color: rgba(255,255,255,0.32);
+          color: rgba(255,255,255,0.66);
           white-space: nowrap;
         }
 
@@ -146,7 +149,7 @@ export default function ContactPage() {
         }
 
         .contact-email:hover {
-          color: #ff6b5f;
+          color: #d94a3a;
           transform: translateX(0.3rem);
         }
 
@@ -163,47 +166,58 @@ export default function ContactPage() {
         }
 
         .social-strip {
-          display: grid;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 0.75rem;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.4rem;
           margin-top: 1.5rem;
         }
 
-        @media (min-width: 640px) {
-          .social-strip {
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-          }
-        }
-
         .social-link {
-          display: flex;
+          display: inline-flex;
           align-items: center;
-          justify-content: space-between;
-          gap: 0.75rem;
-          min-height: 3.25rem;
-          padding: 0.8rem 0.95rem;
-          border: 1px solid rgba(255,255,255,0.09);
-          color: rgba(255,255,255,0.62);
-          background: rgba(255,255,255,0.035);
+          gap: 0.35rem;
+          padding: 0.5rem 1rem;
+          border-radius: 28px;
+          border: 1px solid rgba(255,255,255,0.1);
+          color: rgba(255,255,255,0.5);
+          background: rgba(255,255,255,0.04);
           text-decoration: none;
-          transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+          font-size: 0.8rem;
+          letter-spacing: 0.08em;
+          transition: all 0.25s ease;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.15);
         }
 
         .social-link:hover {
           color: white;
-          border-color: #943B2D;
-          background: rgba(148,59,45,0.62);
-          transform: translateY(-2px);
+          border-color: #d94a3a;
+          background: #d94a3a;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 16px rgba(217,74,58,0.3);
         }
 
-        .contact-small {
-          font-size: 0.58rem;
-          letter-spacing: 0.16em;
+        /* ── Animations ── */
+        @keyframes cnt-fade-up {
+          0% { opacity: 0; transform: translateY(24px); }
+          100% { opacity: 1; transform: translateY(0); }
         }
+        .cnt-anim {
+          opacity: 0;
+          animation: cnt-fade-up 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        .cnt-d1 { animation-delay: 0.15s; }
+        .cnt-d2 { animation-delay: 0.3s; }
+        .cnt-d3 { animation-delay: 0.45s; }
+        .cnt-d4 { animation-delay: 0.55s; }
+        .cnt-d5 { animation-delay: 0.65s; }
+        .cnt-d6 { animation-delay: 0.75s; }
 
         @media (prefers-reduced-motion: reduce) {
           .contact-email,
-          .social-link {
+          .social-link,
+          .cnt-anim {
+            animation: none !important;
+            opacity: 1 !important;
             transition: none;
           }
           .contact-email:hover,
@@ -213,22 +227,22 @@ export default function ContactPage() {
         }
       `}</style>
 
-      <Navbar variant="solid" theme="dark" />
+      <Navbar variant="solid" />
 
       <main className="contact-main">
         <section className="contact-hero" aria-labelledby="contact-title">
-          <p className="contact-label">Contact</p>
-          <h1 id="contact-title" className="contact-title">
+          <p className="contact-label cnt-anim cnt-d1">Contact</p>
+          <h1 id="contact-title" className="contact-title cnt-anim cnt-d2">
             Get<br />
             <span>in</span> touch
           </h1>
-          <p className="contact-note">
+          <p className="contact-note cnt-anim cnt-d3">
             Management, bookings, label, and socials.
           </p>
         </section>
 
         <section className="contact-board" aria-label="Contact directory">
-          <div className="contact-card">
+          <div className="contact-card cnt-anim cnt-d3">
             <div className="contact-card-head">
               <h2>Management</h2>
               <span className="contact-meta">Milk & Honey</span>
@@ -238,7 +252,7 @@ export default function ContactPage() {
             </a>
           </div>
 
-          <div className="contact-card">
+          <div className="contact-card cnt-anim cnt-d4">
             <div className="contact-card-head">
               <h2>Bookings</h2>
               <span className="contact-meta">United Talent</span>
@@ -251,7 +265,7 @@ export default function ContactPage() {
             </a>
           </div>
 
-          <div className="contact-card">
+          <div className="contact-card cnt-anim cnt-d5">
             <div className="contact-card-head">
               <h2>Dialogxe</h2>
               <span className="contact-meta">Label</span>
@@ -265,7 +279,7 @@ export default function ContactPage() {
             </p>
           </div>
 
-          <div className="contact-card">
+          <div className="contact-card cnt-anim cnt-d6">
             <div className="contact-card-head">
               <h2>Socials</h2>
               <span className="contact-meta">J. Worra</span>

@@ -10,11 +10,15 @@ import { SiBeatport } from "react-icons/si";
 // export const dynamic = 'force-static'; // Default is static for output: export
 
 export const metadata: Metadata = {
-  title: "Music | J. Worra",
-  description: "Stream J. Worra's latest releases. Explore the complete discography of house and techno tracks.",
+  title: "Music",
+  description: "Stream J. Worra's latest releases and explore the complete discography of house, tech-house, and techno tracks. Listen on Spotify, Apple Music, SoundCloud, and Beatport.",
+  alternates: {
+    canonical: "https://jworra.com/music",
+  },
   openGraph: {
     title: "Music | J. Worra",
-    description: "Stream J. Worra's latest releases.",
+    description: "Stream J. Worra's latest releases and explore the complete discography of house and techno tracks.",
+    images: ["/emblem.webp"],
   },
 };
 
@@ -92,12 +96,12 @@ export default async function MusicPage() {
           font-size: 0.65rem;
           letter-spacing: 0.25em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.45);
+          color: rgba(255,255,255,0.66);
           margin-bottom: 0.6rem;
         }
         .main-heading {
           font-family: 'Terminal Grotesque', sans-serif;
-          font-size: clamp(3rem, 7vw, 7rem);
+          font-size: clamp(2.8rem, 8vw, 5.5rem);
           line-height: 0.88;
           letter-spacing: -0.02em;
           color: white;
@@ -129,7 +133,7 @@ export default async function MusicPage() {
           font-size: 0.65rem;
           letter-spacing: 0.28em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.2);
+          color: rgba(255,255,255,0.66);
           margin-bottom: 1.5rem;
         }
 
@@ -170,7 +174,7 @@ export default async function MusicPage() {
         .release-info {
           font-family: 'Courier New', monospace;
           font-size: 0.65rem;
-          color: rgba(255,255,255,0.4);
+          color: rgba(255,255,255,0.66);
           text-transform: uppercase;
           letter-spacing: 0.05em;
         }
@@ -219,7 +223,7 @@ export default async function MusicPage() {
           height: 2.5rem;
           border-radius: 50%;
           border: 1px solid rgba(255,255,255,0.1);
-          color: rgba(255,255,255,0.4);
+          color: rgba(255,255,255,0.55);
           transition: all 0.25s ease;
         }
         .social-btn:hover {
@@ -273,52 +277,46 @@ export default async function MusicPage() {
         }
       `}</style>
 
-      <Navbar variant="solid" theme="dark" />
+      <Navbar variant="solid" />
 
       <div className="split-wrap">
 
         {/* Left Column (Sticky Visual) */}
         <div className="split-left">
-          {/* Use Latest Release Art or Fallback */}
-          {latest?.images[0] ? (
+          {latest?.images[0] && (
             <Image
               src={latest.images[0].url}
               alt={latest.name}
-              fill
               className="split-left-img"
-              priority
-            />
-          ) : (
-            <Image
-              src="/about.jpg"
-              alt="J. Worra"
-              fill
-              className="split-left-img"
+              width={1200}
+              height={1200}
               priority
             />
           )}
           <div className="split-left-gradient" />
 
-          <div className="split-left-content">
-            <p className="eyebrow anim-fade-up anim-delay-1">Latest release</p>
-            <h1 className="main-heading anim-fade-up anim-delay-2">{latest?.name || "Music"}</h1>
-            <div className="flex gap-4 items-center anim-fade-up anim-delay-3">
-              <a
-                href={latest?.external_urls?.spotify || "#"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cta-btn"
-              >
-                <FaPlay size={10} /> Listen Now
-              </a>
+          {latest && (
+            <div className="split-left-content">
+              <p className="eyebrow anim-fade-up anim-delay-1">Latest release</p>
+              <h1 className="main-heading anim-fade-up anim-delay-2">{latest.name}</h1>
+              <div className="flex gap-4 items-center anim-fade-up anim-delay-3">
+                <a
+                  href={latest.external_urls.spotify}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cta-btn"
+                >
+                  <FaPlay size={10} /> Listen Now
+                </a>
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Right Column (Scrollable Content) */}
         <div className="split-right">
 
-          <div className="section-label">Discography</div>
+          <h2 className="section-label">Discography</h2>
 
           <div className="release-grid">
             {releases.map((release) => (
@@ -357,7 +355,7 @@ export default async function MusicPage() {
           <div className="divider" />
 
           {/* Socials / Platforms */}
-          <div className="section-label">Available on</div>
+          <h3 className="section-label">Available on</h3>
           <div className="social-row">
             <a href="https://open.spotify.com/artist/4q0N3EI67tVnAeeaXbNQIj" target="_blank" rel="noopener noreferrer" aria-label="Spotify" className="social-btn"><FaSpotify size={18} /></a>
             <a href="https://music.apple.com/us/artist/j-worra/964744411" target="_blank" rel="noopener noreferrer" aria-label="Apple Music" className="social-btn"><FaApple size={18} /></a>

@@ -1,21 +1,46 @@
-# DirectoryIndex
 DirectoryIndex index.html
 
 Options -Indexes
 
 RewriteEngine On
 
-# Redirect /label to /dialogxe
-RewriteRule ^label/?$ /dialogxe [L,R=301]
-
-# If the request matches an existing file or folder, serve it as-is
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# Map extensionless paths to their .html counterparts (e.g., /about -> /about.html)
-RewriteCond %{REQUEST_FILENAME}.html -f
-RewriteRule ^([^/]+)/?$ $1.html [L]
+RewriteRule ^label/?$ /dialogxe [L,R=301]
 
-# Fallback to the SPA entry
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ /index.html [L]
+
+# --- Compression ---
+# Disable Apache mod_deflate entirely — DreamHost's nginx edge handles
+# compression and mod_deflate corrupts HEAD requests from Next.js prefetch
+SetEnv no-gzip 1
+
+# --- Cache headers ---
+# Fonts - 1 year
+<FilesMatch "\.(woff2?|ttf|otf|eot)$">
+  Header set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
+
+# Images - 1 year
+<FilesMatch "\.(webp|avif|png|jpg|jpeg|gif|ico|svg)$">
+  Header set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
+
+# Video - 1 year
+<FilesMatch "\.(webm|mp4|mov)$">
+  Header set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
+
+# Static JS/CSS - 1 year
+<FilesMatch "\.(js|css)$">
+  Header set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
+
+# HTML - 1 hour
+<FilesMatch "\.html$">
+  Header set Cache-Control "public, max-age=3600"
+</FilesMatch>

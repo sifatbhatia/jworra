@@ -1,41 +1,54 @@
 'use client';
 
-import { FaInstagram, FaTiktok, FaSpotify, FaApple, FaYoutube, FaTwitter, FaArrowRight } from "react-icons/fa";
+import { FaInstagram, FaTiktok, FaSpotify, FaApple, FaYoutube, FaTwitter, FaArrowRight, FaSoundcloud } from "react-icons/fa";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 export default function Hero() {
   const [loaded, setLoaded] = useState(false);
+  const [showSecond, setShowSecond] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const video2Ref = useRef<HTMLVideoElement>(null);
+  const rafRef = useRef<number>(0);
 
   useEffect(() => {
     const readyTimeout = setTimeout(() => setLoaded(true), 80);
     return () => clearTimeout(readyTimeout);
   }, []);
 
-  const restartVideo = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.currentTime = 0;
-    void video.play();
-  };
-
-  const preventLoopGap = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    if (!video.duration || video.duration < 1) return;
-    if (video.currentTime >= video.duration - 0.4) {
-      video.currentTime = 0;
-    }
-  };
-
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    const handleEnded = () => { video.currentTime = 0; void video.play(); };
-    video.addEventListener('ended', handleEnded);
-    return () => video.removeEventListener('ended', handleEnded);
-  }, []);
+    const v1 = videoRef.current;
+    const v2 = video2Ref.current;
+    if (!v1 || !v2) return;
+
+    let swapping = false;
+
+    const tick = () => {
+      if (swapping) {
+        rafRef.current = requestAnimationFrame(tick);
+        return;
+      }
+
+      const active = showSecond ? v2 : v1;
+      const next = showSecond ? v1 : v2;
+
+      if (active.duration && active.currentTime >= active.duration - 0.4) {
+        swapping = true;
+        next.currentTime = 0.01;
+        next.play().then(() => {
+          active.style.opacity = '0';
+          next.style.opacity = '1';
+          setShowSecond(v => !v);
+          swapping = false;
+        }).catch(() => { swapping = false; });
+      }
+
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [showSecond]);
 
   return (
     <>
@@ -47,13 +60,25 @@ export default function Hero() {
             ref={videoRef}
             className="hero-video absolute inset-0 h-full w-full object-cover opacity-90"
             autoPlay
-            loop
             muted
             playsInline
             preload="auto"
+            style={{ transition: 'opacity 0.3s ease', opacity: showSecond ? 0 : 1 }}
             onLoadedMetadata={() => {
               videoRef.current?.play().catch(() => undefined);
             }}
+          >
+            <source src="/hero-bg.webm" type="video/webm" />
+            <source src="/hero-bg.mov" type="video/quicktime" />
+            Your browser does not support the video tag.
+          </video>
+          <video
+            ref={video2Ref}
+            className="hero-video absolute inset-0 h-full w-full object-cover opacity-90"
+            muted
+            playsInline
+            preload="auto"
+            style={{ transition: 'opacity 0.3s ease', opacity: showSecond ? 1 : 0 }}
           >
             <source src="/hero-bg.webm" type="video/webm" />
             <source src="/hero-bg.mov" type="video/quicktime" />
@@ -64,9 +89,125 @@ export default function Hero() {
         {/* Cinematic Overlays */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/10 to-black/80 pointer-events-none" />
 
+
+
         {/* Content */}
         <div className="relative z-10 flex items-center justify-center h-full">
           <div className="text-center w-full max-w-4xl mx-auto px-4">
+
+            {/* Toast above logo */}
+            <div className={`flex justify-center mb-3 sm:mb-4 transition-all duration-[800ms] delay-[800ms] cubic-bezier(0.2, 0.8, 0.2, 1) ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+              <style>{`
+                @keyframes toast-bg-shift {
+                  0%, 100% { transform: translateX(-30%); }
+                  50% { transform: translateX(30%); }
+                }
+                .toast-pill {
+                  position: relative;
+                  display: flex;
+                  align-items: center;
+                  gap: 0.75rem;
+                  padding: 0.7rem 1.2rem;
+                  background: rgba(80,80,80,0.35);
+                  backdrop-filter: blur(24px) saturate(1.8);
+                  -webkit-backdrop-filter: blur(24px) saturate(1.8);
+                  border: 1px solid rgba(255,255,255,0.12);
+                  border-radius: 32px;
+                  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+                  max-width: min(90vw, 520px);
+                  overflow: hidden;
+                  animation: toast-glow 4s ease-in-out infinite;
+                }
+                .toast-pill::before {
+                  content: '';
+                  position: absolute;
+                  inset: 0;
+                  background: linear-gradient(135deg, rgba(217,74,58,0.15), rgba(107,47,160,0.12), transparent);
+                  animation: toast-bg-shift 8s ease-in-out infinite;
+                  will-change: transform;
+                  pointer-events: none;
+                  border-radius: 32px;
+                }
+                @keyframes toast-glow {
+                  0%, 100% { box-shadow: 0 4px 24px rgba(0,0,0,0.3); }
+                  50% { box-shadow: 0 4px 32px rgba(217,74,58,0.2), 0 4px 24px rgba(0,0,0,0.3); }
+                }
+                .toast-text {
+                  font-size: clamp(0.58rem, 1.2vw, 0.8rem);
+                  color: rgba(255,255,255,0.85);
+                  line-height: 1.35;
+                  font-family: 'Montserrat', sans-serif;
+                }
+                .toast-text strong {
+                  color: white;
+                  font-weight: 600;
+                }
+                .toast-links {
+                  display: flex;
+                  gap: 0.35rem;
+                  flex-shrink: 0;
+                }
+                .toast-link {
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 0.3rem;
+                  padding: 0.3rem 0.65rem;
+                  border-radius: 16px;
+                  font-size: clamp(0.5rem, 1vw, 0.65rem);
+                  font-weight: 600;
+                  font-family: 'Montserrat', sans-serif;
+                  text-decoration: none;
+                  letter-spacing: 0.04em;
+                  transition: all 0.25s ease;
+                }
+                .toast-link-yt {
+                  background: rgba(255,255,255,0.1);
+                  color: rgba(255,255,255,0.8);
+                  border: 1px solid rgba(255,255,255,0.1);
+                }
+                .toast-link-yt:hover {
+                  background: #d94a3a;
+                  border-color: #d94a3a;
+                  color: white;
+                }
+                .toast-link-sc {
+                  background: rgba(255,121,0,0.15);
+                  color: #ff7900;
+                  border: 1px solid rgba(255,121,0,0.25);
+                }
+                .toast-link-sc:hover {
+                  background: #ff7900;
+                  color: white;
+                }
+                @media (max-width: 520px) {
+                  .toast-pill {
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    gap: 0.3rem;
+                    padding: 0.45rem 0.7rem;
+                    text-align: center;
+                  }
+                  .toast-text { font-size: 0.58rem; white-space: nowrap; }
+                  .toast-link { font-size: 0.5rem; padding: 0.2rem 0.4rem; }
+                }
+                @media (prefers-reduced-motion: reduce) {
+                  .toast-pill { animation: none !important; }
+                }
+              `}</style>
+              <div className="toast-pill">
+                <span className="toast-text">
+                  <strong>Lightning In A Bottle 2026</strong> — full set out now
+                </span>
+                <span className="toast-links">
+                  <a href="https://www.youtube.com/watch?v=ayrGtrPsQvA" target="_blank" rel="noopener noreferrer" className="toast-link toast-link-yt">
+                    <FaYoutube size={10} /> Watch
+                  </a>
+                  <a href="https://soundcloud.com/jworra/live-from-lightning-in-a" target="_blank" rel="noopener noreferrer" className="toast-link toast-link-sc">
+                    <FaSoundcloud size={10} /> Listen
+                  </a>
+                </span>
+              </div>
+            </div>
 
             {/* Logo Container - Stagger 1 */}
             <div
@@ -180,7 +321,7 @@ export default function Hero() {
 
             {/* Socials - Stagger 3 */}
             <ul
-              className={`flex flex-wrap items-center justify-center gap-3 sm:gap-4 list-none px-4 mb-0 transition-all duration-[1200ms] delay-300 cubic-bezier(0.2, 0.8, 0.2, 1)
+              className={`flex flex-wrap items-center justify-center gap-3 sm:gap-4 list-none px-4 mb-0 transition-[opacity,transform] duration-[1200ms] delay-300 cubic-bezier(0.2, 0.8, 0.2, 1)
               ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
             `}
             >
@@ -197,7 +338,7 @@ export default function Hero() {
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white transition-all duration-300 ease-out hover:bg-[#943B2D] hover:border-[#943B2D] hover:scale-110 active:scale-95"
+                    className="group relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white transition-[background,transform,border-color] duration-300 ease-out hover:bg-[#d94a3a] hover:border-[#d94a3a] hover:scale-110 active:scale-95"
                     aria-label={item.label}
                   >
                     <item.icon size={16} className="sm:w-5 sm:h-5 transition-transform duration-300 group-hover:scale-110" />
@@ -208,13 +349,13 @@ export default function Hero() {
 
             {/* CTA Button - Stagger 4 (Restored Absolute Position) */}
             <div
-              className={`absolute bottom-8 right-4 sm:right-8 z-20 transition-all duration-[1200ms] delay-500 cubic-bezier(0.2, 0.8, 0.2, 1)
+              className={`absolute bottom-8 right-4 sm:right-8 z-20 transition-[opacity,transform] duration-[1200ms] delay-500 cubic-bezier(0.2, 0.8, 0.2, 1)
               ${loaded ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}
             `}
             >
               <Link
                 href="/tour"
-                className="group relative inline-flex items-center justify-center px-10 py-4 text-white bg-white/5 backdrop-blur-xl border border-white/20 rounded-full overflow-hidden transition-all duration-300 hover:bg-[#943B2D] hover:border-[#943B2D] hover:scale-105 active:scale-95"
+                className="group relative inline-flex items-center justify-center px-10 py-4 text-white bg-white/5 backdrop-blur-xl border border-white/20 rounded-full overflow-hidden transition-[background,transform,border-color] duration-300 hover:bg-[#d94a3a] hover:border-[#d94a3a] hover:scale-105 active:scale-95"
               >
                 <span className="relative z-10 text-xs sm:text-sm font-bold font-sans tracking-[0.2em] uppercase transition-transform duration-300 group-hover:-translate-x-3">Upcoming Dates</span>
                 <FaArrowRight size={12} className="absolute right-4 z-10 sm:w-3.5 sm:h-3.5 transition-all duration-300 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0" />
@@ -226,6 +367,8 @@ export default function Hero() {
 
           </div>
         </div>
+
+
       </section>
     </>
   );

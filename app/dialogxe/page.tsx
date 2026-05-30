@@ -2,8 +2,7 @@ import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { Metadata } from "next";
 import Image from "next/image";
-import { FaInstagram, FaSoundcloud, FaSpotify } from "react-icons/fa";
-import { SiBeatport } from "react-icons/si";
+import { FaInstagram, FaSpotify } from "react-icons/fa";
 
 export const metadata: Metadata = {
   title: "Dialogxe Label",
@@ -14,44 +13,6 @@ export const metadata: Metadata = {
   },
 };
 
-const platforms = [
-  {
-    label: "Spotify",
-    href: "https://open.spotify.com/album/4Ktfjs4DfhzMJ1gcK6NS91",
-    icon: FaSpotify,
-  },
-  {
-    label: "Instagram",
-    href: "https://instagram.com/dialogxe",
-    icon: FaInstagram,
-  },
-  {
-    label: "SoundCloud",
-    href: "https://soundcloud.com/dialogxe",
-    icon: FaSoundcloud,
-  },
-  {
-    label: "Beatport",
-    href: "https://beatport.com/label/dialogxe",
-    icon: SiBeatport,
-  },
-];
-
-const catalog = [
-  {
-    number: "DLX001",
-    title: "New Sounds",
-    format: "Digital single",
-    href: "https://open.spotify.com/album/4Ktfjs4DfhzMJ1gcK6NS91",
-  },
-  {
-    number: "DLX002",
-    title: "Next Transmission",
-    format: "Coming soon",
-    href: "https://instagram.com/dialogxe",
-  },
-];
-
 export default function LabelPage() {
   return (
     <div className="dialogxe-page">
@@ -61,7 +22,7 @@ export default function LabelPage() {
           color: #090909;
           background:
             linear-gradient(180deg, rgba(248,248,244,0.92), rgba(229,226,218,0.92)),
-            url('/dialogxe_bg.png') center / cover;
+            url('/dialogxe_bg.webp') center / cover;
           overflow-x: hidden;
         }
 
@@ -69,14 +30,15 @@ export default function LabelPage() {
           min-height: 100svh;
           display: grid;
           grid-template-columns: 1fr;
-          padding: 7rem 1.25rem 3rem;
+          padding: 5rem 1.25rem 3rem;
           gap: 2.5rem;
+          align-items: center;
         }
         @media (min-width: 960px) {
           .dialogxe-hero {
             grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.92fr);
-            align-items: stretch;
-            padding: 7.5rem clamp(2rem, 4vw, 4rem) 4rem;
+            align-items: center;
+            padding: 5rem clamp(2rem, 4vw, 4rem) 4rem;
             gap: clamp(2rem, 4vw, 4rem);
           }
         }
@@ -90,7 +52,7 @@ export default function LabelPage() {
           border: 1px solid rgba(0,0,0,0.14);
           background:
             linear-gradient(135deg, rgba(255,255,255,0.68), rgba(255,255,255,0.18)),
-            url('/dialogxe_bg.png') center / cover;
+            url('/dialogxe_bg.webp') center / cover;
           overflow: hidden;
         }
         @media (min-width: 960px) {
@@ -143,8 +105,9 @@ export default function LabelPage() {
           font-size: 0.62rem;
           letter-spacing: 0.16em;
           text-transform: uppercase;
-          color: rgba(0,0,0,0.5);
+          color: rgba(0,0,0,0.42);
         }
+
         @media (min-width: 640px) {
           .dialogxe-stamp {
             left: 1.5rem;
@@ -155,29 +118,25 @@ export default function LabelPage() {
         .dialogxe-copy {
           display: flex;
           flex-direction: column;
-          justify-content: space-between;
+          justify-content: center;
           min-width: 0;
           gap: 2rem;
         }
 
         .dialogxe-kicker,
-        .dialogxe-label,
-        .dialogxe-meta {
+        .dialogxe-label {
           font-family: 'Courier New', monospace;
           font-size: 0.65rem;
           letter-spacing: 0.22em;
           text-transform: uppercase;
-        }
-        .dialogxe-kicker,
-        .dialogxe-label {
-          color: rgba(0,0,0,0.42);
+          color: rgba(0,0,0,0.6);
         }
 
         .dialogxe-title {
           margin-top: 1rem;
           max-width: 720px;
           font-family: 'Terminal Grotesque', sans-serif;
-          font-size: clamp(3.8rem, 13vw, 9.5rem);
+          font-size: clamp(2.8rem, 8vw, 5.5rem);
           line-height: 0.96;
           text-transform: uppercase;
           color: #090909;
@@ -189,7 +148,7 @@ export default function LabelPage() {
 
         .dialogxe-manifesto {
           max-width: 34rem;
-          color: rgba(0,0,0,0.66);
+          color: rgba(0,0,0,0.78);
           font-size: clamp(1rem, 1.5vw, 1.15rem);
           line-height: 1.45;
           font-weight: 300;
@@ -234,96 +193,25 @@ export default function LabelPage() {
           color: white;
         }
 
-        .dialogxe-panel {
-          border-top: 1px solid rgba(0,0,0,0.16);
-          padding-top: 1.5rem;
+        /* ── Animations ── */
+        @keyframes dlx-fade-up {
+          0% { opacity: 0; transform: translateY(30px); }
+          100% { opacity: 1; transform: translateY(0); }
         }
-
-        .dialogxe-catalog {
-          display: flex;
-          flex-direction: column;
-          margin-top: 1rem;
+        @keyframes dlx-logo-in {
+          0% { opacity: 0; transform: rotate(-2deg) scale(0.92); }
+          100% { opacity: 1; transform: rotate(-2deg) scale(1); }
         }
-
-        .dialogxe-release {
-          display: grid;
-          grid-template-columns: auto 1fr auto;
-          align-items: center;
-          gap: 1rem;
-          padding: 1.1rem 0;
-          border-bottom: 1px solid rgba(0,0,0,0.12);
-          color: #090909;
-          text-decoration: none;
+        .dlx-anim {
+          opacity: 0;
+          animation: dlx-fade-up 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
-
-        .dialogxe-release:first-child {
-          border-top: 1px solid rgba(0,0,0,0.12);
-        }
-
-        .dialogxe-release-title {
-          font-family: 'Terminal Grotesque', sans-serif;
-          font-size: clamp(1.7rem, 3.2vw, 3rem);
-          line-height: 0.9;
-          text-transform: uppercase;
-        }
-
-        .dialogxe-release:hover .dialogxe-release-title {
-          color: #d62b24;
-        }
-
-        .dialogxe-meta {
-          color: rgba(0,0,0,0.4);
-        }
-
-        .dialogxe-index {
-          color: rgba(0,0,0,0.36);
-          font-family: 'Courier New', monospace;
-          font-size: 0.72rem;
-          letter-spacing: 0.12em;
-        }
-
-        .dialogxe-section {
-          padding: 0 1.25rem 4rem;
-        }
-        @media (min-width: 960px) {
-          .dialogxe-section {
-            padding: 0 clamp(2rem, 4vw, 4rem) 5rem;
-          }
-        }
-
-        .dialogxe-grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 1.25rem;
-          border-top: 1px solid rgba(0,0,0,0.16);
-          padding-top: 1.5rem;
-        }
-        @media (min-width: 760px) {
-          .dialogxe-grid {
-            grid-template-columns: repeat(3, 1fr);
-          }
-        }
-
-        .dialogxe-note {
-          min-height: 11rem;
-          border-left: 1px solid rgba(0,0,0,0.16);
-          padding-left: 1rem;
-        }
-
-        .dialogxe-note strong {
-          display: block;
-          margin: 0.6rem 0;
-          font-family: 'Terminal Grotesque', sans-serif;
-          font-size: 2.3rem;
-          line-height: 0.9;
-          text-transform: uppercase;
-        }
-
-        .dialogxe-note p {
-          max-width: 22rem;
-          color: rgba(0,0,0,0.58);
-          font-size: 0.92rem;
-          line-height: 1.55;
+        .dlx-delay-1 { animation-delay: 0.2s; }
+        .dlx-delay-2 { animation-delay: 0.35s; }
+        .dlx-delay-3 { animation-delay: 0.5s; }
+        .dlx-delay-4 { animation-delay: 0.65s; }
+        .dialogxe-logo-stage {
+          animation: dlx-logo-in 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards;
         }
 
         @media (max-width: 520px) {
@@ -337,15 +225,16 @@ export default function LabelPage() {
           .dialogxe-button {
             width: 100%;
           }
-          .dialogxe-release {
-            grid-template-columns: 1fr;
-            gap: 0.45rem;
-          }
         }
 
         @media (prefers-reduced-motion: reduce) {
           .dialogxe-button,
-          .dialogxe-release-title {
+          .dlx-anim,
+          .dialogxe-art,
+          .dialogxe-logo-stage {
+            animation: none !important;
+            opacity: 1 !important;
+            transform: none !important;
             transition: none;
           }
           .dialogxe-button:hover {
@@ -354,7 +243,7 @@ export default function LabelPage() {
         }
       `}</style>
 
-      <Navbar variant="solid" theme="light" />
+      <Navbar variant="solid" />
 
       <main>
         <section className="dialogxe-hero" aria-labelledby="dialogxe-title">
@@ -366,6 +255,7 @@ export default function LabelPage() {
                 fill
                 className="object-contain"
                 priority
+                placeholder="empty"
               />
             </div>
             <div className="dialogxe-stamp" aria-hidden="true">
@@ -378,15 +268,15 @@ export default function LabelPage() {
 
           <div className="dialogxe-copy">
             <div>
-              <p className="dialogxe-kicker">Independent dance label</p>
-              <h1 id="dialogxe-title" className="dialogxe-title">
+              <p className="dialogxe-kicker dlx-anim dlx-delay-1">Independent dance label</p>
+              <h1 id="dialogxe-title" className="dialogxe-title dlx-anim dlx-delay-2">
                 Music<br />
                 <span>4</span> Dancing
               </h1>
-              <p className="dialogxe-manifesto">
+              <p className="dialogxe-manifesto dlx-anim dlx-delay-3">
                 Music 4 Dancing. No pitch deck, no manifesto. Just records for the room.
               </p>
-              <div className="dialogxe-actions">
+              <div className="dialogxe-actions dlx-anim dlx-delay-4">
                 <a
                   href="https://open.spotify.com/album/4Ktfjs4DfhzMJ1gcK6NS91"
                   target="_blank"
@@ -408,69 +298,7 @@ export default function LabelPage() {
               </div>
             </div>
 
-            <div className="dialogxe-panel">
-              <p className="dialogxe-label">Catalog</p>
-              <div className="dialogxe-catalog">
-                {catalog.map((release, index) => (
-                  <a
-                    key={release.number}
-                    href={release.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="dialogxe-release"
-                  >
-                    <span className="dialogxe-index">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <span>
-                      <span className="dialogxe-release-title">
-                        {release.title}
-                      </span>
-                      <span className="dialogxe-meta block">
-                        {release.number} / {release.format}
-                      </span>
-                    </span>
-                    <span className="dialogxe-meta">Open</span>
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
 
-        <section className="dialogxe-section" aria-label="Dialogxe principles">
-          <div className="dialogxe-grid">
-            <div className="dialogxe-note">
-              <span className="dialogxe-label">01</span>
-              <strong>No filler</strong>
-              <p>Compact releases with a point of view, made to move quickly from studio to floor.</p>
-            </div>
-            <div className="dialogxe-note">
-              <span className="dialogxe-label">02</span>
-              <strong>Club first</strong>
-              <p>Low-end, swing, pressure, and utility matter. The record has to work in the room.</p>
-            </div>
-            <div className="dialogxe-note">
-              <span className="dialogxe-label">03</span>
-              <strong>Stay weird</strong>
-              <p>Dialogxe keeps the rough edges, the red marks, and the strange little choices.</p>
-            </div>
-          </div>
-
-          <div className="dialogxe-actions" style={{ marginTop: "2rem" }}>
-            {platforms.map(({ label, href, icon: Icon }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="dialogxe-button"
-                aria-label={label}
-              >
-                <Icon size={14} />
-                {label}
-              </a>
-            ))}
           </div>
         </section>
       </main>

@@ -45,7 +45,7 @@ export default function PageLayout({
       )}
 
       {/* Modern Navigation */}
-      <Navbar variant="solid" theme={theme} />
+      <Navbar variant="solid" />
 
       {/* Page Content */}
       <main className="relative z-10 container mx-auto px-4 sm:px-6 md:px-8 pt-32 pb-20 min-h-[80vh]">
