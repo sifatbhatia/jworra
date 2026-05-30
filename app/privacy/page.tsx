@@ -39,7 +39,7 @@ export default function PrivacyPage() {
           <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
             <h2 className="font-heading text-2xl font-bold text-white mb-6">Introduction</h2>
             <p className="mb-4">
-              This Privacy Policy describes how J. Worra ("we," "us," or "our") collects, uses, and shares your personal information when you visit our website jworra.com and use our services.
+              This Privacy Policy describes how J. Worra (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) collects, uses, and shares your personal information when you visit our website jworra.com and use our services.
             </p>
             <p>
               By using our website, you agree to the collection and use of information in accordance with this policy.
@@ -62,7 +62,7 @@ export default function PrivacyPage() {
 
             <h3 className="font-semibold text-white mb-3">Usage Data</h3>
             <p className="mb-4">
-              We may also collect information how the Service is accessed and used ("Usage Data"). This Usage Data may include information such as your computer's Internet Protocol (IP) address, browser type, browser version, the pages of our Service that you visit, the time and date of your visit, the time spent on those pages, and other diagnostic data.
+              We may also collect information how the Service is accessed and used (&quot;Usage Data&quot;). This Usage Data may include information such as your computer&apos;s Internet Protocol (IP) address, browser type, browser version, the pages of our Service that you visit, the time and date of your visit, the time spent on those pages, and other diagnostic data.
             </p>
           </div>
 
@@ -105,7 +105,7 @@ export default function PrivacyPage() {
           <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
             <h2 className="font-heading text-2xl font-bold text-white mb-6">Changes to This Privacy Policy</h2>
             <p className="mb-4">
-              We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date.
+              We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the &quot;Last updated&quot; date.
             </p>
             <p>
               You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.

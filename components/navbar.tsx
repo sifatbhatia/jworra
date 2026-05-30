@@ -4,14 +4,13 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { FaInstagram, FaSpotify, FaSoundcloud, FaTiktok, FaTwitter, FaApple, FaYoutube } from 'react-icons/fa';
+import { FaInstagram, FaSpotify, FaTiktok, FaTwitter, FaApple, FaYoutube } from 'react-icons/fa';
 
 interface NavbarProps {
     variant?: 'transparent' | 'solid';
-    theme?: 'dark' | 'light';
 }
 
-export default function Navbar({ variant = 'solid', theme = 'dark' }: NavbarProps) {
+export default function Navbar({ variant = 'solid' }: NavbarProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const pathname = usePathname();
@@ -23,7 +22,12 @@ export default function Navbar({ variant = 'solid', theme = 'dark' }: NavbarProp
     }, []);
 
     useEffect(() => {
-        document.body.style.overflow = isOpen ? 'hidden' : '';
+        if (typeof document === 'undefined') return;
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
         return () => { document.body.style.overflow = ''; };
     }, [isOpen]);
 
@@ -41,7 +45,7 @@ export default function Navbar({ variant = 'solid', theme = 'dark' }: NavbarProp
     return (
         <>
             <style>{`
-                .nav-pill {
+                .nav-wrap {
                     position: fixed;
                     top: 1rem;
                     left: 1rem;
@@ -49,30 +53,25 @@ export default function Navbar({ variant = 'solid', theme = 'dark' }: NavbarProp
                     z-index: 100;
                     display: flex;
                     justify-content: center;
+                    pointer-events: none;
                 }
-                .nav-container {
+                .nav-pill {
+                    pointer-events: auto;
                     width: 100%;
                     max-width: 100%;
-                    background: rgba(59, 59, 59, 0.5);
-                    backdrop-filter: blur(12px);
-                    -webkit-backdrop-filter: blur(12px);
-                    border-radius: 48px;
+                    background: rgba(80, 80, 80, 0.35);
+                    backdrop-filter: blur(24px) saturate(1.8);
+                    -webkit-backdrop-filter: blur(24px) saturate(1.8);
+                    border-radius: 32px;
                     overflow: hidden;
-                    display: grid;
-                    grid-template-rows: 56px 0fr;
-                    transition: grid-template-rows 0.45s ease, border-radius 0.45s ease;
                 }
-                .nav-container.open {
-                    border-radius: 24px;
-                    grid-template-rows: 56px 1fr;
+                .nav-pill.transparent {
+                    background: rgba(255, 255, 255, 0.2);
                 }
                 @media (min-width: 768px) {
-                    .nav-container {
+                    .nav-pill {
                         max-width: clamp(280px, 65vw, 600px);
                     }
-                }
-                .nav-container.transparent {
-                    background: rgba(255, 255, 255, 0.1);
                 }
                 .nav-top {
                     display: flex;
@@ -80,45 +79,66 @@ export default function Navbar({ variant = 'solid', theme = 'dark' }: NavbarProp
                     justify-content: space-between;
                     padding: 0.5rem 1rem 0.5rem 0.5rem;
                     height: 56px;
+                }
+                .nav-collapse {
+                    display: grid;
+                    grid-template-rows: 0fr;
+                    transition: grid-template-rows 300ms ease;
+                }
+                .nav-collapse.open {
+                    grid-template-rows: 1fr;
+                }
+                .nav-collapse-inner {
                     overflow: hidden;
+                    min-height: 0;
                 }
-                .nav-body {
-                    overflow: hidden;
-                    visibility: hidden;
-                    transition: visibility 0s 0.45s;
-                }
-                .nav-container.open .nav-body {
-                    visibility: visible;
-                    transition: visibility 0s 0s;
-                }
-                .nav-links {
+                .nav-content {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    justify-content: center;
-                    gap: 1.5rem;
-                    padding: 2rem 1.5rem 3rem;
-                    min-height: 380px;
+                    gap: 1rem;
+                    padding: 0 1.5rem 2rem;
+                    opacity: 0;
+                    transition: opacity 0.15s ease;
+                    pointer-events: none;
+                }
+                .nav-collapse.open .nav-content {
+                    opacity: 1;
+                    transition: opacity 0.3s ease 0.12s;
+                    pointer-events: auto;
                 }
                 .nav-link {
+                    position: relative;
                     font-size: 1.75rem;
                     font-weight: 500;
                     letter-spacing: 0.1em;
                     text-transform: uppercase;
                     color: white;
                     text-decoration: none;
-                    transition: color 0.25s ease, transform 0.25s ease, letter-spacing 0.25s ease, opacity 0.25s ease;
+                    transition: color 0.22s ease;
                     display: inline-block;
                 }
-                .nav-link:hover {
-                    color: rgba(255,255,255,0.5);
-                    opacity: 0.7;
-                    transform: translateX(6px) scale(1.04);
-                    letter-spacing: 0.15em;
+                .nav-link::after {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    right: 0.1em;
+                    bottom: -0.35rem;
+                    height: 1px;
+                    background: currentColor;
+                    transform: scaleX(0);
+                    transform-origin: right;
+                    opacity: 0.65;
+                    transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
                 }
-                .nav-link.active { color: #AF352B; letter-spacing: 0.25em; }
-                .nav-link.active:hover { color: #c94038; transform: translateX(6px) scale(1.04); }
-                .nav-icon {
+                .nav-link:hover { color: rgba(255,255,255,0.72); }
+                .nav-link:hover::after,
+                .nav-link.active::after {
+                    transform: scaleX(1);
+                    transform-origin: left;
+                }
+                .nav-link.active { color: #AF352B; }
+                .nav-toggle {
                     width: 2rem;
                     height: 2rem;
                     display: flex;
@@ -131,11 +151,11 @@ export default function Navbar({ variant = 'solid', theme = 'dark' }: NavbarProp
                     padding: 0;
                     transition: opacity 0.2s ease;
                 }
-                .nav-icon:hover { opacity: 0.6; }
-                .nav-icon svg {
-                    transition: transform 0.45s ease;
+                .nav-toggle:hover { opacity: 0.6; }
+                .nav-toggle svg {
+                    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
                 }
-                .nav-icon.open svg {
+                .nav-toggle.open svg {
                     transform: rotate(45deg);
                 }
                 .nav-socials {
@@ -144,8 +164,8 @@ export default function Navbar({ variant = 'solid', theme = 'dark' }: NavbarProp
                     justify-content: center;
                     flex-wrap: wrap;
                     gap: 1rem;
-                    padding-top: 1.5rem;
-                    margin-top: 0.5rem;
+                    padding-top: 1.25rem;
+                    margin-top: 0.25rem;
                     border-top: 1px solid rgba(255,255,255,0.12);
                     width: 100%;
                 }
@@ -164,44 +184,21 @@ export default function Navbar({ variant = 'solid', theme = 'dark' }: NavbarProp
                 .nav-social-link:hover {
                     background: #943B2D;
                     border-color: #943B2D;
-                    color: white;
                     transform: scale(1.1);
-                }
-                .nav-social-link:active {
-                    transform: scale(0.95);
-                }
-                .nav-social-link-mini {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 1.75rem;
-                    height: 1.75rem;
-                    border-radius: 50%;
-                    background: rgba(255,255,255,0.05);
-                    border: 1px solid rgba(255,255,255,0.1);
-                    color: white;
-                    transition: all 0.3s ease;
-                }
-                .nav-social-link-mini:hover {
-                    background: #943B2D;
-                    border-color: #943B2D;
-                    color: white;
-                    transform: translateY(-2px);
                 }
             `}</style>
 
-            <div className="nav-pill">
-                <div className={`nav-container ${isOpen ? 'open' : ''} ${isTransparent ? 'transparent' : ''}`}>
-                    {/* Top bar — row 1, always 56px */}
+            <div className="nav-wrap">
+                <div className={`nav-pill ${isTransparent ? 'transparent' : ''}`}>
                     <div className="nav-top">
                         <Link href="/" onClick={() => isOpen && setIsOpen(false)}>
                             <div style={{ width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <Image src="/emblem.png" alt="J. Worra" width={32} height={32} style={{ objectFit: 'contain' }} />
+                                <Image src="/emblem.png" alt="J. Worra" width={32} height={32} style={{ objectFit: 'contain', width: 'clamp(28px, 3.5vw, 40px)', height: 'clamp(28px, 3.5vw, 40px)' }} />
                             </div>
                         </Link>
 
                         <button
-                            className={`nav-icon ${isOpen ? 'open' : ''}`}
+                            className={`nav-toggle ${isOpen ? 'open' : ''}`}
                             onClick={() => setIsOpen(v => !v)}
                             aria-label={isOpen ? 'Close menu' : 'Open menu'}
                         >
@@ -212,55 +209,43 @@ export default function Navbar({ variant = 'solid', theme = 'dark' }: NavbarProp
                         </button>
                     </div>
 
-                    {/* Nav body — row 2, expands from 0fr to 1fr */}
-                    <div className="nav-body">
-                        <div className="nav-links">
-                            {navItems.map((item) => {
-                                const isActive = pathname === item.href;
-                                return (
-                                    <Link
-                                        key={item.href}
-                                        href={item.href}
-                                        onClick={() => setIsOpen(false)}
-                                        className={`nav-link ${isActive ? 'active' : ''}`}
-                                        style={{
-                                            transition: 'transform 0.4s ease, opacity 0.4s ease',
-                                            transform: isOpen ? 'translateY(0)' : 'translateY(12px)',
-                                            opacity: isOpen ? 1 : 0,
-                                        }}
-                                    >
-                                        {item.label}
-                                    </Link>
-                                );
-                            })}
+                    <div className={`nav-collapse ${isOpen ? 'open' : ''}`}>
+                        <div className="nav-collapse-inner">
+                            <div className="nav-content">
+                                {navItems.map((item) => {
+                                    const isActive = pathname === item.href;
+                                    return (
+                                        <Link
+                                            key={item.href}
+                                            href={item.href}
+                                            onClick={() => setIsOpen(false)}
+                                            className={`nav-link ${isActive ? 'active' : ''}`}
+                                        >
+                                            {item.label}
+                                        </Link>
+                                    );
+                                })}
 
-                            {/* Social icons */}
-                            <div
-                                className="nav-socials"
-                                style={{
-                                    transition: 'transform 0.4s ease 0.05s, opacity 0.4s ease 0.05s',
-                                    transform: isOpen ? 'translateY(0)' : 'translateY(12px)',
-                                    opacity: isOpen ? 1 : 0,
-                                }}
-                            >
-                                <a href="https://www.instagram.com/jworra/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="nav-social-link">
-                                    <FaInstagram size={14} />
-                                </a>
-                                <a href="https://www.tiktok.com/@jworra?lang=en" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="nav-social-link">
-                                    <FaTiktok size={14} />
-                                </a>
-                                <a href="https://twitter.com/JWorra" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="nav-social-link">
-                                    <FaTwitter size={14} />
-                                </a>
-                                <a href="https://open.spotify.com/artist/4q0N3EI67tVnAeeaXbNQIj" target="_blank" rel="noopener noreferrer" aria-label="Spotify" className="nav-social-link">
-                                    <FaSpotify size={14} />
-                                </a>
-                                <a href="https://music.apple.com/us/artist/j-worra/964744411" target="_blank" rel="noopener noreferrer" aria-label="Apple Music" className="nav-social-link">
-                                    <FaApple size={14} />
-                                </a>
-                                <a href="https://www.youtube.com/channel/UCKbul9QRhCawR1CsEFcKDtA" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="nav-social-link">
-                                    <FaYoutube size={14} />
-                                </a>
+                                <div className="nav-socials">
+                                    <a href="https://www.instagram.com/jworra/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="nav-social-link">
+                                        <FaInstagram size={14} />
+                                    </a>
+                                    <a href="https://www.tiktok.com/@jworra?lang=en" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="nav-social-link">
+                                        <FaTiktok size={14} />
+                                    </a>
+                                    <a href="https://twitter.com/JWorra" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="nav-social-link">
+                                        <FaTwitter size={14} />
+                                    </a>
+                                    <a href="https://open.spotify.com/artist/4q0N3EI67tVnAeeaXbNQIj" target="_blank" rel="noopener noreferrer" aria-label="Spotify" className="nav-social-link">
+                                        <FaSpotify size={14} />
+                                    </a>
+                                    <a href="https://music.apple.com/us/artist/j-worra/964744411" target="_blank" rel="noopener noreferrer" aria-label="Apple Music" className="nav-social-link">
+                                        <FaApple size={14} />
+                                    </a>
+                                    <a href="https://www.youtube.com/channel/UCKbul9QRhCawR1CsEFcKDtA" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="nav-social-link">
+                                        <FaYoutube size={14} />
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

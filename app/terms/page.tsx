@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import PageLayout from "@/components/page-layout";
 import { Metadata } from "next";
 
@@ -39,7 +40,7 @@ export default function TermsPage() {
           <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
             <h2 className="font-heading text-2xl font-bold text-white mb-6">Terms of Service</h2>
             <p className="mb-4">
-              Welcome to J. Worra's official website. These Terms of Service ("Terms") govern your use of our website and services operated by J. Worra ("we," "us," or "our").
+              Welcome to J. Worra&apos;s official website. These Terms of Service (&quot;Terms&quot;) govern your use of our website and services operated by J. Worra (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;).
             </p>
             <p>
               By accessing or using our website, you agree to be bound by these Terms. If you disagree with any part of these terms, then you may not access the website.
@@ -49,7 +50,7 @@ export default function TermsPage() {
           <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
             <h2 className="font-heading text-2xl font-bold text-white mb-6">Use License</h2>
             <p className="mb-4">
-              Permission is granted to temporarily download one copy of the materials on J. Worra's website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
+              Permission is granted to temporarily download one copy of the materials on J. Worra&apos;s website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
             </p>
             <ul className="list-disc list-inside space-y-2 mb-6 text-white/70">
               <li>modify or copy the materials</li>

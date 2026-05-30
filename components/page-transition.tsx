@@ -40,8 +40,8 @@ export default function PageTransition({ children }: PageTransitionProps) {
   // Scroll to top on route change with View Transitions API
   useEffect(() => {
     // Check if View Transitions API is supported
-    if ('startViewTransition' in document) {
-      (document as any).startViewTransition(() => {
+    if (document.startViewTransition) {
+      document.startViewTransition(() => {
         if (lenisRef.current) {
           lenisRef.current.scrollTo(0, { immediate: true });
         }

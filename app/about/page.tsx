@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { FaApple, FaInstagram, FaSoundcloud, FaSpotify, FaTwitter, FaTiktok, FaYoutube } from "react-icons/fa";
@@ -202,12 +201,14 @@ export default function AboutPage() {
           margin-bottom: 0.4rem;
         }
         .contact-email {
+          display: block;
           font-size: 0.85rem;
           color: rgba(255,255,255,0.45);
           text-decoration: none;
           transition: color 0.25s ease;
           word-break: break-all;
         }
+        .contact-email + .contact-email { margin-top: 0.25rem; }
         .contact-email:hover { color: #943B2D; }
 
 
@@ -302,11 +303,11 @@ export default function AboutPage() {
         <div className="about-right">
 
           {/* Bio */}
-          <div className="section-label">// biography</div>
+          <div className="section-label">Biography</div>
           <h2 className="section-heading">Authentic voice.<br />Underground roots.</h2>
           <div className="bio-body">
             <p>
-              Jamie Sitter, better known as J. Worra, is a Chicago native now thriving as a DJ and producer in Los Angeles. Fusing classic house with modern tech, she's become a standout in the dance music underground — renowned for her innovative production, technical skills, and a unique swagger that bridges creative ventures in fashion and art.
+              Jamie Sitter, better known as J. Worra, is a Chicago native now thriving as a DJ and producer in Los Angeles. Fusing classic house with modern tech, she&apos;s become a standout in the dance music underground — renowned for her innovative production, technical skills, and a unique swagger that bridges creative ventures in fashion and art.
             </p>
             <p>
               DJ Mag recognized her as the 2019 Breakthrough Music Producer of the Year. She has released on acclaimed labels including Never Worry Records, Higher Ground, Sink or Swim, Club Sweat, and Realm Records — and her remixes for GRiZ, Gryffin, Gorgon City, Kaskade, deadmau5, and Sidepiece have further cemented her as a sought-after talent.
@@ -321,19 +322,19 @@ export default function AboutPage() {
           {/* Credits */}
           <div className="credits-grid">
             <div>
-              <div className="credits-heading">// labels</div>
+              <div className="credits-heading">Labels</div>
               <ul className="credits-list">
                 {labels.map(l => <li key={l}>{l}</li>)}
               </ul>
             </div>
             <div>
-              <div className="credits-heading">// remixes for</div>
+              <div className="credits-heading">Remixes for</div>
               <ul className="credits-list">
                 {remixes.map(r => <li key={r}>{r}</li>)}
               </ul>
             </div>
             <div>
-              <div className="credits-heading">// festivals</div>
+              <div className="credits-heading">Festivals</div>
               <ul className="credits-list">
                 {festivals.map(f => <li key={f}>{f}</li>)}
               </ul>
@@ -345,13 +346,16 @@ export default function AboutPage() {
           {/* Contact */}
           <div className="contact-row">
             <div>
-              <div className="contact-label">// management</div>
+              <div className="contact-label">Management</div>
               <a href="mailto:jworramgmt@milkhoneyla.com" className="contact-email">
                 jworramgmt@milkhoneyla.com
               </a>
             </div>
             <div>
-              <div className="contact-label">// bookings</div>
+              <div className="contact-label">Bookings</div>
+              <a href="mailto:shaq.milli@unitedtalent.com" className="contact-email">
+                shaq.milli@unitedtalent.com
+              </a>
               <a href="mailto:marissa.loil@unitedtalent.com" className="contact-email">
                 marissa.loil@unitedtalent.com
               </a>
@@ -359,7 +363,7 @@ export default function AboutPage() {
           </div>
 
           {/* Socials */}
-          <div className="section-label" style={{ marginBottom: '0.75rem' }}>// follow</div>
+          <div className="section-label" style={{ marginBottom: '0.75rem' }}>Follow</div>
           <div className="social-row">
             <a href="https://instagram.com/jworra" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="social-btn"><FaInstagram size={12} /></a>
             <a href="https://www.tiktok.com/@jworra" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="social-btn"><FaTiktok size={12} /></a>

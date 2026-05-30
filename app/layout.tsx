@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat, Open_Sans } from "next/font/google";
-import localFont from "next/font/local";
 import "./globals.css";
-import LoadingScreen from "@/components/loading-screen";
 import SmoothScroll from "@/components/smooth-scroll";
-import Navbar from "@/components/navbar";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -115,6 +112,11 @@ export default function RootLayout({
       {
         '@type': 'ContactPoint',
         contactType: 'Bookings',
+        email: 'shaq.milli@unitedtalent.com',
+      },
+      {
+        '@type': 'ContactPoint',
+        contactType: 'Bookings',
         email: 'marissa.loil@unitedtalent.com',
       },
     ],
@@ -209,8 +211,6 @@ export default function RootLayout({
           ></iframe>
         </noscript>
         <SmoothScroll />
-        <LoadingScreen />
-        <Navbar variant="transparent" />
         {children}
       </body>
     </html>

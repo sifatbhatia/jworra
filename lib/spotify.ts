@@ -3,9 +3,9 @@ const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 // Note: In Next.js static export ('output: export'), these env vars are evaluated at BUILD TIME.
 // Ensure they are present in your Netlify build settings.
 
-const basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
 const ARTIST_ID = '4q0N3EI67tVnAeeaXbNQIj'; // J. Worra's Spotify Artist ID
+const ARTIST_URL = `https://open.spotify.com/artist/${ARTIST_ID}`;
 
 interface SpotifyToken {
   access_token: string;
@@ -35,10 +35,36 @@ interface SpotifyArtistAlbumsResponse {
   offset: number;
 }
 
-async function getAccessToken(): Promise<string> {
+const FALLBACK_ALBUMS: SpotifyAlbum[] = [
+  {
+    id: 'fallback-latest-releases',
+    name: 'Latest Releases',
+    images: [{ url: '/emblem.png', height: 1200, width: 1200 }],
+    release_date: '2026-01-01',
+    album_type: 'single',
+    total_tracks: 1,
+    external_urls: {
+      spotify: ARTIST_URL,
+    },
+    artists: [{ name: 'J. Worra' }],
+  },
+  {
+    id: 'fallback-singles-remixes',
+    name: 'Singles and Remixes',
+    images: [{ url: '/emblem.png', height: 1200, width: 1200 }],
+    release_date: '2025-01-01',
+    album_type: 'single',
+    total_tracks: 1,
+    external_urls: {
+      spotify: ARTIST_URL,
+    },
+    artists: [{ name: 'J. Worra' }],
+  },
+];
+
+async function getAccessToken(): Promise<string | null> {
   if (!client_id || !client_secret) {
-    console.error('Missing Spotify Client ID or Secret');
-    throw new Error('Missing Spotify credentials');
+    return null;
   }
 
   const basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
@@ -62,8 +88,15 @@ async function getAccessToken(): Promise<string> {
 }
 
 export async function getArtistAlbums(limit = 50) {
+  if (!client_id || !client_secret) {
+    return FALLBACK_ALBUMS.slice(0, limit);
+  }
+
   try {
     const access_token = await getAccessToken();
+    if (!access_token) {
+      return FALLBACK_ALBUMS.slice(0, limit);
+    }
 
     const response = await fetch(
       `https://api.spotify.com/v1/artists/${ARTIST_ID}/albums?include_groups=album,single&market=US&limit=${limit}`,
@@ -89,14 +122,21 @@ export async function getArtistAlbums(limit = 50) {
       new Date(b.release_date).getTime() - new Date(a.release_date).getTime()
     );
   } catch (error) {
-    console.error('[Build] Error fetching Spotify data:', error);
-    return [];
+    console.warn('[Build] Using fallback Spotify releases:', error);
+    return FALLBACK_ALBUMS.slice(0, limit);
   }
 }
 
 export async function getArtistTopTracks() {
+  if (!client_id || !client_secret) {
+    return [];
+  }
+
   try {
     const access_token = await getAccessToken();
+    if (!access_token) {
+      return [];
+    }
 
     const response = await fetch(
       `https://api.spotify.com/v1/artists/${ARTIST_ID}/top-tracks?market=US`,

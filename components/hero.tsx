@@ -2,28 +2,39 @@
 
 import { FaInstagram, FaTiktok, FaSpotify, FaApple, FaYoutube, FaTwitter, FaArrowRight } from "react-icons/fa";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Hero() {
   const [loaded, setLoaded] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    // If loading screen already completed (e.g. navigating back to home), start immediately
-    if ((window as any).__loadingComplete) {
-      setLoaded(true);
-      return;
+    const readyTimeout = setTimeout(() => setLoaded(true), 80);
+    return () => clearTimeout(readyTimeout);
+  }, []);
+
+  const restartVideo = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.currentTime = 0;
+    void video.play();
+  };
+
+  const preventLoopGap = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (!video.duration || video.duration < 1) return;
+    if (video.currentTime >= video.duration - 0.4) {
+      video.currentTime = 0;
     }
+  };
 
-    // Otherwise wait for the loading screen to finish
-    const handleLoadingComplete = () => {
-      setTimeout(() => setLoaded(true), 200);
-    };
-
-    window.addEventListener('loadingComplete', handleLoadingComplete);
-
-    return () => {
-      window.removeEventListener('loadingComplete', handleLoadingComplete);
-    };
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const handleEnded = () => { video.currentTime = 0; void video.play(); };
+    video.addEventListener('ended', handleEnded);
+    return () => video.removeEventListener('ended', handleEnded);
   }, []);
 
   return (
@@ -33,12 +44,16 @@ export default function Hero() {
         {/* Video Background with Scale Animation */}
         <div className={`absolute inset-0 transition-transform duration-[2000ms] ease-out will-change-transform ${loaded ? 'scale-100' : 'scale-110'}`}>
           <video
+            ref={videoRef}
             className="hero-video absolute inset-0 h-full w-full object-cover opacity-90"
             autoPlay
             loop
             muted
             playsInline
             preload="auto"
+            onLoadedMetadata={() => {
+              videoRef.current?.play().catch(() => undefined);
+            }}
           >
             <source src="/hero-bg.webm" type="video/webm" />
             <source src="/hero-bg.mov" type="video/quicktime" />
@@ -82,13 +97,14 @@ export default function Hero() {
                 }
                 /* Main white logo */
                 .logo-main {
-                  background-color: rgba(255, 255, 255, 0.9);
-                  filter: drop-shadow(0 0 20px rgba(255,255,255,0.3));
+                  background-color: rgba(255, 255, 255, 0.55);
+                  filter: drop-shadow(0 0 30px rgba(255,255,255,0.2));
                   transition: filter 0.4s ease;
                   overflow: hidden;
                 }
                 .logo-wrap:hover .logo-main {
-                  filter: drop-shadow(0 0 40px rgba(255,255,255,0.6)) drop-shadow(0 0 80px rgba(148, 59, 45, 0.4));
+                  background-color: rgba(255, 255, 255, 0.7);
+                  filter: drop-shadow(0 0 40px rgba(255,255,255,0.4)) drop-shadow(0 0 80px rgba(148, 59, 45, 0.3));
                 }
                 /* Shimmer sweep */
                 .logo-main::after {
@@ -135,6 +151,21 @@ export default function Hero() {
                   opacity: 1;
                   transform: translate(-6px, 2px);
                 }
+                @media (prefers-reduced-motion: reduce) {
+                  .logo-main::after {
+                    display: none;
+                  }
+                  .logo-layer,
+                  .logo-main,
+                  .logo-chroma {
+                    transition: none;
+                  }
+                  .logo-wrap:hover .logo-chroma-r,
+                  .logo-wrap:hover .logo-chroma-c {
+                    opacity: 0;
+                    transform: none;
+                  }
+                }
               `}</style>
 
               <div className="logo-wrap">
@@ -160,7 +191,7 @@ export default function Hero() {
                 { href: "https://open.spotify.com/artist/4q0N3EI67tVnAeeaXbNQIj", icon: FaSpotify, label: "Spotify" },
                 { href: "https://music.apple.com/us/artist/j-worra/964744411", icon: FaApple, label: "Apple Music" },
                 { href: "https://www.youtube.com/channel/UCKbul9QRhCawR1CsEFcKDtA", icon: FaYoutube, label: "YouTube" }
-              ].map((item, i) => (
+              ].map((item) => (
                 <li key={item.label}>
                   <a
                     href={item.href}
@@ -177,7 +208,7 @@ export default function Hero() {
 
             {/* CTA Button - Stagger 4 (Restored Absolute Position) */}
             <div
-              className={`absolute bottom-8 right-8 z-20 transition-all duration-[1200ms] delay-500 cubic-bezier(0.2, 0.8, 0.2, 1)
+              className={`absolute bottom-8 right-4 sm:right-8 z-20 transition-all duration-[1200ms] delay-500 cubic-bezier(0.2, 0.8, 0.2, 1)
               ${loaded ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}
             `}
             >

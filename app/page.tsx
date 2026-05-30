@@ -16,6 +16,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
+      <Navbar variant="transparent" />
       {/* Section 1: Intro Section with Video Background */}
       <Hero />
       <Footer />

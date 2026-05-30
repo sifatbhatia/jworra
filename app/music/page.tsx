@@ -1,11 +1,10 @@
 
 import { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import { formatReleaseDate, getAlbumTypeLabel, getArtistAlbums } from "@/lib/spotify";
-import { FaApple, FaExternalLinkAlt, FaPlay, FaSoundcloud, FaSpotify, FaTwitter, FaTiktok, FaYoutube } from "react-icons/fa";
+import { getArtistAlbums } from "@/lib/spotify";
+import { FaApple, FaPlay, FaSoundcloud, FaSpotify, FaYoutube } from "react-icons/fa";
 import { SiBeatport } from "react-icons/si";
 
 // export const dynamic = 'force-static'; // Default is static for output: export
@@ -301,7 +300,7 @@ export default async function MusicPage() {
           <div className="split-left-gradient" />
 
           <div className="split-left-content">
-            <p className="eyebrow anim-fade-up anim-delay-1">// LATEST RELEASE</p>
+            <p className="eyebrow anim-fade-up anim-delay-1">Latest release</p>
             <h1 className="main-heading anim-fade-up anim-delay-2">{latest?.name || "Music"}</h1>
             <div className="flex gap-4 items-center anim-fade-up anim-delay-3">
               <a
@@ -319,7 +318,7 @@ export default async function MusicPage() {
         {/* Right Column (Scrollable Content) */}
         <div className="split-right">
 
-          <div className="section-label">// DISCOGRAPHY</div>
+          <div className="section-label">Discography</div>
 
           <div className="release-grid">
             {releases.map((release) => (
@@ -358,7 +357,7 @@ export default async function MusicPage() {
           <div className="divider" />
 
           {/* Socials / Platforms */}
-          <div className="section-label">// AVAILABLE ON</div>
+          <div className="section-label">Available on</div>
           <div className="social-row">
             <a href="https://open.spotify.com/artist/4q0N3EI67tVnAeeaXbNQIj" target="_blank" rel="noopener noreferrer" aria-label="Spotify" className="social-btn"><FaSpotify size={18} /></a>
             <a href="https://music.apple.com/us/artist/j-worra/964744411" target="_blank" rel="noopener noreferrer" aria-label="Apple Music" className="social-btn"><FaApple size={18} /></a>

@@ -1,7 +1,7 @@
-
-import PageLayout from "@/components/page-layout";
+import Footer from "@/components/footer";
+import Navbar from "@/components/navbar";
 import { Metadata } from "next";
-import { FaSpotify, FaApple, FaSoundcloud, FaInstagram, FaTwitter, FaYoutube, FaTiktok } from "react-icons/fa";
+import { FaApple, FaInstagram, FaSoundcloud, FaSpotify, FaTiktok, FaTwitter, FaYoutube } from "react-icons/fa";
 import { SiBeatport } from "react-icons/si";
 
 export const metadata: Metadata = {
@@ -13,97 +13,283 @@ export const metadata: Metadata = {
   },
 };
 
+const socialLinks = [
+  { label: "Instagram", url: "https://instagram.com/jworra", icon: FaInstagram },
+  { label: "Spotify", url: "https://open.spotify.com/artist/4q0N3EI67tVnAeeaXbNQIj", icon: FaSpotify },
+  { label: "SoundCloud", url: "https://soundcloud.com/jworra", icon: FaSoundcloud },
+  { label: "Apple Music", url: "https://music.apple.com/us/artist/j-worra/964744411", icon: FaApple },
+  { label: "TikTok", url: "https://www.tiktok.com/@jworra", icon: FaTiktok },
+  { label: "X", url: "https://twitter.com/JWorra", icon: FaTwitter },
+  { label: "YouTube", url: "https://www.youtube.com/channel/UCKbul9QRhCawR1CsEFcKDtA", icon: FaYoutube },
+  { label: "Beatport", url: "https://www.beatport.com/artist/j-worra/564016", icon: SiBeatport },
+];
+
 export default function ContactPage() {
   return (
-    <PageLayout
-      title="Contact"
-      subtitle="Get in touch"
-      theme="dark"
-      backgroundPattern="none"
-    >
-      <div className="min-h-[60vh] flex flex-col items-center justify-center w-full max-w-5xl mx-auto px-4 sm:px-6">
+    <div className="contact-page">
+      <style>{`
+        .contact-page {
+          min-height: 100vh;
+          color: white;
+          background:
+            radial-gradient(circle at 15% 18%, rgba(148,59,45,0.24), transparent 28rem),
+            radial-gradient(circle at 88% 8%, rgba(255,255,255,0.08), transparent 24rem),
+            #050505;
+          overflow-x: hidden;
+        }
 
-        {/* Main Grid: Management & Bookings */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-full mb-24">
+        .contact-main {
+          min-height: 100svh;
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 2rem;
+          padding: 7.5rem 1.25rem 4rem;
+        }
 
-          {/* Management */}
-          <div className="flex flex-col items-center text-center space-y-4">
-            <span className="font-label text-white/40 block tracking-widest">// MANAGEMENT</span>
-            <div className="space-y-1">
-              <h3 className="font-heading text-3xl sm:text-4xl text-white">Milk & Honey</h3>
-              <a
-                href="mailto:jworramgmt@milkhoneyla.com"
-                className="block text-[3.5vw] sm:text-[2vw] lg:text-2xl text-white/60 hover:text-[#943B2D] transition-colors duration-300 font-light border-b border-transparent hover:border-[#943B2D]/40 pb-1 whitespace-nowrap"
-              >
-                jworramgmt@milkhoneyla.com
+        @media (min-width: 960px) {
+          .contact-main {
+            grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+            align-items: end;
+            padding: 8rem clamp(2rem, 4vw, 4rem) 5rem;
+          }
+        }
+
+        .contact-hero {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          min-height: 42svh;
+        }
+
+        .contact-label,
+        .contact-meta,
+        .contact-small {
+          font-family: 'Courier New', monospace;
+          font-size: 0.65rem;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+        }
+
+        .contact-label {
+          color: rgba(255,255,255,0.38);
+        }
+
+        .contact-title {
+          margin-top: 1rem;
+          font-family: 'Terminal Grotesque', sans-serif;
+          font-size: clamp(4.2rem, 14vw, 11rem);
+          line-height: 0.96;
+          text-transform: uppercase;
+          color: white;
+        }
+
+        .contact-title span {
+          color: #943B2D;
+        }
+
+        .contact-note {
+          max-width: 34rem;
+          margin-top: 1.4rem;
+          color: rgba(255,255,255,0.58);
+          font-size: clamp(1rem, 1.4vw, 1.1rem);
+          line-height: 1.45;
+        }
+
+        .contact-board {
+          display: grid;
+          gap: 1rem;
+        }
+
+        .contact-card {
+          border-top: 1px solid rgba(255,255,255,0.14);
+          padding: 1.35rem 0 1.1rem;
+        }
+
+        .contact-card:first-child {
+          border-top-color: rgba(255,255,255,0.28);
+        }
+
+        .contact-card-head {
+          display: flex;
+          align-items: baseline;
+          justify-content: space-between;
+          gap: 1rem;
+          margin-bottom: 0.85rem;
+        }
+
+        .contact-card h2 {
+          font-family: 'Terminal Grotesque', sans-serif;
+          font-size: clamp(2.4rem, 5vw, 4.5rem);
+          line-height: 0.86;
+          text-transform: uppercase;
+        }
+
+        .contact-meta {
+          color: rgba(255,255,255,0.32);
+          white-space: nowrap;
+        }
+
+        .contact-email {
+          display: block;
+          width: fit-content;
+          max-width: 100%;
+          color: rgba(255,255,255,0.66);
+          font-size: clamp(1rem, 2vw, 1.35rem);
+          line-height: 1.45;
+          text-decoration: none;
+          overflow-wrap: anywhere;
+          transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .contact-email + .contact-email {
+          margin-top: 0.35rem;
+        }
+
+        .contact-email:hover {
+          color: #ff6b5f;
+          transform: translateX(0.3rem);
+        }
+
+        .dialogxe-contact {
+          color: rgba(255,255,255,0.58);
+          line-height: 1.6;
+        }
+
+        .dialogxe-contact a {
+          color: white;
+          text-decoration: underline;
+          text-underline-offset: 0.25rem;
+          text-decoration-thickness: 1px;
+        }
+
+        .social-strip {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 0.75rem;
+          margin-top: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+          .social-strip {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+          }
+        }
+
+        .social-link {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 0.75rem;
+          min-height: 3.25rem;
+          padding: 0.8rem 0.95rem;
+          border: 1px solid rgba(255,255,255,0.09);
+          color: rgba(255,255,255,0.62);
+          background: rgba(255,255,255,0.035);
+          text-decoration: none;
+          transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+        }
+
+        .social-link:hover {
+          color: white;
+          border-color: #943B2D;
+          background: rgba(148,59,45,0.62);
+          transform: translateY(-2px);
+        }
+
+        .contact-small {
+          font-size: 0.58rem;
+          letter-spacing: 0.16em;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .contact-email,
+          .social-link {
+            transition: none;
+          }
+          .contact-email:hover,
+          .social-link:hover {
+            transform: none;
+          }
+        }
+      `}</style>
+
+      <Navbar variant="solid" theme="dark" />
+
+      <main className="contact-main">
+        <section className="contact-hero" aria-labelledby="contact-title">
+          <p className="contact-label">Contact</p>
+          <h1 id="contact-title" className="contact-title">
+            Get<br />
+            <span>in</span> touch
+          </h1>
+          <p className="contact-note">
+            Management, bookings, label, and socials.
+          </p>
+        </section>
+
+        <section className="contact-board" aria-label="Contact directory">
+          <div className="contact-card">
+            <div className="contact-card-head">
+              <h2>Management</h2>
+              <span className="contact-meta">Milk & Honey</span>
+            </div>
+            <a href="mailto:jworramgmt@milkhoneyla.com" className="contact-email">
+              jworramgmt@milkhoneyla.com
+            </a>
+          </div>
+
+          <div className="contact-card">
+            <div className="contact-card-head">
+              <h2>Bookings</h2>
+              <span className="contact-meta">United Talent</span>
+            </div>
+            <a href="mailto:shaq.milli@unitedtalent.com" className="contact-email">
+              shaq.milli@unitedtalent.com
+            </a>
+            <a href="mailto:marissa.loil@unitedtalent.com" className="contact-email">
+              marissa.loil@unitedtalent.com
+            </a>
+          </div>
+
+          <div className="contact-card">
+            <div className="contact-card-head">
+              <h2>Dialogxe</h2>
+              <span className="contact-meta">Label</span>
+            </div>
+            <p className="dialogxe-contact">
+              Label updates live at{" "}
+              <a href="https://instagram.com/dialogxe" target="_blank" rel="noopener noreferrer">
+                @dialogxe
               </a>
+              .
+            </p>
+          </div>
+
+          <div className="contact-card">
+            <div className="contact-card-head">
+              <h2>Socials</h2>
+              <span className="contact-meta">J. Worra</span>
+            </div>
+            <div className="social-strip">
+              {socialLinks.map(({ label, url, icon: Icon }) => (
+                <a
+                  key={label}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-link"
+                  aria-label={label}
+                >
+                  <span className="contact-small">{label}</span>
+                  <Icon size={16} />
+                </a>
+              ))}
             </div>
           </div>
+        </section>
+      </main>
 
-          {/* Bookings */}
-          <div className="flex flex-col items-center text-center space-y-4">
-            <span className="font-label text-white/40 block tracking-widest">// BOOKINGS</span>
-            <div className="space-y-1">
-              <h3 className="font-heading text-3xl sm:text-4xl text-white">United Talent</h3>
-              <a
-                href="mailto:marissa.loil@unitedtalent.com"
-                className="block text-[3.5vw] sm:text-[2vw] lg:text-2xl text-white/60 hover:text-[#943B2D] transition-colors duration-300 font-light border-b border-transparent hover:border-[#943B2D]/40 pb-1 whitespace-nowrap"
-              >
-                marissa.loil@unitedtalent.com
-              </a>
-            </div>
-          </div>
-
-
-          {/* Dialogxe Label */}
-          <div className="col-span-1 md:col-span-2 flex flex-col items-center text-center space-y-4 mt-8 md:mt-0">
-            <span className="font-label text-white/40 block tracking-widest">// DIALOGXE LABEL</span>
-            <div className="space-y-2 max-w-lg">
-              <h3 className="font-heading text-3xl text-white">Inquiries</h3>
-              <p className="text-white/60 font-light leading-relaxed">
-                For demos and label inquiries, reach out via official channels.<br />
-                Follow <a href="https://instagram.com/dialogxe" className="text-white hover:underline decoration-1 underline-offset-4 transition-all">@dialogxe</a> for updates.
-              </p>
-            </div>
-          </div>
-
-        </div>
-
-        <div className="w-full h-px bg-white/10 mb-16 max-w-2xl" />
-
-        {/* Social Directory */}
-        <div className="w-full max-w-4xl">
-          <div className="text-center mb-10">
-            <span className="font-label text-white/40 block tracking-widest mb-2">// FOLLOW J. WORRA</span>
-            <h2 className="font-heading text-4xl sm:text-5xl text-white">SOCIALS</h2>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
-            {[
-              { label: "INSTAGRAM", url: "https://instagram.com/jworra", icon: FaInstagram },
-              { label: "SPOTIFY", url: "https://open.spotify.com/artist/4q0N3EI67tVnAeeaXbNQIj", icon: FaSpotify },
-              { label: "SOUNDCLOUD", url: "https://soundcloud.com/jworra", icon: FaSoundcloud },
-              { label: "APPLE MUSIC", url: "https://music.apple.com/us/artist/j-worra/964744411", icon: FaApple },
-              { label: "TIKTOK", url: "https://www.tiktok.com/@jworra", icon: FaTiktok },
-              { label: "TWITTER", url: "https://twitter.com/JWorra", icon: FaTwitter },
-              { label: "YOUTUBE", url: "https://www.youtube.com/channel/UCKbul9QRhCawR1CsEFcKDtA", icon: FaYoutube },
-              { label: "BEATPORT", url: "https://www.beatport.com/artist/j-worra/123456", icon: SiBeatport },
-            ].map((social) => (
-              <a
-                key={social.label}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex flex-col items-center justify-center p-3 sm:p-6 border border-white/5 hover:border-[#943B2D] bg-white/5 hover:bg-[#943B2D] backdrop-blur-sm transition-all duration-300 rounded-2xl hover:scale-[1.02]"
-              >
-                <social.icon size={24} className="text-white/40 group-hover:text-white mb-2 sm:mb-3 transition-colors duration-300" />
-                <span className="font-label text-[10px] tracking-wide sm:tracking-widest text-white/60 group-hover:text-white transition-colors duration-300 whitespace-nowrap">{social.label}</span>
-              </a>
-            ))}
-          </div>
-        </div>
-
-      </div>
-    </PageLayout>
+      <Footer />
+    </div>
   );
 }

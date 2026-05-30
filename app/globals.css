@@ -262,8 +262,11 @@ html.lenis body {
 
 .hero-video {
   filter: brightness(0.85) contrast(1.1) saturate(1.1);
-  animation: subtle-zoom 20s ease-in-out infinite;
-  will-change: transform;
+}
+
+/* Prevent layout shift from scrollbar disappearing — always show scrollbar */
+html {
+    overflow-y: scroll;
 }
 
 /* ── Custom Scrollbar ── */

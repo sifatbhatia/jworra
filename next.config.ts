@@ -18,6 +18,9 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   // Generate ETags for better caching
   generateEtags: true,
+  turbopack: {
+    root: process.cwd(),
+  },
 
   // Ensure proper transpilation for older browsers
   transpilePackages: ['lenis'],
