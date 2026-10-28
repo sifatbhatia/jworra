@@ -3,24 +3,6 @@
 import { FaInstagram, FaTiktok, FaSpotify, FaApple, FaYoutube, FaTwitter } from "react-icons/fa";
 import Link from "next/link";
 
-const ASCII_ART = `
-⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣶⣶⣾⣿⣿⣿⣿⣷⣶⣶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⣠⢔⣫⢷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣄⠀⠀⠀⠀⠀
-⠀⠀⠀⣠⢊⡴⡫⢚⡽⣟⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀
-⠀⠀⡴⣱⢫⢎⡔⡩⣚⠵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠀⠀
-⠀⣼⣽⣳⣣⢯⣞⡜⡱⣫⢷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀
-⢸⣿⣿⣿⣿⣿⣿⣾⡽⣱⣫⠞⠉⠀⠀⠀⠀⠉⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠃⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷
-⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠘⠃⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
-⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⢀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿
-⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣤⣀⣀⣀⣠⣴⢟⡵⣳⢯⢿⣿⡟⣿⣿⣿⣿⡇
-⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣞⡵⣫⢏⢞⡽⡽⣻⢯⡟⠀
-⠀⠀⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣚⢕⡡⢊⠜⡵⣣⠟⠀⠀
-⠀⠀⠀⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣯⢷⣫⢖⡥⢊⡴⠋⠀⠀⠀
-⠀⠀⠀⠀⠀⠙⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣞⣭⠞⠋⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠿⠿⢿⣿⣿⣿⣿⡿⠿⠟⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀
-`;
-
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -28,33 +10,6 @@ export default function Footer() {
   return (
     <footer className="relative overflow-hidden" style={{ background: '#050505', minHeight: '50vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
       <style>{`
-        .ascii-bg {
-          position: absolute;
-          inset: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          overflow: hidden;
-          pointer-events: none;
-          z-index: 0;
-        }
-        .ascii-bg pre {
-          font-family: 'Courier New', 'Consolas', monospace;
-          font-size: clamp(10px, 1.8vw, 22px);
-          line-height: 1.4;
-          color: rgba(255, 255, 255, 0.15);
-          white-space: pre;
-          text-align: center;
-          user-select: none;
-          letter-spacing: 0.05em;
-          animation: spin-disc 60s linear infinite;
-        }
-        @keyframes spin-disc {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-
-        /* Footer Logo Hover */
         .footer-logo-wrap {
           position: relative;
           width: 160px;
@@ -288,11 +243,6 @@ export default function Footer() {
         }
       `}</style>
 
-      {/* ASCII Art Background */}
-      <div className="ascii-bg">
-        <pre>{ASCII_ART}</pre>
-      </div>
-
       {/* Footer Content */}
       <div className="footer-inner">
         {/* Main Grid */}
@@ -300,7 +250,7 @@ export default function Footer() {
 
           {/* Brand Column */}
           <div>
-            <Link href="/">
+            <Link href="/" aria-label="J. Worra home">
               <div className="footer-logo-wrap">
                 <div className="footer-logo-layer footer-logo-chroma footer-logo-chroma-r" />
                 <div className="footer-logo-layer footer-logo-chroma footer-logo-chroma-c" />
@@ -369,12 +319,8 @@ export default function Footer() {
             <div className="footer-contact-block">
               <div className="footer-contact-label">Bookings</div>
               <div style={{ display: 'flex', gap: '0.3rem', flexWrap: 'wrap' }}>
-                <a href="mailto:shaq.milli@unitedtalent.com" className="footer-contact-email">
-                  shaq.milli@unitedtalent.com
-                </a>
-                <span style={{ color: 'rgba(255,255,255,0.2)' }}>/</span>
-                <a href="mailto:marissa.loil@unitedtalent.com" className="footer-contact-email">
-                  marissa.loil@unitedtalent.com
+                <a href="mailto:paul@thegongawaregroup.com" className="footer-contact-email">
+                  paul@thegongawaregroup.com
                 </a>
               </div>
             </div>

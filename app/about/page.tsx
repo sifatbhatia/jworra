@@ -6,7 +6,7 @@ import { FaApple, FaInstagram, FaSoundcloud, FaSpotify, FaTwitter, FaTiktok, FaY
 import { SiBeatport } from "react-icons/si";
 
 export const metadata: Metadata = {
-  title: "About | J. Worra",
+  title: "About",
   description: "Learn about J. Worra, DJ and producer from Chicago to LA. Recognized by DJ Mag as 2019 Breakthrough Music Producer.",
   alternates: {
     canonical: "https://jworra.com/about",
@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "About | J. Worra",
     description: "Learn about J. Worra, DJ and producer from Chicago to LA.",
+    images: ["/about.webp"],
   },
 };
 
@@ -63,17 +64,17 @@ export default function AboutPage() {
           height: 100%;
           object-fit: cover;
           object-position: center top;
-          filter: brightness(0.6) contrast(1.05);
+          filter: brightness(0.82) contrast(1.02);
         }
         .about-left-gradient {
           position: absolute;
           inset: 0;
           background: linear-gradient(
             to bottom,
-            rgba(8,8,8,0.1) 0%,
+            rgba(8,8,8,0.02) 0%,
             transparent 40%,
-            rgba(8,8,8,0.8) 85%,
-            rgba(8,8,8,1) 100%
+            rgba(8,8,8,0.42) 85%,
+            rgba(8,8,8,0.62) 100%
           );
         }
         .about-left-content {
@@ -286,7 +287,7 @@ export default function AboutPage() {
         {/* ── LEFT: Photo + overlaid text ── */}
         <div className="about-left">
           <Image
-            src="/about.webp"
+            src="/dialogxe-portrait.png"
             alt="J. Worra"
             fill
             className="about-left-img"
@@ -356,11 +357,8 @@ export default function AboutPage() {
             </div>
             <div>
               <div className="contact-label">Bookings</div>
-              <a href="mailto:shaq.milli@unitedtalent.com" className="contact-email">
-                shaq.milli@unitedtalent.com
-              </a>
-              <a href="mailto:marissa.loil@unitedtalent.com" className="contact-email">
-                marissa.loil@unitedtalent.com
+              <a href="mailto:paul@thegongawaregroup.com" className="contact-email">
+                paul@thegongawaregroup.com
               </a>
             </div>
           </div>

@@ -1,5 +1,7 @@
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
 const ARTIST_ID = '4q0N3EI67tVnAeeaXbNQIj';
+const ALBUMS_PAGE_LIMIT = 10;
+const MAX_ALBUMS = 40;
 const MAX_RETRIES = 5;
 const RETRY_DELAY_MS = 2000;
 
@@ -41,8 +43,21 @@ async function fetchWithRetry(url: string, options?: RequestInit, retries = MAX_
     try {
       const response = await fetch(url, options);
       if (response.ok) return response;
-      lastError = new Error(`Spotify API returned ${response.status} ${response.statusText}`);
+      let details = '';
+      try {
+        const body = await response.clone().json() as { error?: { message?: string } };
+        details = body.error?.message ? `: ${body.error.message}` : '';
+      } catch {
+        // Keep the status error useful even when Spotify does not return JSON.
+      }
+      lastError = new Error(`Spotify API returned ${response.status} ${response.statusText}${details}`);
       console.error(`[Spotify] Attempt ${attempt}/${retries} failed: ${response.status} ${response.statusText}`);
+
+      // Invalid requests will not succeed on retry. Only retry rate limits and
+      // transient server failures.
+      if (response.status >= 400 && response.status < 500 && response.status !== 429) {
+        break;
+      }
     } catch (e) {
       lastError = e instanceof Error ? e : new Error(String(e));
       console.error(`[Spotify] Attempt ${attempt}/${retries} failed:`, e instanceof Error ? e.message : e);
@@ -77,7 +92,7 @@ async function getAccessTokenWithRetry(): Promise<string | null> {
   return data.access_token;
 }
 
-export async function getArtistAlbums(limit = 50) {
+export async function getArtistAlbums() {
   try {
     const client_id = process.env.SPOTIFY_CLIENT_ID;
     const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
@@ -90,20 +105,29 @@ export async function getArtistAlbums(limit = 50) {
       return [];
     }
 
-    const response = await fetchWithRetry(
-      `https://api.spotify.com/v1/artists/${ARTIST_ID}/albums?include_groups=album,single&market=US&limit=${limit}`,
-      {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-        next: { revalidate: 3600 }
-      }
-    );
+    const albums: SpotifyAlbum[] = [];
 
-    const data: SpotifyArtistAlbumsResponse = await response.json();
-    return data.items.sort((a, b) =>
+    for (let offset = 0; albums.length < MAX_ALBUMS; ) {
+      const response = await fetchWithRetry(
+        `https://api.spotify.com/v1/artists/${ARTIST_ID}/albums?include_groups=album,single&market=US&limit=${ALBUMS_PAGE_LIMIT}&offset=${offset}`,
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+          next: { revalidate: 3600 }
+        }
+      );
+
+      const data: SpotifyArtistAlbumsResponse = await response.json();
+      albums.push(...data.items.slice(0, MAX_ALBUMS - albums.length));
+
+      if (data.items.length < ALBUMS_PAGE_LIMIT || albums.length >= data.total || albums.length >= MAX_ALBUMS) break;
+      offset += data.items.length;
+    }
+
+    return albums.sort((a, b) =>
       new Date(b.release_date).getTime() - new Date(a.release_date).getTime()
-    );
+    ).slice(0, MAX_ALBUMS);
   } catch (e) {
     console.error('[Spotify] getArtistAlbums failed, returning empty:', e instanceof Error ? e.message : e);
     return [];
@@ -111,6 +135,14 @@ export async function getArtistAlbums(limit = 50) {
 }
 
 export const ARTIST_URL = `https://api.spotify.com/v1/artists/${ARTIST_ID}`;
+
+export function getSpotifyImageUrl(url: string, size: 'small' | 'large' = 'large'): string {
+  if (size === 'small') {
+    return url.replace('ab67616d0000b273', 'ab67616d00001e02');
+  }
+
+  return url;
+}
 
 export function formatReleaseDate(dateStr: string): string {
   if (!dateStr) return '';

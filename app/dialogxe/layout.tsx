@@ -1,20 +1,20 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dialogxe Label",
-  description: "Dialogxe - Music 4 Dancing. Record label by J. Worra featuring house and techno releases. Follow on Instagram for updates.",
+  title: "Dialogxe",
+  description: "Dialogxe is an independent label shaped by J. Worra's taste, from her own releases to artists she believes in.",
   alternates: {
     canonical: "https://jworra.com/dialogxe",
   },
   openGraph: {
-    title: "Dialogxe Label | J. Worra",
-    description: "Dialogxe - Music 4 Dancing. Record label by J. Worra featuring house and techno releases.",
+    title: "Dialogxe | Music 4 Dancing by J. Worra",
+    description: "Dialogxe is an independent label shaped by J. Worra's taste, from her own releases to artists she believes in.",
     images: [
       {
-        url: "/dialogxe_R1.png",
-        width: 1200,
-        height: 630,
-        alt: "Dialogxe - Music 4 Dancing",
+        url: "/dialogxe-portrait.png",
+        width: 2358,
+        height: 2947,
+        alt: "J. Worra for Dialogxe",
       },
     ],
   },

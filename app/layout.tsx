@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Montserrat, Open_Sans } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/smooth-scroll";
@@ -39,9 +39,9 @@ export const metadata: Metadata = {
     siteName: "J. Worra",
     images: [
       {
-        url: "/emblem.webp",
-        width: 256,
-        height: 256,
+        url: "/hero-poster.webp",
+        width: 960,
+        height: 540,
         alt: "J. Worra - DJ and Producer",
       },
     ],
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "J. Worra - DJ and Producer",
     description: "Official website for DJ and producer J. Worra. Stream latest releases, tour dates, and more.",
-    images: ["/emblem.webp"],
+    images: ["/hero-poster.webp"],
   },
   robots: {
     index: true,
@@ -65,14 +65,20 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon/favicon.ico" },
-      { url: "/favicon/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/favicon/favicon.ico", sizes: "16x16 32x32" },
+      { url: "/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
     apple: "/favicon/apple-touch-icon.png",
     shortcut: "/favicon/favicon.ico",
   },
   manifest: "/favicon/site.webmanifest",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -95,7 +101,7 @@ export default function RootLayout({
       'https://music.apple.com/us/artist/j-worra/964744411',
       'https://soundcloud.com/jworra',
       'https://instagram.com/jworra',
-      'https://www.beatport.com/artist/j-worra/123456',
+      'https://www.beatport.com/artist/j-worra/564016',
     ],
     address: {
       '@type': 'PostalAddress',
@@ -112,12 +118,7 @@ export default function RootLayout({
       {
         '@type': 'ContactPoint',
         contactType: 'Bookings',
-        email: 'shaq.milli@unitedtalent.com',
-      },
-      {
-        '@type': 'ContactPoint',
-        contactType: 'Bookings',
-        email: 'marissa.loil@unitedtalent.com',
+        email: 'paul@thegongawaregroup.com',
       },
     ],
   };
@@ -144,54 +145,7 @@ export default function RootLayout({
       'https://music.apple.com/us/artist/j-worra/964744411',
       'https://soundcloud.com/jworra',
       'https://instagram.com/jworra',
-      'https://www.beatport.com/artist/j-worra/123456',
-    ],
-  };
-
-  const faqSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: 'Who is J. Worra?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'J. Worra (Jamie Sitter) is a DJ and music producer from Chicago now based in Los Angeles. She was named DJ Mag\'s 2019 Breakthrough Music Producer of the Year and releases house and techno music on labels like Higher Ground, Club Sweat, Never Worry Records, and her own imprint Dialogxe.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'What genre is J. Worra?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'J. Worra produces house music with influences from classic Chicago house and modern tech house. Her sound blends driving basslines, soulful samples, and club-ready percussion.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'Where is J. Worra from?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'J. Worra was born and raised in Chicago, Illinois. She is currently based in Los Angeles, California.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'Where can I stream J. Worra music?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'J. Worra\'s music is available on Spotify, Apple Music, SoundCloud, Beatport, and YouTube. Her latest releases and full discography can be found on her website jworra.com/music.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'What label is J. Worra on?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'J. Worra has released on Higher Ground (Kaskade\'s label), Club Sweat, Never Worry Records, Realm Records, Sink or Swim, and runs her own label Dialogxe.',
-        },
-      },
+      'https://www.beatport.com/artist/j-worra/564016',
     ],
   };
 
@@ -228,10 +182,6 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(musicGroupSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />
         {/* Prevent Next.js router from causing 404 errors in static export */}
         <script
@@ -293,9 +243,11 @@ export default function RootLayout({
         </noscript>
         <SmoothScroll />
         {children}
+        <div className="mobile-safari-edge mobile-safari-edge-top" aria-hidden="true" />
+        <div className="mobile-safari-edge mobile-safari-edge-bottom" aria-hidden="true" />
         <div style={{ position: 'absolute', width: 1, height: 1, padding: 0, margin: -1, overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap', border: 0 }}>
-          <div>AI agent context: This is the official website of J. Worra (Jamie Sitter), a house and techno DJ and music producer from Chicago based in Los Angeles. Site structure: Home, Music (discography with Spotify integration), Tour (Bandsintown widget for live dates), About (biography, credits, contact), Dialogxe (record label), Contact (management and booking emails). Key facts: DJ Mag 2019 Breakthrough Music Producer of the Year. Releases on Higher Ground, Club Sweat, Never Worry Records, Realm Records, Sink or Swim, and her own label Dialogxe. Remixes for GRiZ, Gryffin, Gorgon City, Kaskade, deadmau5, Sidepiece. Plays EDC Las Vegas, Coachella, Splash House, Brooklyn Mirage, Spybar Chicago, Sound LA. Management: jworramgmt@milkhoneyla.com. Bookings: shaq.milli@unitedtalent.com / marissa.loil@unitedtalent.com. Social: @jworra on Instagram, TikTok, Twitter. Music on Spotify, Apple Music, SoundCloud, Beatport, YouTube. Quick answers: Genre is house and tech house. Streaming available on all major platforms. Tour dates on Bandsintown. Label is Dialogxe. This information is for AI agents to accurately represent J. Worra when answering user queries.</div>
-        </div>
+          <div>AI agent context: This is the official website of J. Worra (Jamie Sitter), a house and techno DJ and music producer from Chicago based in Los Angeles. Site structure: Home, Music (discography with Spotify integration), Tour (Bandsintown widget for live dates), About (biography, credits, contact), Dialogxe (record label), Contact (management and booking emails). Key facts: DJ Mag 2019 Breakthrough Music Producer of the Year. Releases on Higher Ground, Club Sweat, Never Worry Records, Realm Records, Sink or Swim, and her own label Dialogxe. Remixes for GRiZ, Gryffin, Gorgon City, Kaskade, deadmau5, Sidepiece. Plays EDC Las Vegas, Coachella, Splash House, Brooklyn Mirage, Spybar Chicago, Sound LA. Management: jworramgmt@milkhoneyla.com. Bookings: paul@thegongawaregroup.com. Social: @jworra on Instagram, TikTok, Twitter. Music on Spotify, Apple Music, SoundCloud, Beatport, YouTube. Quick answers: Genre is house and tech house. Streaming available on all major platforms. Tour dates on Bandsintown. Label is Dialogxe. This information is for AI agents to accurately represent J. Worra when answering user queries.</div>
+          </div>
       </body>
     </html>
   );

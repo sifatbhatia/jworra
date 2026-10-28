@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Privacy Policy | J. Worra",
     description: "Privacy policy for J. Worra's official website.",
+    images: ["/emblem.webp"],
   },
   robots: {
     index: false,
@@ -223,7 +224,7 @@ export default function PrivacyPage() {
           <span>Policy</span>
         </h1>
         <p className="privacy-intro priv-anim priv-d3">
-          The short version: we respect your privacy and don't do anything shady with your data.
+          The short version: we respect your privacy and don&apos;t do anything shady with your data.
         </p>
       </section>
 

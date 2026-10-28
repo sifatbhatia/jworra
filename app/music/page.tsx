@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import { getArtistAlbums } from "@/lib/spotify";
+import { getArtistAlbums, getSpotifyImageUrl } from "@/lib/spotify";
 import { FaApple, FaPlay, FaSoundcloud, FaSpotify, FaYoutube } from "react-icons/fa";
 import { SiBeatport } from "react-icons/si";
 
@@ -23,8 +23,7 @@ export const metadata: Metadata = {
 };
 
 export default async function MusicPage() {
-  const allReleases = await getArtistAlbums(50);
-  const releases = allReleases.slice(0, 20); // Show more since we have space
+  const releases = await getArtistAlbums();
   const latest = releases[0];
 
   return (
@@ -68,17 +67,17 @@ export default async function MusicPage() {
           height: 100%;
           object-fit: cover;
           object-position: center center;
-          filter: brightness(0.6) contrast(1.1);
+          filter: brightness(0.82) contrast(1.04);
         }
         .split-left-gradient {
           position: absolute;
           inset: 0;
           background: linear-gradient(
             to bottom,
-            rgba(8,8,8,0.1) 0%,
+            rgba(8,8,8,0.02) 0%,
             transparent 40%,
-            rgba(8,8,8,0.8) 85%,
-            rgba(8,8,8,1) 100%
+            rgba(8,8,8,0.42) 85%,
+            rgba(8,8,8,0.62) 100%
           );
         }
         .split-left-content {
@@ -285,7 +284,7 @@ export default async function MusicPage() {
         <div className="split-left">
           {latest?.images[0] && (
             <Image
-              src={latest.images[0].url}
+              src={getSpotifyImageUrl(latest.images[0].url)}
               alt={latest.name}
               className="split-left-img"
               width={1200}
@@ -330,7 +329,7 @@ export default async function MusicPage() {
                 <div className="release-img-wrap">
                   {release.images[0] && (
                     <Image
-                      src={release.images[0].url}
+                      src={getSpotifyImageUrl(release.images[0].url, 'small')}
                       alt={release.name}
                       fill
                       className="object-cover"
@@ -360,7 +359,7 @@ export default async function MusicPage() {
             <a href="https://open.spotify.com/artist/4q0N3EI67tVnAeeaXbNQIj" target="_blank" rel="noopener noreferrer" aria-label="Spotify" className="social-btn"><FaSpotify size={18} /></a>
             <a href="https://music.apple.com/us/artist/j-worra/964744411" target="_blank" rel="noopener noreferrer" aria-label="Apple Music" className="social-btn"><FaApple size={18} /></a>
             <a href="https://soundcloud.com/jworra" target="_blank" rel="noopener noreferrer" aria-label="SoundCloud" className="social-btn"><FaSoundcloud size={18} /></a>
-            <a href="https://www.beatport.com/artist/j-worra/123456" target="_blank" rel="noopener noreferrer" aria-label="Beatport" className="social-btn"><SiBeatport size={18} /></a>
+                    <a href="https://www.beatport.com/artist/j-worra/564016" target="_blank" rel="noopener noreferrer" aria-label="Beatport" className="social-btn"><SiBeatport size={18} /></a>
             <a href="https://www.youtube.com/channel/UCKbul9QRhCawR1CsEFcKDtA" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="social-btn"><FaYoutube size={18} /></a>
           </div>
 

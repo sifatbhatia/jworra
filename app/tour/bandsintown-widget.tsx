@@ -11,7 +11,7 @@ export default function BandsintownWidget() {
 
     const existing = document.querySelector("script[src*='bandsintown']");
     if (existing) {
-      document.body.removeChild(existing);
+      existing.remove();
     }
 
     const script = document.createElement("script");
@@ -135,7 +135,9 @@ export default function BandsintownWidget() {
       `}</style>
       <a
         className="bit-widget-initializer"
-        data-artist-name="J. Worra"
+        data-artist-name="id_5248787"
+        data-app-id="js_www.jworra.com"
+        data-affil-code="js_www.jworra.com"
         data-display-local-dates="false"
         data-display-past-dates="false"
         data-auto-style="false"

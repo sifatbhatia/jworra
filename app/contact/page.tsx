@@ -1,5 +1,6 @@
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
+import CopyEmail from "@/components/copy-email";
 import { Metadata } from "next";
 import { FaApple, FaInstagram, FaSoundcloud, FaSpotify, FaTiktok, FaTwitter, FaYoutube } from "react-icons/fa";
 import { SiBeatport } from "react-icons/si";
@@ -13,6 +14,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Contact | J. Worra",
     description: "Get in touch with J. Worra. Management, bookings, and social media channels.",
+    images: [
+      {
+        url: "/emblem.webp",
+        width: 256,
+        height: 256,
+        alt: "J. Worra - DJ and Producer",
+      },
+    ],
   },
 };
 
@@ -34,10 +43,7 @@ export default function ContactPage() {
         .contact-page {
           min-height: 100vh;
           color: white;
-          background:
-            radial-gradient(circle at 15% 18%, rgba(217,74,58,0.24), transparent 28rem),
-            radial-gradient(circle at 88% 8%, rgba(255,255,255,0.08), transparent 24rem),
-            #050505;
+          background: #080808;
           overflow-x: hidden;
         }
 
@@ -91,11 +97,11 @@ export default function ContactPage() {
         }
 
         .contact-note {
-          max-width: 34rem;
+          max-width: 20rem;
           margin-top: 1.4rem;
           color: rgba(255,255,255,0.58);
-          font-size: clamp(1rem, 1.4vw, 1.1rem);
-          line-height: 1.45;
+          font-size: 0.85rem;
+          line-height: 1.5;
         }
 
         .contact-board {
@@ -148,9 +154,24 @@ export default function ContactPage() {
           margin-top: 0.35rem;
         }
 
+        .email-control {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.35rem;
+        }
+
+        .email-status {
+          color: #d94a3a;
+          font-family: 'Courier New', monospace;
+          font-size: .58rem;
+          letter-spacing: .08em;
+          text-transform: uppercase;
+        }
+
         .contact-email:hover {
           color: #d94a3a;
-          transform: translateX(0.3rem);
+          transform: translateX(.4rem);
         }
 
         .dialogxe-contact {
@@ -194,6 +215,11 @@ export default function ContactPage() {
           background: #d94a3a;
           transform: translateY(-1px);
           box-shadow: 0 4px 16px rgba(217,74,58,0.3);
+        }
+
+        @media (max-width: 639px) {
+          .contact-card-head { align-items: flex-start; flex-direction: column; gap: 0.35rem; }
+          .contact-meta { white-space: normal; }
         }
 
         /* ── Animations ── */
@@ -247,22 +273,15 @@ export default function ContactPage() {
               <h2>Management</h2>
               <span className="contact-meta">Milk & Honey</span>
             </div>
-            <a href="mailto:jworramgmt@milkhoneyla.com" className="contact-email">
-              jworramgmt@milkhoneyla.com
-            </a>
+            <CopyEmail email="jworramgmt@milkhoneyla.com" />
           </div>
 
           <div className="contact-card cnt-anim cnt-d4">
             <div className="contact-card-head">
               <h2>Bookings</h2>
-              <span className="contact-meta">United Talent</span>
+              <span className="contact-meta">The Gongaware Group</span>
             </div>
-            <a href="mailto:shaq.milli@unitedtalent.com" className="contact-email">
-              shaq.milli@unitedtalent.com
-            </a>
-            <a href="mailto:marissa.loil@unitedtalent.com" className="contact-email">
-              marissa.loil@unitedtalent.com
-            </a>
+            <CopyEmail email="paul@thegongawaregroup.com" />
           </div>
 
           <div className="contact-card cnt-anim cnt-d5">

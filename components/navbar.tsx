@@ -35,7 +35,7 @@ export default function Navbar({ variant = 'solid' }: NavbarProps) {
         { href: "/", label: "Home" },
         { href: "/music", label: "Music" },
         { href: "/tour", label: "Tour" },
-        { href: "/dialogxe", label: "Label" },
+        { href: "/dialogxe", label: "Dialogxe / Label" },
         { href: "/about", label: "About" },
         { href: "/contact", label: "Contact" },
     ];
@@ -47,9 +47,9 @@ export default function Navbar({ variant = 'solid' }: NavbarProps) {
             <style>{`
                 .nav-wrap {
                     position: fixed;
-                    top: 1rem;
-                    left: 1rem;
-                    right: 1rem;
+                    top: calc(1rem + env(safe-area-inset-top, 0px));
+                    left: calc(1rem + env(safe-area-inset-left, 0px));
+                    right: calc(1rem + env(safe-area-inset-right, 0px));
                     z-index: 100;
                     display: flex;
                     justify-content: center;
@@ -64,6 +64,14 @@ export default function Navbar({ variant = 'solid' }: NavbarProps) {
                     -webkit-backdrop-filter: blur(24px) saturate(1.8);
                     border-radius: 32px;
                     overflow: hidden;
+                    perspective: 1200px;
+                    transform-origin: top center;
+                    transition:
+                        border-radius 720ms cubic-bezier(0.16, 1.25, 0.3, 1),
+                        box-shadow 720ms cubic-bezier(0.16, 1.25, 0.3, 1);
+                }
+                .nav-pill.open {
+                    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3);
                 }
                 .nav-pill.transparent {
                     background: rgba(255, 255, 255, 0.2);
@@ -83,7 +91,9 @@ export default function Navbar({ variant = 'solid' }: NavbarProps) {
                 .nav-collapse {
                     display: grid;
                     grid-template-rows: 0fr;
-                    transition: grid-template-rows 300ms ease;
+                    transform-origin: top center;
+                    transform-style: preserve-3d;
+                    transition: grid-template-rows 720ms cubic-bezier(0.16, 1.25, 0.3, 1);
                 }
                 .nav-collapse.open {
                     grid-template-rows: 1fr;
@@ -91,6 +101,19 @@ export default function Navbar({ variant = 'solid' }: NavbarProps) {
                 .nav-collapse-inner {
                     overflow: hidden;
                     min-height: 0;
+                    transform: rotateX(-88deg) translateY(-10px);
+                    transform-origin: top center;
+                    transform-style: preserve-3d;
+                    backface-visibility: hidden;
+                    opacity: 0;
+                    will-change: transform, opacity;
+                    transition:
+                        transform 720ms cubic-bezier(0.16, 1.25, 0.3, 1),
+                        opacity 260ms ease;
+                }
+                .nav-collapse.open .nav-collapse-inner {
+                    transform: rotateX(0deg) translateY(0);
+                    opacity: 1;
                 }
                 .nav-content {
                     display: flex;
@@ -98,14 +121,37 @@ export default function Navbar({ variant = 'solid' }: NavbarProps) {
                     align-items: center;
                     gap: 1rem;
                     padding: 0 1.5rem 2rem;
-                    opacity: 0;
-                    transition: opacity 0.15s ease;
+                    clip-path: inset(0 0 100% 0);
+                    transform: translateY(-18px) scaleY(0.88);
+                    transform-origin: top center;
+                    filter: blur(12px);
+                    opacity: 0.35;
+                    will-change: transform, filter, opacity;
+                    transition:
+                        clip-path 560ms cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 720ms cubic-bezier(0.16, 1.25, 0.3, 1),
+                        filter 720ms cubic-bezier(0.16, 1.25, 0.3, 1),
+                        opacity 420ms ease;
                     pointer-events: none;
                 }
                 .nav-collapse.open .nav-content {
+                    clip-path: inset(0 0 0 0);
+                    transform: translateY(0) scaleY(1);
+                    filter: blur(0);
                     opacity: 1;
-                    transition: opacity 0.3s ease 0.12s;
                     pointer-events: auto;
+                }
+
+                @media (prefers-reduced-motion: reduce) {
+                    .nav-pill,
+                    .nav-collapse,
+                    .nav-collapse-inner,
+                    .nav-content,
+                    .nav-link,
+                    .nav-socials {
+                        transition-duration: 1ms !important;
+                        filter: none !important;
+                    }
                 }
                 .nav-link {
                     position: relative;
@@ -115,9 +161,26 @@ export default function Navbar({ variant = 'solid' }: NavbarProps) {
                     text-transform: uppercase;
                     color: white;
                     text-decoration: none;
-                    transition: color 0.22s ease;
+                    transform: translateY(-14px) scale(0.96);
+                    transform-origin: center top;
+                    opacity: 0;
+                    will-change: transform, opacity;
+                    transition:
+                        color 0.22s ease,
+                        opacity 360ms cubic-bezier(0.22, 0.7, 0.3, 1),
+                        transform 640ms cubic-bezier(0.2, 1.35, 0.34, 1);
                     display: inline-block;
                 }
+                .nav-collapse.open .nav-link {
+                    transform: translateY(0) scale(1);
+                    opacity: 1;
+                }
+                .nav-collapse.open .nav-link:nth-child(1) { transition-delay: 80ms; }
+                .nav-collapse.open .nav-link:nth-child(2) { transition-delay: 130ms; }
+                .nav-collapse.open .nav-link:nth-child(3) { transition-delay: 180ms; }
+                .nav-collapse.open .nav-link:nth-child(4) { transition-delay: 230ms; }
+                .nav-collapse.open .nav-link:nth-child(5) { transition-delay: 280ms; }
+                .nav-collapse.open .nav-link:nth-child(6) { transition-delay: 330ms; }
                 .nav-link::after {
                     content: "";
                     position: absolute;
@@ -168,6 +231,12 @@ export default function Navbar({ variant = 'solid' }: NavbarProps) {
                     margin-top: 0.25rem;
                     border-top: 1px solid rgba(255,255,255,0.12);
                     width: 100%;
+                    transform: translateY(-14px) scale(0.96);
+                    transform-origin: center top;
+                    transition: transform 520ms 390ms cubic-bezier(0.16, 1.2, 0.3, 1);
+                }
+                .nav-collapse.open .nav-socials {
+                    transform: translateY(0) scale(1);
                 }
                 .nav-social-link {
                     display: flex;
@@ -189,7 +258,7 @@ export default function Navbar({ variant = 'solid' }: NavbarProps) {
             `}</style>
 
             <div className="nav-wrap">
-                <div className={`nav-pill ${isTransparent ? 'transparent' : ''}`}>
+                <div className={`nav-pill ${isTransparent ? 'transparent' : ''} ${isOpen ? 'open' : ''}`}>
                     <div className="nav-top">
                         <Link href="/" onClick={() => isOpen && setIsOpen(false)}>
                             <div style={{ width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

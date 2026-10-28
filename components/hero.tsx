@@ -1,54 +1,22 @@
 'use client';
 
-import { FaInstagram, FaTiktok, FaSpotify, FaApple, FaYoutube, FaTwitter, FaArrowRight, FaSoundcloud } from "react-icons/fa";
+import { FaInstagram, FaTiktok, FaSpotify, FaApple, FaYoutube, FaTwitter, FaArrowRight } from "react-icons/fa";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
-export default function Hero() {
+type LatestTrack = {
+  name: string;
+  spotifyUrl: string;
+};
+
+export default function Hero({ latestTrack }: { latestTrack: LatestTrack | null }) {
   const [loaded, setLoaded] = useState(false);
-  const [showSecond, setShowSecond] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const video2Ref = useRef<HTMLVideoElement>(null);
-  const rafRef = useRef<number>(0);
 
   useEffect(() => {
     const readyTimeout = setTimeout(() => setLoaded(true), 80);
     return () => clearTimeout(readyTimeout);
   }, []);
-
-  useEffect(() => {
-    const v1 = videoRef.current;
-    const v2 = video2Ref.current;
-    if (!v1 || !v2) return;
-
-    let swapping = false;
-
-    const tick = () => {
-      if (swapping) {
-        rafRef.current = requestAnimationFrame(tick);
-        return;
-      }
-
-      const active = showSecond ? v2 : v1;
-      const next = showSecond ? v1 : v2;
-
-      if (active.duration && active.currentTime >= active.duration - 0.4) {
-        swapping = true;
-        next.currentTime = 0.01;
-        next.play().then(() => {
-          active.style.opacity = '0';
-          next.style.opacity = '1';
-          setShowSecond(v => !v);
-          swapping = false;
-        }).catch(() => { swapping = false; });
-      }
-
-      rafRef.current = requestAnimationFrame(tick);
-    };
-
-    rafRef.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafRef.current);
-  }, [showSecond]);
 
   return (
     <>
@@ -56,33 +24,26 @@ export default function Hero() {
 
         {/* Video Background with Scale Animation */}
         <div className={`absolute inset-0 transition-transform duration-[2000ms] ease-out will-change-transform ${loaded ? 'scale-100' : 'scale-110'}`}>
+          <Image
+            src="/hero-poster.webp"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="absolute inset-0 object-cover"
+          />
           <video
-            ref={videoRef}
-            className="hero-video absolute inset-0 h-full w-full object-cover opacity-90"
+            className="hero-video absolute inset-0 h-full w-full object-cover"
             autoPlay
             muted
+            loop
             playsInline
-            preload="auto"
-            style={{ transition: 'opacity 0.3s ease', opacity: showSecond ? 0 : 1 }}
-            onLoadedMetadata={() => {
-              videoRef.current?.play().catch(() => undefined);
-            }}
+            preload="metadata"
+            poster="/hero-poster.webp"
+            aria-hidden="true"
           >
             <source src="/hero-bg.webm" type="video/webm" />
             <source src="/hero-bg.mov" type="video/quicktime" />
-            Your browser does not support the video tag.
-          </video>
-          <video
-            ref={video2Ref}
-            className="hero-video absolute inset-0 h-full w-full object-cover opacity-90"
-            muted
-            playsInline
-            preload="auto"
-            style={{ transition: 'opacity 0.3s ease', opacity: showSecond ? 1 : 0 }}
-          >
-            <source src="/hero-bg.webm" type="video/webm" />
-            <source src="/hero-bg.mov" type="video/quicktime" />
-            Your browser does not support the video tag.
           </video>
         </div>
 
@@ -95,26 +56,31 @@ export default function Hero() {
         <div className="relative z-10 flex items-center justify-center h-full">
           <div className="text-center w-full max-w-4xl mx-auto px-4">
 
-            {/* Toast above logo */}
-            <div className={`flex justify-center mb-3 sm:mb-4 transition-all duration-[800ms] delay-[800ms] cubic-bezier(0.2, 0.8, 0.2, 1) ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            {/* Announcement above the logo. */}
+            <div className={`flex justify-center mb-3 sm:mb-4 transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}>
               <style>{`
                 @keyframes toast-bg-shift {
                   0%, 100% { transform: translateX(-30%); }
                   50% { transform: translateX(30%); }
                 }
+                .hero-upcoming-dates {
+                  bottom: calc(2rem + env(safe-area-inset-bottom, 0px));
+                }
                 .toast-pill {
                   position: relative;
                   display: flex;
                   align-items: center;
+                  justify-content: space-between;
                   gap: 0.75rem;
                   padding: 0.7rem 1.2rem;
-                  background: rgba(80,80,80,0.35);
-                  backdrop-filter: blur(24px) saturate(1.8);
-                  -webkit-backdrop-filter: blur(24px) saturate(1.8);
-                  border: 1px solid rgba(255,255,255,0.12);
+                  background: rgba(255,255,255,0.10);
+                  backdrop-filter: blur(24px) saturate(1.15);
+                  -webkit-backdrop-filter: blur(24px) saturate(1.15);
+                  border: 1px solid rgba(255,255,255,0.24);
                   border-radius: 32px;
                   box-shadow: 0 4px 24px rgba(0,0,0,0.3);
-                  max-width: min(90vw, 520px);
+                  width: min(90vw, clamp(280px, 65vw, 500px));
+                  max-width: none;
                   overflow: hidden;
                   animation: toast-glow 4s ease-in-out infinite;
                 }
@@ -122,7 +88,7 @@ export default function Hero() {
                   content: '';
                   position: absolute;
                   inset: 0;
-                  background: linear-gradient(135deg, rgba(217,74,58,0.15), rgba(107,47,160,0.12), transparent);
+                  background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.18) 50%, transparent 80%);
                   animation: toast-bg-shift 8s ease-in-out infinite;
                   will-change: transform;
                   pointer-events: none;
@@ -130,7 +96,7 @@ export default function Hero() {
                 }
                 @keyframes toast-glow {
                   0%, 100% { box-shadow: 0 4px 24px rgba(0,0,0,0.3); }
-                  50% { box-shadow: 0 4px 32px rgba(217,74,58,0.2), 0 4px 24px rgba(0,0,0,0.3); }
+                  50% { box-shadow: 0 4px 32px rgba(255,255,255,0.16), 0 4px 24px rgba(0,0,0,0.3); }
                 }
                 .toast-text {
                   font-size: clamp(0.58rem, 1.2vw, 0.8rem);
@@ -160,15 +126,15 @@ export default function Hero() {
                   letter-spacing: 0.04em;
                   transition: all 0.25s ease;
                 }
-                .toast-link-yt {
-                  background: rgba(255,255,255,0.1);
-                  color: rgba(255,255,255,0.8);
-                  border: 1px solid rgba(255,255,255,0.1);
+                .toast-link-spotify {
+                  background: rgba(255,255,255,0.12);
+                  color: rgba(255,255,255,0.9);
+                  border: 1px solid rgba(255,255,255,0.22);
                 }
-                .toast-link-yt:hover {
-                  background: #d94a3a;
-                  border-color: #d94a3a;
-                  color: white;
+                .toast-link-spotify:hover {
+                  background: rgba(255,255,255,0.85);
+                  border-color: rgba(255,255,255,0.85);
+                  color: #080808;
                 }
                 .toast-link-sc {
                   background: rgba(255,121,0,0.15);
@@ -179,10 +145,9 @@ export default function Hero() {
                   background: #ff7900;
                   color: white;
                 }
-                @media (max-width: 520px) {
+                @media (max-width: 525px) {
                   .toast-pill {
                     flex-wrap: wrap;
-                    justify-content: center;
                     gap: 0.3rem;
                     padding: 0.45rem 0.7rem;
                     text-align: center;
@@ -191,19 +156,18 @@ export default function Hero() {
                   .toast-link { font-size: 0.5rem; padding: 0.2rem 0.4rem; }
                 }
                 @media (prefers-reduced-motion: reduce) {
-                  .toast-pill { animation: none !important; }
+                  .toast-pill {
+                    animation: none !important;
+                  }
                 }
               `}</style>
               <div className="toast-pill">
                 <span className="toast-text">
-                  <strong>Lightning In A Bottle 2026</strong> — full set out now
+                  <strong>Out now</strong>{latestTrack ? `: ${latestTrack.name}` : " on Spotify"}
                 </span>
                 <span className="toast-links">
-                  <a href="https://www.youtube.com/watch?v=ayrGtrPsQvA" target="_blank" rel="noopener noreferrer" className="toast-link toast-link-yt">
-                    <FaYoutube size={10} /> Watch
-                  </a>
-                  <a href="https://soundcloud.com/jworra/live-from-lightning-in-a" target="_blank" rel="noopener noreferrer" className="toast-link toast-link-sc">
-                    <FaSoundcloud size={10} /> Listen
+                  <a href={latestTrack?.spotifyUrl ?? "https://open.spotify.com/artist/4q0N3EI67tVnAeeaXbNQIj"} target="_blank" rel="noopener noreferrer" className="toast-link toast-link-spotify">
+                    <FaSpotify size={10} /> Listen
                   </a>
                 </span>
               </div>
@@ -218,10 +182,25 @@ export default function Hero() {
               <style>{`
                 .logo-wrap {
                   position: relative;
+                  display: block;
                   cursor: pointer;
                   width: clamp(280px, 65vw, 600px);
                   aspect-ratio: 1117.27 / 201.67;
                   margin: 0 auto;
+                  font-size: 0;
+                  line-height: 0;
+                  font-weight: inherit;
+                }
+                .logo-heading-label {
+                  position: absolute;
+                  width: 1px;
+                  height: 1px;
+                  padding: 0;
+                  margin: -1px;
+                  overflow: hidden;
+                  clip: rect(0, 0, 0, 0);
+                  white-space: nowrap;
+                  border: 0;
                 }
                 .logo-layer {
                   position: absolute;
@@ -309,14 +288,15 @@ export default function Hero() {
                 }
               `}</style>
 
-              <div className="logo-wrap">
+              <h1 className="logo-wrap" aria-label="J. Worra — DJ and Producer">
+                <span className="logo-heading-label">J. Worra — DJ and Producer</span>
                 {/* Chromatic aberration: Red channel */}
-                <div className="logo-layer logo-chroma logo-chroma-r" />
+                <span className="logo-layer logo-chroma logo-chroma-r" />
                 {/* Chromatic aberration: Cyan channel */}
-                <div className="logo-layer logo-chroma logo-chroma-c" />
+                <span className="logo-layer logo-chroma logo-chroma-c" />
                 {/* Main logo with shimmer */}
-                <div className="logo-layer logo-main" />
-              </div>
+                <span className="logo-layer logo-main" />
+              </h1>
             </div>
 
             {/* Socials - Stagger 3 */}
@@ -349,7 +329,7 @@ export default function Hero() {
 
             {/* CTA Button - Stagger 4 (Restored Absolute Position) */}
             <div
-              className={`absolute bottom-8 right-4 sm:right-8 z-20 transition-[opacity,transform] duration-[1200ms] delay-500 cubic-bezier(0.2, 0.8, 0.2, 1)
+              className={`hero-upcoming-dates absolute right-4 sm:right-8 z-20 transition-[opacity,transform] duration-[1200ms] delay-500 cubic-bezier(0.2, 0.8, 0.2, 1)
               ${loaded ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}
             `}
             >

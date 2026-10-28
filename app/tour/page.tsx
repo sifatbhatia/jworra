@@ -50,8 +50,8 @@ export default function TourPage() {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          object-position: center top;
-          filter: brightness(0.55) contrast(1.08);
+          object-position: center center;
+          filter: brightness(0.80) contrast(1.03);
           animation: tour-zoom-in 2s ease-out forwards;
         }
         .tour-left-gradient {
@@ -59,10 +59,10 @@ export default function TourPage() {
           inset: 0;
           background: linear-gradient(
             to bottom,
-            rgba(8,8,8,0.08) 0%,
+            rgba(8,8,8,0.02) 0%,
             transparent 38%,
-            rgba(8,8,8,0.78) 86%,
-            rgba(8,8,8,1) 100%
+            rgba(8,8,8,0.40) 86%,
+            rgba(8,8,8,0.62) 100%
           );
         }
         .tour-left-content {
@@ -197,7 +197,7 @@ export default function TourPage() {
       <div className="tour-wrap">
         <div className="tour-left">
           <Image
-            src="/tour_image.webp"
+            src="/tour-glass.webp"
             alt="J. Worra performing"
             className="tour-left-img"
             width={1200}

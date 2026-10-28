@@ -10,9 +10,7 @@ RewriteRule ^ - [L]
 
 RewriteRule ^label/?$ /dialogxe [L,R=301]
 
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ /index.html [L]
+ErrorDocument 404 /404.html
 
 # --- Compression ---
 # Disable Apache mod_deflate entirely — DreamHost's nginx edge handles

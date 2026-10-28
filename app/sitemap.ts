@@ -7,52 +7,34 @@ export default function sitemap(): MetadataRoute.Sitemap {
   
   return [
     {
-      url: baseUrl,
-      lastModified: new Date(),
+      url: `${baseUrl}/`,
       changeFrequency: 'weekly',
       priority: 1,
     },
     {
-      url: `${baseUrl}/music`,
-      lastModified: new Date(),
+      url: `${baseUrl}/music/`,
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/tour`,
-      lastModified: new Date(),
+      url: `${baseUrl}/tour/`,
       changeFrequency: 'daily',
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
+      url: `${baseUrl}/about/`,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/dialogxe`,
-      lastModified: new Date(),
+      url: `${baseUrl}/dialogxe/`,
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
+      url: `${baseUrl}/contact/`,
       changeFrequency: 'monthly',
       priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/privacy`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/terms`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.3,
     },
   ]
 }

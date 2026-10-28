@@ -1,308 +1,111 @@
+import Image from "next/image";
+import { FaApple, FaArrowRight, FaSpotify } from "react-icons/fa";
+import { SiBeatport } from "react-icons/si";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
-import { Metadata } from "next";
-import Image from "next/image";
-import { FaInstagram, FaSpotify } from "react-icons/fa";
+import styles from "./dialogxe.module.css";
 
-export const metadata: Metadata = {
-  title: "Dialogxe Label",
-  description: "Dialogxe - Music 4 Dancing. The official record label by J. Worra.",
-  openGraph: {
-    title: "Dialogxe Label | J. Worra",
-    description: "Dialogxe - Music 4 Dancing. The official record label by J. Worra.",
-  },
-};
+const tracks = [
+  { number: "01", title: "like me", artist: "J. Worra", href: "https://open.spotify.com/track/5umiuTVKIVZUXTECqaT0nt" },
+  { number: "02", title: "perfect", artist: "J. Worra feat. Benni Ola", href: "https://open.spotify.com/track/4h7KuSXcA5iD4qDsiq5Jb0" },
+  { number: "03", title: "back 2 u", artist: "J. Worra", href: "https://open.spotify.com/track/32hCv3uH5eZrQyiwKUbfUq" },
+  { number: "04", title: "work it", artist: "J. Worra", href: "https://open.spotify.com/track/2E5kgDErt1GGv34xB8wrpc" },
+];
 
-export default function LabelPage() {
+function ActionLink({ children, href, secondary = false, textLink = false }: { children: React.ReactNode; href: string; secondary?: boolean; textLink?: boolean }) {
+  const external = href.startsWith("http");
   return (
-    <div className="dialogxe-page">
-      <style>{`
-        .dialogxe-page {
-          min-height: 100vh;
-          color: #090909;
-          background:
-            linear-gradient(180deg, rgba(248,248,244,0.92), rgba(229,226,218,0.92)),
-            url('/dialogxe_bg.webp') center / cover;
-          overflow-x: hidden;
-        }
+    <a className={`${styles.action} ${secondary ? styles.actionSecondary : ""} ${textLink ? styles.actionTextLink : ""}`} href={href} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined}>
+      <span className={styles.actionText}>{children}</span>
+      <FaArrowRight size={12} className={styles.actionArrow} aria-hidden="true" />
+      <span className={styles.actionGlow} aria-hidden="true" />
+    </a>
+  );
+}
 
-        .dialogxe-hero {
-          min-height: 100svh;
-          display: grid;
-          grid-template-columns: 1fr;
-          padding: 5rem 1.25rem 3rem;
-          gap: 2.5rem;
-          align-items: center;
-        }
-        @media (min-width: 960px) {
-          .dialogxe-hero {
-            grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.92fr);
-            align-items: center;
-            padding: 5rem clamp(2rem, 4vw, 4rem) 4rem;
-            gap: clamp(2rem, 4vw, 4rem);
-          }
-        }
-
-        .dialogxe-art {
-          position: relative;
-          min-height: 58svh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border: 1px solid rgba(0,0,0,0.14);
-          background:
-            linear-gradient(135deg, rgba(255,255,255,0.68), rgba(255,255,255,0.18)),
-            url('/dialogxe_bg.webp') center / cover;
-          overflow: hidden;
-        }
-        @media (min-width: 960px) {
-          .dialogxe-art {
-            min-height: calc(100svh - 11.5rem);
-          }
-        }
-
-        .dialogxe-art::before,
-        .dialogxe-art::after {
-          content: "";
-          position: absolute;
-          pointer-events: none;
-        }
-        .dialogxe-art::before {
-          inset: 1rem;
-          border: 1px solid rgba(0,0,0,0.08);
-        }
-        .dialogxe-art::after {
-          width: 34vw;
-          max-width: 420px;
-          aspect-ratio: 1;
-          right: -10%;
-          bottom: -14%;
-          background: #d62b24;
-          mix-blend-mode: multiply;
-          filter: blur(4px);
-          transform: rotate(-18deg);
-          opacity: 0.9;
-        }
-
-        .dialogxe-logo-stage {
-          position: relative;
-          z-index: 1;
-          width: min(88vw, 760px);
-          aspect-ratio: 1900 / 407;
-          transform: rotate(-2deg);
-          filter: drop-shadow(0 1rem 1.25rem rgba(0,0,0,0.12));
-        }
-
-        .dialogxe-stamp {
-          position: absolute;
-          z-index: 2;
-          left: 1rem;
-          bottom: 1rem;
-          display: grid;
-          grid-template-columns: auto auto;
-          gap: 0.4rem 1rem;
-          font-family: 'Courier New', monospace;
-          font-size: 0.62rem;
-          letter-spacing: 0.16em;
-          text-transform: uppercase;
-          color: rgba(0,0,0,0.42);
-        }
-
-        @media (min-width: 640px) {
-          .dialogxe-stamp {
-            left: 1.5rem;
-            bottom: 1.5rem;
-          }
-        }
-
-        .dialogxe-copy {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          min-width: 0;
-          gap: 2rem;
-        }
-
-        .dialogxe-kicker,
-        .dialogxe-label {
-          font-family: 'Courier New', monospace;
-          font-size: 0.65rem;
-          letter-spacing: 0.22em;
-          text-transform: uppercase;
-          color: rgba(0,0,0,0.6);
-        }
-
-        .dialogxe-title {
-          margin-top: 1rem;
-          max-width: 720px;
-          font-family: 'Terminal Grotesque', sans-serif;
-          font-size: clamp(2.8rem, 8vw, 5.5rem);
-          line-height: 0.96;
-          text-transform: uppercase;
-          color: #090909;
-        }
-
-        .dialogxe-title span {
-          color: #d62b24;
-        }
-
-        .dialogxe-manifesto {
-          max-width: 34rem;
-          color: rgba(0,0,0,0.78);
-          font-size: clamp(1rem, 1.5vw, 1.15rem);
-          line-height: 1.45;
-          font-weight: 300;
-        }
-
-        .dialogxe-actions {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.75rem;
-          margin-top: 1.5rem;
-        }
-
-        .dialogxe-button {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 0.55rem;
-          min-height: 2.85rem;
-          padding: 0.85rem 1.25rem;
-          border: 1px solid rgba(0,0,0,0.18);
-          border-radius: 999px;
-          color: #090909;
-          background: rgba(255,255,255,0.38);
-          font-family: 'Courier New', monospace;
-          font-size: 0.68rem;
-          font-weight: 700;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-        }
-
-        .dialogxe-button.primary {
-          background: #090909;
-          border-color: #090909;
-          color: white;
-        }
-
-        .dialogxe-button:hover {
-          transform: translateY(-2px);
-          background: #d62b24;
-          border-color: #d62b24;
-          color: white;
-        }
-
-        /* ── Animations ── */
-        @keyframes dlx-fade-up {
-          0% { opacity: 0; transform: translateY(30px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes dlx-logo-in {
-          0% { opacity: 0; transform: rotate(-2deg) scale(0.92); }
-          100% { opacity: 1; transform: rotate(-2deg) scale(1); }
-        }
-        .dlx-anim {
-          opacity: 0;
-          animation: dlx-fade-up 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-        .dlx-delay-1 { animation-delay: 0.2s; }
-        .dlx-delay-2 { animation-delay: 0.35s; }
-        .dlx-delay-3 { animation-delay: 0.5s; }
-        .dlx-delay-4 { animation-delay: 0.65s; }
-        .dialogxe-logo-stage {
-          animation: dlx-logo-in 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards;
-        }
-
-        @media (max-width: 520px) {
-          .dialogxe-hero {
-            padding-left: 1rem;
-            padding-right: 1rem;
-          }
-          .dialogxe-actions {
-            flex-direction: column;
-          }
-          .dialogxe-button {
-            width: 100%;
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .dialogxe-button,
-          .dlx-anim,
-          .dialogxe-art,
-          .dialogxe-logo-stage {
-            animation: none !important;
-            opacity: 1 !important;
-            transform: none !important;
-            transition: none;
-          }
-          .dialogxe-button:hover {
-            transform: none;
-          }
-        }
-      `}</style>
-
+export default function DialogxePage() {
+  return (
+    <div className={styles.page}>
       <Navbar variant="solid" />
-
       <main>
-        <section className="dialogxe-hero" aria-labelledby="dialogxe-title">
-          <div className="dialogxe-art">
-            <div className="dialogxe-logo-stage">
-              <Image
-                src="/dialogxe_R1.png"
-                alt="Dialogxe"
-                fill
-                className="object-contain"
-                priority
-                placeholder="empty"
-              />
-            </div>
-            <div className="dialogxe-stamp" aria-hidden="true">
-              <span>Music 4 Dancing</span>
-              <span>Los Angeles</span>
-              <span>Est. 2026</span>
-              <span>Cat. DLX001</span>
+        <section className={styles.hero} aria-labelledby="dialogxe-title">
+          <div className={styles.heroMedia} aria-hidden="true" />
+          <div className={styles.heroCopy}>
+            <h1 id="dialogxe-title" className={`${styles.wordmark} ${styles.reveal} ${styles.delayOne}`}>
+              <Image src="/dialogxe-logo-transparent.png" alt="Dialogxe" width={1900} height={486} priority className={styles.logoImage} />
+            </h1>
+            <p className={`${styles.heroDescription} ${styles.reveal} ${styles.delayTwo}`}>Independent record label by J. Worra</p>
+            <div className={`${styles.actions} ${styles.reveal} ${styles.delayFour}`}>
+              <ActionLink href="https://open.spotify.com/album/4Ktfjs4DfhzMJ1gcK6NS91">Listen to the EP</ActionLink>
+              <ActionLink href="#releases" secondary>View releases</ActionLink>
             </div>
           </div>
+        </section>
 
-          <div className="dialogxe-copy">
-            <div>
-              <p className="dialogxe-kicker dlx-anim dlx-delay-1">Independent dance label</p>
-              <h1 id="dialogxe-title" className="dialogxe-title dlx-anim dlx-delay-2">
-                Music<br />
-                <span>4</span> Dancing
-              </h1>
-              <p className="dialogxe-manifesto dlx-anim dlx-delay-3">
-                Music 4 Dancing. No pitch deck, no manifesto. Just records for the room.
-              </p>
-              <div className="dialogxe-actions dlx-anim dlx-delay-4">
-                <a
-                  href="https://open.spotify.com/album/4Ktfjs4DfhzMJ1gcK6NS91"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="dialogxe-button primary"
-                >
-                  <FaSpotify size={14} />
-                  Stream DLX001
-                </a>
-                <a
-                  href="https://instagram.com/dialogxe"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="dialogxe-button"
-                >
-                  <FaInstagram size={14} />
-                  Follow Dialogxe
-                </a>
+        <section className={styles.releases} id="releases" aria-labelledby="releases-title">
+          <div className={styles.sectionInner}>
+            <p className={styles.sectionLabel}>02 — Releases</p>
+            <div className={styles.releaseGrid}>
+              <div className={styles.releaseIntro}>
+                <h2 id="releases-title">Music 4 Dancing</h2>
+                <p>The first Dialogxe release: four tracks from J. Worra, built for the dance floor.</p>
+              </div>
+              <div className={styles.releaseArtwork}>
+                <p className={styles.releaseCode}>DLX001</p>
+                <Image src="/dlx001-cover.jpg" alt="Music 4 Dancing EP cover art" width={300} height={300} sizes="(max-width: 899px) 82vw, 28vw" />
+                <span>Music 4 Dancing EP</span>
+              </div>
+              <div className={styles.trackList} aria-label="Music 4 Dancing EP track list">
+                {tracks.map((track) => (
+                  <a key={track.number} className={styles.track} href={track.href} target="_blank" rel="noopener noreferrer">
+                    <span className={styles.trackNumber}>{track.number}</span>
+                    <span className={styles.trackName}>{track.title}<small>{track.artist}</small></span>
+                    <FaArrowRight aria-hidden="true" />
+                  </a>
+                ))}
+                <div className={styles.releaseMeta}><span>J. Worra</span><span>Music 4 Dancing EP</span><span>2025</span></div>
+                <div className={styles.platformLinks} aria-label="Listen to Music 4 Dancing on music platforms">
+                  <a href="https://open.spotify.com/album/4Ktfjs4DfhzMJ1gcK6NS91" target="_blank" rel="noopener noreferrer"><FaSpotify aria-hidden="true" /> Spotify</a>
+                  <a href="https://music.apple.com/us/album/music-4-dancing-ep/1850544417" target="_blank" rel="noopener noreferrer"><FaApple aria-hidden="true" /> Apple Music</a>
+                  <a href="https://www.beatport.com/release/music-4-dancing/5555800" target="_blank" rel="noopener noreferrer"><SiBeatport aria-hidden="true" /> Beatport</a>
+                </div>
               </div>
             </div>
+            <div className={styles.otherReleases}>
+              <p className={styles.sectionLabel}>Other releases</p>
+              <div className={styles.otherReleaseGrid}>
+                <Image
+                  src="/adored-cover.jpg"
+                  alt="Adored single artwork"
+                  width={300}
+                  height={300}
+                  sizes="(max-width: 680px) 82vw, 180px"
+                  className={styles.otherReleaseArt}
+                />
+                <div className={styles.otherReleaseInfo}>
+                  <h3>Adored</h3>
+                  <div className={styles.otherReleaseMeta}>
+                    <span>Single · 2026</span>
+                  </div>
+                  <div className={styles.platformLinks} aria-label="Listen to Adored on music platforms">
+                    <a href="https://open.spotify.com/track/5Hmp9hwnelqENrdpOn45N0" target="_blank" rel="noopener noreferrer"><FaSpotify aria-hidden="true" /> Spotify</a>
+                    <a href="https://music.apple.com/us/song/adored/6778079467" target="_blank" rel="noopener noreferrer"><FaApple aria-hidden="true" /> Apple Music</a>
+                    <a href="https://www.beatport.com/release/adored-extended/7038870" target="_blank" rel="noopener noreferrer"><SiBeatport aria-hidden="true" /> Beatport</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-
+        <section className={styles.follow} aria-labelledby="follow-title">
+          <div className={styles.followInner}>
+            <h2 id="follow-title">Follow <span>Dialogxe.</span></h2>
+            <p>New releases, music, and everything happening around the label.</p>
+            <div className={styles.actions}><ActionLink href="https://tstack.app/dialogxe?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAcGRvZgJleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA85MzY2MTk3NDMzOTI0NTkAAafixgxWH1rNyqDQ3tcjT4ZAw3evAMMd1TMitN9zbfvYzO2GtNhtUmABkhLe-A_aem_JLLhX1DOluZgexVk4fP3Ow">Submit a track</ActionLink><ActionLink href="/tour" textLink>View J. Worra tour dates</ActionLink></div>
           </div>
         </section>
       </main>
-
       <Footer />
     </div>
   );

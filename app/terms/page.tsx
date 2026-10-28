@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Terms of Service | J. Worra",
     description: "Terms of service for J. Worra's official website.",
+    images: ["/emblem.webp"],
   },
   robots: {
     index: false,

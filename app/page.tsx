@@ -1,6 +1,7 @@
 import Hero from "@/components/hero";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
+import { getArtistAlbums } from "@/lib/spotify";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -16,11 +17,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
+  const [latestRelease] = await getArtistAlbums();
+
   return (
     <>
       <Navbar variant="transparent" />
-      <Hero />
+      <Hero latestTrack={latestRelease ? {
+        name: latestRelease.name,
+        spotifyUrl: latestRelease.external_urls.spotify,
+      } : null} />
       <Footer />
     </>
   );
